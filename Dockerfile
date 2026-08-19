@@ -1,10 +1,10 @@
 FROM php:8.2-cli
 
 # Install Apache and the PHP module for Apache, using only the prefork MPM
-RUN apt-get update \
-    && apt-get install -y --no-install-recommends apache2 libapache2-mod-php8.2 \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y --no-install-recommends apache2 libapache2-mod-php8.2 && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
 
 # Install pdo_mysql PHP extension for MySQL database connectivity
 RUN docker-php-ext-install pdo_mysql
