@@ -1,31 +1,29 @@
-FROM php:8.2-cli
+FROM php:8.2-fpm
 
-# Install Apache and the PHP module for Apache, using only the prefork MPM
+# Install Nginx alongside PHP-FPM. Using PHP-FPM + Nginx avoids Apache
+# entirely, so there are no MPM/mod_php conflicts to worry about.
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends apache2 libapache2-mod-php8.2 && \
+    apt-get install -y --no-install-recommends nginx && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*
 
 # Install pdo_mysql PHP extension for MySQL database connectivity
 RUN docker-php-ext-install pdo_mysql
 
-# Enable mod_rewrite for URL routing, mod_php for PHP handling, and the
-# prefork MPM only (mod_php requires prefork and is incompatible with
-# the threaded event/worker MPMs, so those are explicitly disabled)
-RUN a2enmod rewrite php8.2 mpm_prefork \
-    && a2dismod mpm_event mpm_worker || true
+# Nginx configuration: serve the app from /var/www/html and forward
+# any *.php request to the PHP-FPM socket.
+COPY docker/nginx.conf /etc/nginx/sites-available/default
 
-# Allow .htaccess overrides (needed for mod_rewrite) in the document root
-RUN sed -ri -e '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' \
-    /etc/apache2/apache2.conf
-
-# Copy application files into Apache's document root
+# Copy application files into the shared document root
 COPY . /var/www/html
 
 # Set proper file ownership for the www-data user
 RUN chown -R www-data:www-data /var/www/html
 
+# Entrypoint script that starts PHP-FPM and Nginx together
+COPY docker/start.sh /usr/local/bin/start.sh
+RUN chmod +x /usr/local/bin/start.sh
+
 EXPOSE 80
 
-# Run Apache in the foreground so the container stays alive
-CMD ["apachectl", "-D", "FOREGROUND"]
+CMD ["/usr/local/bin/start.sh"]
