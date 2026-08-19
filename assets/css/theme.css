@@ -1,0 +1,120 @@
+/* Shared theme tokens. This stylesheet loads after all page styles. */
+:root {
+    color-scheme: light;
+    --bg-primary: #f7f4ee;
+    --bg-secondary: #ffffff;
+    --text-primary: #101820;
+    --text-secondary: #5f625e;
+    --border-color: #e7dfd2;
+    --card-bg: #ffffff;
+    --navbar-bg: rgba(247, 244, 238, .96);
+    --input-bg: #ffffff;
+    --button-bg: #17324d;
+    --button-text: #ffffff;
+    --link-color: #17324d;
+    --focus-ring: #c9a66b;
+    --alert-success-bg: #e7f0e8;
+    --alert-success-text: #205c35;
+    --alert-error-bg: #fbe8e8;
+    --alert-error-text: #8f2626;
+    --alert-warning-bg: #fff3d7;
+    --alert-warning-text: #7b5312;
+}
+
+html[data-theme="dark"] {
+    color-scheme: dark;
+    --bg-primary: #101820;
+    --bg-secondary: #17212b;
+    --text-primary: #eef3f6;
+    --text-secondary: #b9c4cc;
+    --border-color: #344452;
+    --card-bg: #17212b;
+    --navbar-bg: rgba(16, 24, 32, .97);
+    --input-bg: #1d2a35;
+    --button-bg: #3d82c4;
+    --button-text: #ffffff;
+    --link-color: #9bc9ff;
+    --focus-ring: #f0c77a;
+    --alert-success-bg: #183d2a;
+    --alert-success-text: #b9f3cc;
+    --alert-error-bg: #4b2428;
+    --alert-error-text: #ffd0d4;
+    --alert-warning-bg: #4d3c1c;
+    --alert-warning-text: #ffe5a8;
+}
+
+html, body, body:has(.marketplace-page), body:has(.lookbook-page), body:has(.guest-concierge), body:has(.admin-editorial) { background: var(--bg-primary); color: var(--text-primary); }
+a { color: var(--link-color); }
+.site-header, header { background: var(--navbar-bg); color: var(--text-primary); border-color: var(--border-color); }
+.brand, nav a, .link-button { color: var(--text-primary); }
+.brand span, .eyebrow, .eyebrow-title { color: var(--focus-ring); }
+.card, .panel, .stat, .booking-widget, .luxury-room, .lookbook-card, .concierge-hero, .auth-layout, .guest-concierge .panel, .admin-editorial .panel { background: var(--card-bg); color: var(--text-primary); border-color: var(--border-color); }
+input, select, textarea { background: var(--input-bg); color: var(--text-primary); border-color: var(--border-color); }
+input::placeholder, textarea::placeholder { color: var(--text-secondary); opacity: 1; }
+button, .btn { background: var(--button-bg); color: var(--button-text); }
+button:hover, .btn:hover { filter: brightness(1.08); }
+button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
+button:disabled, .btn:disabled { cursor: not-allowed; opacity: .6; }
+table, th, td { background-color: transparent; color: var(--text-primary); border-color: var(--border-color); }
+.muted, .feature-copy p, .lookbook-description, .lookbook-meta, .concierge-hero p, .results-subtitle { color: var(--text-secondary); }
+.alert.success { background: var(--alert-success-bg); color: var(--alert-success-text); }
+.alert.error { background: var(--alert-error-bg); color: var(--alert-error-text); }
+.alert.warning { background: var(--alert-warning-bg); color: var(--alert-warning-text); }
+.theme-toggle { display: inline-flex; align-items: center; gap: .45rem; min-height: 38px; border: 1px solid var(--border-color); background: transparent; color: var(--text-primary); text-transform: none; letter-spacing: normal; }
+.theme-toggle:hover { background: var(--input-bg); }
+
+html[data-theme="dark"] .marketplace-page .search-panel,
+html[data-theme="dark"] .marketplace-page .offer-panel,
+html[data-theme="dark"] .marketplace-page .filter-sidebar,
+html[data-theme="dark"] .marketplace-page .hotel-result-card,
+html[data-theme="dark"] .marketplace-page .empty-results { background: var(--card-bg) !important; color: var(--text-primary) !important; border-color: var(--border-color) !important; }
+html[data-theme="dark"] .marketplace-page .room-description,
+html[data-theme="dark"] .marketplace-page .room-meta,
+html[data-theme="dark"] .marketplace-page .hotel-price span,
+html[data-theme="dark"] .marketplace-page .results-subtitle { color: var(--text-secondary) !important; }
+html[data-theme="dark"] .marketplace-page .hotel-price strong,
+html[data-theme="dark"] .marketplace-page .availability-button,
+html[data-theme="dark"] .marketplace-page .hotel-content h2 { color: var(--text-primary) !important; }
+html[data-theme="dark"] .marketplace-page .availability-button { border-color: var(--focus-ring); }
+html[data-theme="dark"] .lookbook-card,
+html[data-theme="dark"] .lookbook-empty,
+html[data-theme="dark"] .stats .stat,
+html[data-theme="dark"] .container .panel:has(table),
+html[data-theme="dark"] .container .panel:has(form) { background: var(--card-bg) !important; color: var(--text-primary); }
+html[data-theme="dark"] .lookbook-description,
+html[data-theme="dark"] .lookbook-meta,
+html[data-theme="dark"] .quiet-rate small,
+html[data-theme="dark"] .container th,
+html[data-theme="dark"] .guest-concierge th,
+html[data-theme="dark"] .admin-editorial th { color: var(--text-secondary) !important; }
+html[data-theme="dark"] .quiet-rate,
+html[data-theme="dark"] .stats .stat b,
+html[data-theme="dark"] .guest-concierge .stat b,
+html[data-theme="dark"] .admin-editorial .stat b { color: var(--text-primary) !important; }
+html[data-theme="dark"] .guest-concierge input,
+html[data-theme="dark"] .guest-concierge textarea,
+html[data-theme="dark"] .container .panel:has(form) input,
+html[data-theme="dark"] .container .panel:has(form) textarea { background: transparent; color: var(--text-primary); border-color: var(--border-color); }
+html[data-theme="dark"] footer { background: #0a1118; color: var(--text-secondary); }
+html[data-theme=dark] body { background: var(--bg-primary) !important; color: var(--text-primary) !important; }
+html[data-theme=dark] .site-header, html[data-theme=dark] .booking-widget, html[data-theme=dark] .luxury-room, html[data-theme=dark] .card, html[data-theme=dark] .panel, html[data-theme=dark] .stat, html[data-theme=dark] .auth-layout { background: var(--card-bg) !important; color: var(--text-primary) !important; border-color: var(--border-color) !important; }
+html[data-theme=dark] .feature-copy h2, html[data-theme=dark] .section-title, html[data-theme=dark] .feature-copy p, html[data-theme=dark] .amenity-list article p { color: var(--text-primary) !important; }
+html[data-theme=dark] .muted, html[data-theme=dark] .feature-copy .muted, html[data-theme=dark] .booking-widget label { color: var(--text-secondary) !important; }
+html[data-theme=dark] .password-toggle { color: var(--text-primary) !important; background: transparent !important; box-shadow: none !important; }
+/* Contrast safeguards for all text in either theme. */
+html[data-theme] .site-header, html[data-theme] .site-header nav a, html[data-theme] .site-header .brand, html[data-theme] .container > h1, html[data-theme] .panel, html[data-theme] .card, html[data-theme] .stat, html[data-theme] .booking-widget, html[data-theme] .luxury-room, html[data-theme] .lookbook-card, html[data-theme] .concierge-hero, html[data-theme] .guest-concierge, html[data-theme] .admin-editorial, html[data-theme] table, html[data-theme] td { color: var(--text-primary) !important; }
+html[data-theme] .panel h1, html[data-theme] .panel h2, html[data-theme] .panel h3, html[data-theme] .card h1, html[data-theme] .card h2, html[data-theme] .card h3, html[data-theme] .luxury-room h1, html[data-theme] .luxury-room h2, html[data-theme] .luxury-room h3, html[data-theme] .lookbook-card h1, html[data-theme] .lookbook-card h2, html[data-theme] .lookbook-card h3, html[data-theme] .feature-copy h1, html[data-theme] .feature-copy h2, html[data-theme] .feature-copy h3, html[data-theme] .guest-concierge h1, html[data-theme] .guest-concierge h2, html[data-theme] .admin-editorial h1, html[data-theme] .admin-editorial h2, html[data-theme] .admin-editorial h3 { color: var(--text-primary) !important; }
+html[data-theme] .muted, html[data-theme] .feature-copy p, html[data-theme] .lookbook-description, html[data-theme] .lookbook-meta, html[data-theme] .room-description, html[data-theme] .room-meta, html[data-theme] .results-subtitle, html[data-theme] .booking-widget label, html[data-theme] th, html[data-theme] .guest-concierge th, html[data-theme] .admin-editorial th { color: var(--text-secondary) !important; }
+html[data-theme] label, html[data-theme] input, html[data-theme] select, html[data-theme] textarea, html[data-theme] option { color: var(--text-primary) !important; }
+html[data-theme] .dark-band, html[data-theme] .dark-band h1, html[data-theme] .dark-band h2, html[data-theme] .dark-band h3, html[data-theme] .dark-band p, html[data-theme] .hero-luxury, html[data-theme] .hero-luxury h1, html[data-theme] .hero-luxury p, html[data-theme] .page-hero, html[data-theme] .page-hero h1, html[data-theme] .page-hero p, html[data-theme] .auth-visual, html[data-theme] .auth-visual h1 { color: #fff !important; }
+html[data-theme] .dark-band .eyebrow-title, html[data-theme] .hero-luxury .kicker, html[data-theme] .page-hero .kicker { color: var(--focus-ring) !important; }
+/* Booking fields and pricing remain legible in both themes. */
+html[data-theme=dark] .booking-widget input, html[data-theme=dark] .booking-widget select { background: var(--input-bg) !important; color: var(--text-primary) !important; border-color: var(--border-color) !important; }
+html[data-theme=dark] .booking-widget input::placeholder { color: var(--text-secondary) !important; }
+html[data-theme=dark] .booking-widget input[type=date]::-webkit-calendar-picker-indicator { filter: invert(1); }
+html[data-theme=dark] .booking-widget option { background: var(--input-bg); color: var(--text-primary); }
+html[data-theme=light] .booking-widget input, html[data-theme=light] .booking-widget select { background: #fff !important; color: #101820 !important; }
+html[data-theme=light] .booking-widget input::placeholder { color: #5f625e !important; }
+html[data-theme=light] .booking-widget input[type=date]::-webkit-calendar-picker-indicator { filter: none; }
+html[data-theme=light] .price { color: #17324d !important; }
+html[data-theme=dark] .price, html[data-theme=dark] .price small { color: var(--focus-ring) !important; }

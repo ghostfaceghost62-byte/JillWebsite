@@ -1,0 +1,1 @@
+</main><footer><b>HOTELRESERVE</b> · 101 Seaside Avenue, Manila · +63 2 8123 4567 · stay@hotelreserve.local<br>© <?=date('Y')?> Find Your Stay. Reserve Your Room. Enjoy Your Experience.</footer><script src="<?=url('assets/js/main.js')?>"></script></body></html>

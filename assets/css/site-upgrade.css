@@ -1,0 +1,484 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Cormorant+Garamond:wght@600;700&display=swap');
+
+:root {
+    --luxury-gold: #c9a66b;
+    --luxury-navy: #132b46;
+    --luxury-ink: #152130;
+    --luxury-cream: #f5efe7;
+    --luxury-sand: #efe7dc;
+    --luxury-card: rgba(255, 255, 255, 0.8);
+    --luxury-shadow: 0 22px 55px rgba(22, 36, 55, 0.12);
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', Arial, sans-serif;
+    background:
+        radial-gradient(circle at top, rgba(201, 166, 107, 0.12), transparent 28%),
+        linear-gradient(180deg, #f7f4ee 0%, #f3efe9 100%);
+    color: var(--luxury-ink);
+}
+
+h1, h2, h3, .brand {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.02em;
+}
+
+.site-header {
+    position: sticky;
+    top: 0;
+    z-index: 30;
+    backdrop-filter: blur(16px);
+    background: rgba(247, 244, 238, 0.8);
+    border-bottom: 1px solid rgba(19, 43, 70, 0.08);
+    box-shadow: 0 10px 30px rgba(19, 43, 70, 0.04);
+}
+
+.brand {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+}
+
+.brand span {
+    color: var(--luxury-gold);
+}
+
+.site-header nav {
+    gap: 1.2rem;
+    align-items: center;
+}
+
+.site-header nav a,
+.site-header nav .link-button,
+.site-header nav .btn,
+.site-header .theme-toggle {
+    font-size: 0.92rem;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+}
+
+.site-header nav a {
+    position: relative;
+    color: var(--luxury-ink);
+    opacity: 0.82;
+    transition: opacity 0.2s ease, color 0.2s ease;
+}
+
+.site-header nav a:hover,
+.site-header nav a.active {
+    color: var(--luxury-navy);
+    opacity: 1;
+}
+
+.site-header nav a.active::after {
+    content: "";
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -8px;
+    height: 2px;
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--luxury-gold), var(--luxury-navy));
+}
+
+.btn,
+button {
+    border-radius: 999px;
+    padding: 0.88rem 1.32rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
+    box-shadow: 0 12px 22px rgba(19, 43, 70, 0.12);
+}
+
+.btn:hover,
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 28px rgba(19, 43, 70, 0.18);
+}
+
+.btn-outline {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    box-shadow: none;
+}
+
+.hero-luxury,
+.hero.hotel {
+    position: relative;
+    overflow: hidden;
+    border-radius: 30px;
+    margin-bottom: 1.8rem;
+    padding: clamp(2.5rem, 6vw, 5.3rem);
+    background:
+        linear-gradient(120deg, rgba(12, 25, 42, 0.9), rgba(19, 43, 70, 0.8)),
+        url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+    color: #fff;
+    box-shadow: var(--luxury-shadow);
+}
+
+.hero-luxury::before,
+.hero.hotel::before {
+    content: "";
+    position: absolute;
+    inset: auto -12% -38% auto;
+    width: 340px;
+    height: 340px;
+    background: rgba(201, 166, 107, 0.24);
+    border-radius: 50%;
+    filter: blur(18px);
+}
+
+.hero-copy,
+.hero {
+    position: relative;
+    z-index: 1;
+}
+
+.kicker,
+.eyebrow,
+.eyebrow-title {
+    display: inline-block;
+    margin: 0 0 0.8rem;
+    color: var(--luxury-gold);
+    font-size: 0.72rem;
+    font-weight: 800;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+}
+
+.hero-luxury h1,
+.hero.hotel h1,
+.section-title {
+    font-size: clamp(3rem, 6vw, 5rem);
+    line-height: 0.96;
+    margin: 0 0 1rem;
+    max-width: 620px;
+}
+
+.hero-luxury p,
+.hero.hotel p {
+    max-width: 620px;
+    font-size: 1.08rem;
+    color: rgba(255, 255, 255, 0.82);
+}
+
+.hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.85rem;
+    margin-top: 1.6rem;
+}
+
+.booking-widget {
+    display: grid;
+    grid-template-columns: repeat(5, minmax(0, 1fr));
+    gap: 1rem;
+    align-items: end;
+    max-width: 100%;
+    margin: -2.1rem auto 2.2rem;
+    padding: 1.2rem 1.1rem;
+    border: 1px solid rgba(19, 43, 70, 0.08);
+    border-radius: 24px;
+    background: rgba(255, 255, 255, 0.9);
+    box-shadow: 0 18px 40px rgba(21, 33, 48, 0.1);
+    backdrop-filter: blur(10px);
+}
+
+.booking-widget > div {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+.booking-widget label {
+    margin: 0;
+    font-size: 0.73rem;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: rgba(19, 43, 70, 0.72);
+}
+
+.booking-widget input,
+.booking-widget select,
+input,
+select,
+textarea {
+    border: 1px solid rgba(19, 43, 70, 0.12);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.8rem 0.9rem;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.booking-widget input:focus,
+.booking-widget select:focus,
+input:focus,
+select:focus,
+textarea:focus {
+    border-color: rgba(201, 166, 107, 0.8);
+    box-shadow: 0 0 0 4px rgba(201, 166, 107, 0.15);
+    outline: none;
+}
+
+.booking-widget button {
+    padding: 0.96rem 1.25rem;
+}
+
+.editorial,
+.dark-band,
+.guest-concierge,
+.admin-editorial {
+    padding: clamp(1.5rem, 3vw, 2.2rem) 0;
+}
+
+.split-feature {
+    display: grid;
+    grid-template-columns: 1.1fr 1fr;
+    gap: 2rem;
+    align-items: center;
+    padding: 0;
+    margin: 2.5rem 0;
+}
+
+.feature-image {
+    min-height: 430px;
+    border-radius: 30px;
+    box-shadow: var(--luxury-shadow);
+    background:
+        linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.18)),
+        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+}
+
+.feature-copy {
+    padding: 1rem 0.5rem;
+}
+
+.feature-copy h2,
+.section-title {
+    color: var(--luxury-ink);
+    font-size: clamp(2.4rem, 4vw, 3.5rem);
+    margin-bottom: 1rem;
+}
+
+.feature-copy p,
+.muted,
+.amenity-list article p,
+.lookbook-description {
+    color: rgba(21, 33, 48, 0.74);
+    font-size: 1.02rem;
+}
+
+.room-showcase {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 1.25rem;
+    margin-top: 1.5rem;
+}
+
+.luxury-room,
+.card,
+.panel,
+.stat {
+    background: rgba(255, 255, 255, 0.78);
+    border: 1px solid rgba(19, 43, 70, 0.08);
+    border-radius: 24px;
+    box-shadow: 0 18px 30px rgba(17, 28, 38, 0.06);
+}
+
+.luxury-room {
+    overflow: hidden;
+    padding: 1rem;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.luxury-room:hover,
+.card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 18px 38px rgba(17, 28, 38, 0.12);
+}
+
+.room-photo {
+    display: flex;
+    align-items: end;
+    justify-content: flex-start;
+    min-height: 220px;
+    padding: 1rem;
+    border-radius: 18px;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: #fff;
+    background:
+        linear-gradient(180deg, rgba(0,0,0,0.08), rgba(0,0,0,0.34)),
+        linear-gradient(135deg, #8697ab, #d7c3a4);
+}
+
+.luxury-room h3 {
+    font-size: 2rem;
+    line-height: 1;
+    margin: 0.8rem 0 0.5rem;
+}
+
+.luxury-room .price {
+    margin-top: 0.9rem;
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: var(--luxury-navy);
+}
+
+.dark-band {
+    margin: 2rem 0;
+    padding: clamp(2rem, 4vw, 3.25rem);
+    border-radius: 30px;
+    background: linear-gradient(135deg, #0f2034 0%, #1b3d5c 34%, #2f5c6d 100%);
+    color: #fff;
+    box-shadow: var(--luxury-shadow);
+}
+
+.dark-band .section-title,
+.dark-band .eyebrow-title,
+.dark-band h3 {
+    color: #fff;
+}
+
+.amenity-list {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+}
+
+.amenity-list article {
+    padding: 1.15rem;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 18px;
+}
+
+.amenity-list article h3 {
+    margin: 0 0 0.5rem;
+    font-size: 1.7rem;
+}
+
+.amenity-list article p {
+    color: rgba(255, 255, 255, 0.8);
+    margin: 0;
+}
+
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.gallery-grid div {
+    min-height: 200px;
+    border-radius: 22px;
+    background-size: cover;
+    background-position: center;
+    box-shadow: 0 20px 36px rgba(15, 24, 36, 0.15);
+}
+
+.gallery-grid div:nth-child(1) {
+    background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=900&q=80');
+}
+
+.gallery-grid div:nth-child(2) {
+    background-image: url('https://images.unsplash.com/photo-1445019980597-93fa8acb246c?auto=format&fit=crop&w=900&q=80');
+}
+
+.gallery-grid div:nth-child(3) {
+    background-image: url('https://images.unsplash.com/photo-1520250497591-112f2f40a3f4?auto=format&fit=crop&w=900&q=80');
+}
+
+.gallery-grid div:nth-child(4) {
+    background-image: url('https://images.unsplash.com/photo-1494526585095-c41746248156?auto=format&fit=crop&w=900&q=80');
+}
+
+.container {
+    max-width: 1200px;
+    padding-top: 2rem;
+    padding-bottom: 3rem;
+}
+
+footer {
+    margin-top: 1rem;
+    padding: 2rem 1rem 3rem;
+    border-top: 1px solid rgba(19, 43, 70, 0.08);
+    background: rgba(255,255,255,0.45);
+    color: rgba(19,43,70,0.7);
+}
+
+.alert {
+    border-radius: 16px;
+    border: 1px solid transparent;
+}
+
+.panel,
+.stat {
+    border-radius: 22px;
+}
+
+form {
+    max-width: 760px;
+}
+
+@media (max-width: 900px) {
+    .room-showcase,
+    .amenity-list,
+    .gallery-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .split-feature {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 720px) {
+    .site-header nav {
+        gap: 0.8rem;
+    }
+
+    .brand {
+        font-size: 1.7rem;
+    }
+
+    .booking-widget {
+        grid-template-columns: 1fr;
+        margin-top: -1.3rem;
+    }
+
+    .room-showcase,
+    .amenity-list,
+    .gallery-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-luxury h1,
+    .hero.hotel h1 {
+        font-size: 3rem;
+    }
+}
+
+.password-field { position: relative; }
+.password-field input { padding-right: 4.75rem !important; }
+.password-toggle { position: absolute; right: .2rem; top: 50%; transform: translateY(-50%); width: 2.25rem; height: 2.25rem; padding: .4rem; border: 0; background: transparent; color: var(--navy, #17324d); cursor: pointer; } .password-toggle-icon { display: block; width: 100%; height: 100%; fill: none; stroke: currentColor; stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; } .password-toggle.is-visible::after { content: ""; position: absolute; width: 1.8rem; height: 2px; top: 50%; left: .2rem; background: currentColor; transform: rotate(-45deg); }
+.password-toggle:hover, .password-toggle:focus-visible { background: transparent; color: var(--gold, #c9a66b); outline: 2px solid currentColor; outline-offset: 2px; }
+.password-toggle { color: var(--text-primary, #17324d); background: transparent !important; box-shadow: none !important; }
+.password-toggle::after { content: ""; position: absolute; width: 1.8rem; height: 2px; top: 50%; left: .2rem; background: currentColor; transform: rotate(-45deg); opacity: 1; transition: opacity .18s ease, transform .25s ease; }
+.password-toggle.is-visible::after { opacity: 0; transform: rotate(-45deg) scaleX(.15); }
+.password-toggle:hover, .password-toggle:focus-visible, .password-toggle:active { transform: translateY(-50%) !important; box-shadow: none !important; }
+/* Password icon: fixed position, no motion. */
+.password-toggle { top: calc(50% - 1.125rem) !important; transform: none !important; transition: none !important; }
+.password-toggle:hover, .password-toggle:focus-visible, .password-toggle:active { transform: none !important; transition: none !important; }
+.password-toggle-icon { transform: none !important; animation: none !important; }
+.password-toggle::after, .password-toggle.is-visible::after { transform: rotate(-45deg) !important; transition: opacity .18s ease !important; }

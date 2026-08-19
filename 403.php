@@ -1,0 +1,1 @@
+<?php http_response_code(403); require __DIR__.'/includes/header.php';?><div class="panel"><h1>403 — Access denied</h1><p>You do not have permission to view this page.</p></div><?php require __DIR__.'/includes/footer.php'; ?>

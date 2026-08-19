@@ -1,0 +1,1 @@
+<?php http_response_code(500); require __DIR__.'/includes/header.php';?><div class="panel"><h1>Something went wrong</h1><p>Please try again later.</p><a class="btn" href="<?=url()?>">Go home</a></div><?php require __DIR__.'/includes/footer.php'; ?>
