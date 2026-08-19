@@ -1,5 +1,8 @@
 FROM php:8.2-apache
 
+# Disable conflicting MPM modules, leaving only mpm_prefork active
+RUN a2dismod mpm_event mpm_worker
+
 # Install pdo_mysql PHP extension for MySQL database connectivity
 RUN docker-php-ext-install pdo_mysql
 
