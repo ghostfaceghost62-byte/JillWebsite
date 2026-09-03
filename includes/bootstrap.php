@@ -54,3 +54,4 @@ $requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
 if (in_array($requestPath, array_map(static fn(string $path): string => app_root().$path, $protectedPaths), true)) {
     require_login();
 }
+

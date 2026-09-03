@@ -1,4 +1,3 @@
-<?php require __DIR__.'/../includes/auth.php';$s=db()->prepare('SELECT r.*,rm.title,rm.room_number FROM reservations r JOIN rooms rm ON rm.id=r.room_id WHERE r.user_id=? ORDER BY r.created_at DESC');$s->execute([user()['id']]);$rows=$s->fetchAll();$pageTitle='My reservations';require __DIR__.'/../includes/header.php';?><h1>My stays</h1><div class="panel"><table><tr><th>Reservation</th><th>Room</th><th>Stay</th><th>Guests</th><th>Total</th><th>Status</th></tr><?php foreach($rows as $r):?><tr><td><?=e($r['reservation_number'])?></td><td><?=e($r['title'])?> #<?=e($r['room_number'])?></td><td><?=e($r['check_in'])?> → <?=e($r['check_out'])?></td><td><?=$r['guests']?></td><td>₱<?=number_format($r['total_amount'],2)?></td><td><?=e($r['status'])?><?php if(in_array($r['status'],['PENDING','CONFIRMED'])):?><form method="post" action="<?=url('reservations/cancel.php')?>"><input type="hidden" name="csrf" value="<?=csrf()?>"><input type="hidden" name="id" value="<?=$r['id']?>"><button class="danger small">Cancel</button></form><?php endif;?></td></tr><?php endforeach;?></table></div><?php require __DIR__.'/../includes/footer.php'; ?>
 <?php
 require __DIR__ . '/../includes/auth.php';
 
@@ -74,11 +73,29 @@ require __DIR__ . '/../includes/header.php';
                             </td>
                             <td>
                                 <?php if (in_array($r['status'], ['PENDING', 'CONFIRMED']) && strtotime($r['check_in']) > time()): ?>
-                                    <form method="post" action="<?=url('reservations/cancel.php')?>" onsubmit="return confirm('Are you sure you wish to cancel reservation <?=e($r['reservation_number'])?>?');">
-                                        <input type="hidden" name="csrf" value="<?=csrf()?>">
-                                        <input type="hidden" name="id" value="<?=$r['id']?>">
-                                        <button class="btn danger small" type="submit">Cancel Stay</button>
-                                    </form>
+                                    <div style="display:flex; gap: 0.5rem; flex-wrap: wrap;">
+                                        <a class="btn small" href="<?=url('customer/reservation_edit.php?id='.$r['id'])?>">Modify</a>
+                                        <form method="post" action="<?=url('reservations/cancel.php')?>" onsubmit="return confirm('Are you sure you wish to cancel reservation <?=e($r['reservation_number'])?>?');">
+                                            <input type="hidden" name="csrf" value="<?=csrf()?>">
+                                            <input type="hidden" name="id" value="<?=$r['id']?>">
+                                            <button class="btn danger small" type="submit">Cancel</button>
+                                        </form>
+                                    </div>
+                                <?php elseif (in_array($r['status'], ['CHECKED_OUT', 'CANCELLED', 'REJECTED', 'EXPIRED'])): ?>
+                                    <div style="display:flex; gap: 0.5rem; flex-wrap: wrap;">
+                                        <a class="btn small btn-outline" href="<?=url('rooms/details.php?id='.$r['room_id'])?>">Book Again</a>
+                                        <?php if ($r['status'] === 'CHECKED_OUT'): ?>
+                                            <?php 
+                                            // Check if already reviewed
+                                            $revStmt = $pdo->prepare('SELECT id FROM reviews WHERE reservation_id = ?');
+                                            $revStmt->execute([$r['id']]);
+                                            $hasReviewed = $revStmt->fetchColumn();
+                                            ?>
+                                            <?php if (!$hasReviewed): ?>
+                                                <a class="btn small" href="<?=url('customer/review.php?reservation_id='.$r['id'])?>">Leave Review</a>
+                                            <?php endif; ?>
+                                        <?php endif; ?>
+                                    </div>
                                 <?php else: ?>
                                     <span style="font-size: 0.8rem; color: var(--text-secondary, #7A807B);">&mdash;</span>
                                 <?php endif; ?>

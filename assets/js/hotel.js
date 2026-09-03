@@ -1,51 +1,66 @@
 (() => {
-  // Theme management
-  const themeButton = document.querySelector('[data-theme-toggle]');
-  const preferenceUrl = themeButton?.dataset.themePreferenceUrl;
-  const csrf = themeButton?.dataset.csrf;
+  // Theme management for all theme toggle buttons on the page
+  const themeButtons = document.querySelectorAll('[data-theme-toggle]');
 
   const applyTheme = (theme) => {
     const isDark = theme === 'dark';
     document.documentElement.dataset.theme = theme;
     document.documentElement.style.colorScheme = theme;
-    if (themeButton) {
-      themeButton.querySelector('[data-theme-icon]').textContent = isDark ? String.fromCodePoint(0x2600, 0xFE0F) : String.fromCodePoint(0x1F319);
-      themeButton.querySelector('[data-theme-label]').textContent = isDark ? 'Light Mode' : 'Dark Mode';
-      const icon = themeButton.querySelector('[data-theme-icon]');
-      const label = themeButton.querySelector('[data-theme-label]');
-      if (icon) icon.textContent = isDark ? '☀️' : '🌙';
-      if (label) label.textContent = isDark ? 'Light' : 'Dark';
-      themeButton.setAttribute('aria-label', isDark ? 'Switch to light mode' : 'Switch to dark mode');
-      themeButton.setAttribute('aria-pressed', String(isDark));
-    }
+
+    themeButtons.forEach((btn) => {
+      const icon = btn.querySelector('[data-theme-icon]');
+      const label = btn.querySelector('[data-theme-label]');
+      const svg = btn.querySelector('svg');
+
+      if (icon) {
+        icon.textContent = isDark ? '🌙' : '☀️';
+      }
+      if (label) {
+        label.textContent = isDark ? 'Dark' : 'Light';
+      }
+      if (svg && !icon) {
+        // Switch between sun and moon icon for SVG toggle buttons
+        if (isDark) {
+          svg.innerHTML = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
+        } else {
+          svg.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+        }
+      }
+
+      btn.setAttribute('aria-label', isDark ? 'Current theme: Dark. Click for Light.' : 'Current theme: Light. Click for Dark.');
+      btn.setAttribute('aria-pressed', String(isDark));
+    });
   };
-  applyTheme(document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light');
 
-  const initialTheme = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
-  applyTheme(initialTheme);
+  // Initial theme check: default to light
+  const savedTheme = localStorage.getItem('hotelreserve-theme');
+  const currentTheme = document.documentElement.dataset.theme || savedTheme || 'light';
+  applyTheme(currentTheme);
 
-  themeButton?.addEventListener('click', () => {
-    const nextTheme = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
-    localStorage.setItem('hotelreserve-theme', nextTheme);
-    applyTheme(nextTheme);
-    if (preferenceUrl && csrf) {
-      fetch(preferenceUrl, {
-        method: 'POST',
-        credentials: 'same-origin',
-        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: new URLSearchParams({ csrf, theme: nextTheme })
-      }).catch(() => {});
-    }
+  themeButtons.forEach((btn) => {
+    btn.addEventListener('click', (e) => {
+      e.preventDefault();
+      const current = document.documentElement.dataset.theme === 'dark' ? 'dark' : 'light';
+      const nextTheme = current === 'dark' ? 'light' : 'dark';
+      localStorage.setItem('hotelreserve-theme', nextTheme);
+      applyTheme(nextTheme);
+
+      const preferenceUrl = btn.dataset.themePreferenceUrl;
+      const csrf = btn.dataset.csrf;
+      if (preferenceUrl && csrf) {
+        fetch(preferenceUrl, {
+          method: 'POST',
+          credentials: 'same-origin',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: new URLSearchParams({ csrf, theme: nextTheme })
+        }).catch(() => {});
+      }
+    });
   });
 
   // Mobile navigation toggle
   const toggle = document.querySelector('.menu-toggle');
   const nav = document.querySelector('#site-nav');
-  if (toggle && nav) toggle.addEventListener('click', () => { const open = nav.classList.toggle('open'); toggle.setAttribute('aria-expanded', String(open)); });
-  document.querySelector('[data-filter-toggle]')?.addEventListener('click', (event) => { const panel = document.querySelector('[data-filter-panel]'); const open = panel?.classList.toggle('open'); event.currentTarget.setAttribute('aria-expanded', String(open)); });
-  const range = document.querySelector('[data-price-range]'); const output = document.querySelector('[data-price-output]');
-  range?.addEventListener('input', () => { if (output) output.textContent = `\u20B1${Number(range.value).toLocaleString()}`; });
-  const favoritesUrl = document.body.dataset.favoritesUrl; const favoriteCsrf = document.body.dataset.csrf;
   if (toggle && nav) {
     toggle.addEventListener('click', (e) => {
       e.stopPropagation();
@@ -81,13 +96,10 @@
     });
   }
 
-  // Favorites handling (Account-based + LocalStorage fallback)
+  // Favorites handling
   const favoritesUrl = document.body.dataset.favoritesUrl;
   const favoriteCsrf = document.body.dataset.csrf;
   const storedFavorites = new Set(JSON.parse(localStorage.getItem('hotelreserve-favorites') || '[]'));
-  const renderFavorite = (button, favorites) => { const saved = favorites.has(button.dataset.favorite); button.classList.toggle('is-favorite', saved); button.textContent = saved ? String.fromCodePoint(0x2665) : String.fromCodePoint(0x2661); button.setAttribute('aria-pressed', String(saved)); };
-  const favoriteButtons = [...document.querySelectorAll('[data-favorite]')];
-  const bindFavorites = (favorites, persist) => favoriteButtons.forEach((button) => { renderFavorite(button, favorites); button.addEventListener('click', () => { persist(button, favorites); }); });
 
   const renderFavorite = (button, favorites) => {
     const saved = favorites.has(String(button.dataset.favorite));
@@ -110,11 +122,6 @@
   };
 
   if (favoritesUrl && favoriteCsrf) {
-    fetch(favoritesUrl).then((response) => response.json()).then((data) => {
-      const favorites = new Set((data.favorites || []).map(String));
-      bindFavorites(favorites, (button) => fetch(favoritesUrl, { method: 'POST', headers: { 'Content-Type': 'application/x-www-form-urlencoded' }, body: new URLSearchParams({ csrf: favoriteCsrf, room_id: button.dataset.favorite }) }).then((response) => response.json()).then((data) => { data.saved ? favorites.add(String(data.room_id)) : favorites.delete(String(data.room_id)); renderFavorite(button, favorites); }).catch(() => {}));
-    }).catch(() => bindFavorites(storedFavorites, (button) => { storedFavorites.has(button.dataset.favorite) ? storedFavorites.delete(button.dataset.favorite) : storedFavorites.add(button.dataset.favorite); localStorage.setItem('hotelreserve-favorites', JSON.stringify([...storedFavorites])); renderFavorite(button, storedFavorites); }));
-  } else bindFavorites(storedFavorites, (button) => { storedFavorites.has(button.dataset.favorite) ? storedFavorites.delete(button.dataset.favorite) : storedFavorites.add(button.dataset.favorite); localStorage.setItem('hotelreserve-favorites', JSON.stringify([...storedFavorites])); renderFavorite(button, storedFavorites); });
     fetch(favoritesUrl)
       .then((res) => (res.ok ? res.json() : Promise.reject()))
       .then((data) => {

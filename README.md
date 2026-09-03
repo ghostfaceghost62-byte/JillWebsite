@@ -14,7 +14,7 @@ HOTELRESERVE is a PHP and MySQL hotel reservation and hotel-management system fo
 2. Start **Apache** and **MySQL** from the XAMPP Control Panel.
 3. Open phpMyAdmin and import `database/hotelreservation_db.sql` into MySQL.
 4. Copy `.env.example` to `.env` and update the database credentials for your local environment.
-5. Visit `http://localhost/hotelreservation/`.
+5. Visit `  `.
 
 The application reads its database and app-root settings from environment variables first, then falls back to the XAMPP defaults in `config/database.php` for compatibility.
 

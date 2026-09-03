@@ -1,25 +1,18 @@
 (() => {
   // Password Visibility Toggle
   document.querySelectorAll('[data-password-toggle]').forEach((toggle) => {
-    const input = document.getElementById(toggle.getAttribute('data-password-toggle'));
     const targetId = toggle.getAttribute('data-password-toggle');
     const input = document.getElementById(targetId);
     if (!input) return;
 
     toggle.addEventListener('click', (event) => {
-      const visible = input.type === 'text';
-      input.type = visible ? 'password' : 'text';
-      toggle.setAttribute('aria-pressed', String(!visible));
-      toggle.setAttribute('aria-label', visible ? 'Show password' : 'Hide password');
-      event.stopImmediatePropagation();
-    }, true);
       event.preventDefault();
       event.stopPropagation();
       const isPassword = input.type === 'password';
       input.type = isPassword ? 'text' : 'password';
       toggle.setAttribute('aria-pressed', String(isPassword));
       toggle.setAttribute('aria-label', isPassword ? 'Hide password' : 'Show password');
-      
+
       const icon = toggle.querySelector('svg');
       if (icon) {
         if (isPassword) {
@@ -31,24 +24,14 @@
     });
   });
 
-  document.querySelectorAll('form').forEach((form) => form.addEventListener('submit', () => {
-    const button = form.querySelector('button[type=submit]');
-    if (button) {
-      button.disabled = true;
-      button.dataset.label = button.textContent;
-      button.textContent = 'Processing...';
-    }
-  }));
   // Submit button "Processing..." feedback & double-click protection
   document.querySelectorAll('form').forEach((form) => {
-    form.addEventListener('submit', (event) => {
-      // Don't disable if form submission was prevented by client validation
+    form.addEventListener('submit', () => {
       if (form.checkValidity && !form.checkValidity()) {
         return;
       }
       const button = form.querySelector('button[type="submit"]') || form.querySelector('button:not([type="button"])');
       if (button && !button.disabled) {
-        // Use a short timeout so that the form submit event completes cleanly
         setTimeout(() => {
           button.disabled = true;
           button.dataset.originalText = button.textContent;

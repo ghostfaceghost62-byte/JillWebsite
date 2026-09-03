@@ -1,4 +1,3 @@
-<?php require __DIR__.'/includes/bootstrap.php';$pageTitle='Contact';require __DIR__.'/includes/header.php';?><div class="panel"><h1>Contact us</h1><p>101 Seaside Avenue, Manila</p><p>+63 2 8123 4567 · stay@hotelreserve.local</p><p>Our front desk is available 24 hours a day.</p></div><?php require __DIR__.'/includes/footer.php'; ?>
 <?php
 require __DIR__ . '/includes/bootstrap.php';
 $pageTitle = 'Contact Concierge & Location';

@@ -1,4 +1,3 @@
-<?php require __DIR__.'/../includes/bootstrap.php';$id=(int)($_GET['id']??0);$s=db()->prepare('SELECT r.*,t.name type_name FROM rooms r JOIN room_types t ON t.id=r.room_type_id WHERE r.id=?');$s->execute([$id]);$r=$s->fetch();if(!$r){require __DIR__.'/../404.php';exit;}$a=db()->prepare('SELECT a.name FROM amenities a JOIN room_amenities ra ON ra.amenity_id=a.id WHERE ra.room_id=?');$a->execute([$id]);$amenities=$a->fetchAll();$pageTitle=$r['title'];require __DIR__.'/../includes/header.php';?><div class="panel"><div class="room-photo large">ROOM <?=e($r['room_number'])?></div><p class="eyebrow"><?=e($r['type_name'])?></p><h1><?=e($r['title'])?></h1><p><?=e($r['description'])?></p><p><b class="price">₱<?=number_format($r['price_per_night'])?> / night</b> · Up to <?=$r['max_guests']?> guests</p><p><?php foreach($amenities as $x):?><span class="badge">✓ <?=e($x['name'])?></span> <?php endforeach;?></p><form action="<?=url('reservations/create.php')?>" method="post" class="booking panel"><input type="hidden" name="csrf" value="<?=csrf()?>"><input type="hidden" name="room_id" value="<?=$r['id']?>"><div><label>Check-in</label><input required type="date" min="<?=date('Y-m-d')?>" name="check_in" value="<?=e($_GET['check_in']??'')?>"></div><div><label>Check-out</label><input required type="date" name="check_out" value="<?=e($_GET['check_out']??'')?>"></div><div><label>Adults</label><input required type="number" min="1" name="adults" value="<?=max(1,(int)($_GET['guests']??1))?>"></div><div><label>Children</label><input type="number" min="0" name="children" value="0"></div><button>Reserve now</button></form></div><?php require __DIR__.'/../includes/footer.php'; ?>
 <?php
 require __DIR__ . '/../includes/bootstrap.php';
 
@@ -16,6 +15,27 @@ $a = db()->prepare('SELECT a.name, a.description, a.icon FROM amenities a JOIN r
 $a->execute([$id]);
 $amenities = $a->fetchAll();
 
+// Fetch Reviews
+$revStmt = db()->prepare('
+    SELECT rv.*, u.first_name, u.last_name 
+    FROM reviews rv 
+    JOIN users u ON u.id = rv.user_id 
+    WHERE rv.room_id = ? 
+    ORDER BY rv.created_at DESC
+');
+$revStmt->execute([$id]);
+$reviews = $revStmt->fetchAll();
+
+$avgRating = 0;
+$totalReviews = count($reviews);
+if ($totalReviews > 0) {
+    $sum = 0;
+    foreach ($reviews as $rev) {
+        $sum += $rev['rating'];
+    }
+    $avgRating = round($sum / $totalReviews, 1);
+}
+
 // Fetch room gallery images or fallback
 $imgQuery = db()->prepare('SELECT image_path FROM room_images WHERE room_id = ? ORDER BY is_primary DESC, id ASC');
 $imgQuery->execute([$id]);
@@ -30,6 +50,10 @@ $galleryPool = [
 
 $images = !empty($dbImages) ? $dbImages : $galleryPool;
 $primaryImage = $images[0];
+
+// Fetch active add-ons
+$addOnsStmt = db()->query('SELECT * FROM add_ons WHERE active = 1 ORDER BY id');
+$activeAddOns = $addOnsStmt->fetchAll();
 
 $checkIn = $_GET['check_in'] ?? '';
 $checkOut = $_GET['check_out'] ?? '';
@@ -115,6 +139,41 @@ require __DIR__ . '/../includes/header.php';
                 Flexible cancellation up to 24 hours prior to arrival date. No prepayment needed at booking time — payment is completed securely at reception upon arrival.
             </p>
         </section>
+
+        <section class="room-reviews" style="margin-top: 2rem;">
+            <h2 style="font-size: 1.5rem; margin-bottom: 1.5rem; border-bottom: 1px solid var(--border); padding-bottom: 0.5rem;">
+                Guest Reviews
+                <?php if ($totalReviews > 0): ?>
+                    <span style="font-size: 1rem; font-weight: normal; margin-left: 1rem;">
+                        <span style="color: #f1c40f;">★</span> <?=number_format($avgRating, 1)?> (<?=$totalReviews?> review<?=$totalReviews>1?'s':''?>)
+                    </span>
+                <?php endif; ?>
+            </h2>
+
+            <?php if ($totalReviews > 0): ?>
+                <div style="display: flex; flex-direction: column; gap: 1.5rem;">
+                    <?php foreach ($reviews as $rev): ?>
+                        <div class="review-card" style="background: var(--surface, #fff); padding: 1.25rem; border: 1px solid var(--border); border-radius: 8px;">
+                            <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                                <strong><?=e($rev['first_name'] . ' ' . substr($rev['last_name'], 0, 1) . '.')?></strong>
+                                <span style="color: var(--text-secondary); font-size: 0.8rem;"><?=date('M j, Y', strtotime($rev['created_at']))?></span>
+                            </div>
+                            <div style="color: #f1c40f; margin-bottom: 0.5rem; font-size: 0.9rem;">
+                                <?=str_repeat('★', (int)$rev['rating'])?><?=str_repeat('☆', 5 - (int)$rev['rating'])?>
+                            </div>
+                            <?php if (!empty($rev['title'])): ?>
+                                <h4 style="font-size: 0.95rem; margin-bottom: 0.25rem; font-weight: 600;"><?=e($rev['title'])?></h4>
+                            <?php endif; ?>
+                            <p style="font-size: 0.9rem; line-height: 1.5; color: var(--text-secondary); margin: 0;">
+                                <?=nl2br(e($rev['comment']))?>
+                            </p>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php else: ?>
+                <p style="color: var(--text-secondary);">No reviews yet. Be the first to share your experience after your stay!</p>
+            <?php endif; ?>
+        </section>
     </div>
 
     <aside>
@@ -122,7 +181,7 @@ require __DIR__ . '/../includes/header.php';
             <div class="booking-rate-header">
                 <div>
                     <span style="font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-secondary, #5C625D);">Nightly Rate</span>
-                    <div class="rate">₱<?=number_format((float)$r['price_per_night'])?><small> / night</small></div>
+                    <div class="rate"><span data-php-price="<?=(float)$r['price_per_night']?>">₱<?=number_format((float)$r['price_per_night'], 2)?></span><small> / night</small></div>
                 </div>
                 <span class="badge success">Best Rate Guarantee</span>
             </div>
@@ -133,12 +192,12 @@ require __DIR__ . '/../includes/header.php';
 
                 <div style="margin-bottom: 1rem;">
                     <label for="res-checkin">Check-in Date</label>
-                    <input required id="res-checkin" type="date" min="<?=date('Y-m-d')?>" name="check_in" value="<?=e($checkIn)?>">
+                    <input required id="res-checkin" class="date-picker-input" type="text" name="check_in" value="<?=e($checkIn)?>" placeholder="Select date" readonly>
                 </div>
 
                 <div style="margin-bottom: 1rem;">
                     <label for="res-checkout">Check-out Date</label>
-                    <input required id="res-checkout" type="date" min="<?=date('Y-m-d', strtotime('+1 day'))?>" name="check_out" value="<?=e($checkOut)?>">
+                    <input required id="res-checkout" class="date-picker-input" type="text" name="check_out" value="<?=e($checkOut)?>" placeholder="Select date" readonly>
                 </div>
 
                 <div class="form-grid" style="margin-bottom: 1rem;">
@@ -157,6 +216,23 @@ require __DIR__ . '/../includes/header.php';
                     <textarea id="res-requests" name="special_requests" placeholder="Early check-in, high floor, quiet room, etc." style="min-height: 70px;"></textarea>
                 </div>
 
+                <?php if ($activeAddOns): ?>
+                <div style="margin-bottom: 1.25rem;">
+                    <label>Enhance Your Stay (Optional)</label>
+                    <div style="display: flex; flex-direction: column; gap: 0.5rem; margin-top: 0.5rem;">
+                        <?php foreach ($activeAddOns as $addon): ?>
+                            <label style="display: flex; align-items: flex-start; gap: 0.5rem; cursor: pointer; font-size: 0.85rem; line-height: 1.4;">
+                                <input type="checkbox" name="addons[]" value="<?=$addon['id']?>" style="margin-top: 0.2rem;">
+                                <div>
+                                    <strong style="display: block; color: var(--text-primary);"><?=e($addon['name'])?> <span style="color: var(--brand);">(+<span data-php-price="<?=(float)$addon['price']?>">₱<?=number_format((float)$addon['price'], 2)?></span>)</span></strong>
+                                    <span style="color: var(--text-secondary); font-size: 0.8rem;"><?=e($addon['description'])?></span>
+                                </div>
+                            </label>
+                        <?php endforeach; ?>
+                    </div>
+                </div>
+                <?php endif; ?>
+
                 <div style="background: var(--surface-muted, #F4EFE6); border-radius: 4px; padding: 0.85rem 1rem; margin-bottom: 1rem; font-size: 0.82rem; color: var(--text-secondary, #5C625D);">
                     <div style="display: flex; justify-content: space-between; margin-bottom: 0.35rem;">
                         <span>Taxes & Service Charge:</span>
@@ -173,5 +249,76 @@ require __DIR__ . '/../includes/header.php';
         </div>
     </aside>
 </div>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
+.date-picker-input { background: var(--surface); border: 1px solid var(--border); padding: 0.65rem; width: 100%; border-radius: 4px; color: var(--text-primary); cursor: pointer; }
+.flatpickr-day.disabled { color: #ff4757 !important; text-decoration: line-through; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const roomId = <?=$r['id']?>;
+    const inInput = document.getElementById('res-checkin');
+    const outInput = document.getElementById('res-checkout');
+    let blockedDates = [];
+
+    fetch('<?=url('api/availability.php?room_id=')?>' + roomId)
+        .then(res => res.json())
+        .then(dates => {
+            blockedDates = dates;
+            initPickers();
+        })
+        .catch(() => initPickers()); // fallback
+
+    function initPickers() {
+        flatpickr(inInput, {
+            minDate: "today",
+            disable: blockedDates,
+            onChange: function(selectedDates, dateStr, instance) {
+                outPicker.set("minDate", dateStr ? new Date(selectedDates[0].getTime() + 86400000) : "today");
+                // Check if any blocked dates fall between check-in and check-out
+                if (outInput.value && dateStr) {
+                    let cIn = selectedDates[0];
+                    let cOut = outPicker.selectedDates[0];
+                    let valid = true;
+                    if (cOut && cOut > cIn) {
+                        for (let d = new Date(cIn); d < cOut; d.setDate(d.getDate() + 1)) {
+                            let fDate = d.toISOString().split('T')[0];
+                            if (blockedDates.includes(fDate)) valid = false;
+                        }
+                    }
+                    if (!valid) {
+                        alert("Your selected date range includes unavailable dates.");
+                        outPicker.clear();
+                    }
+                }
+            }
+        });
+
+        const outPicker = flatpickr(outInput, {
+            minDate: inInput.value ? new Date(new Date(inInput.value).getTime() + 86400000) : new Date(new Date().getTime() + 86400000),
+            disable: blockedDates,
+            onChange: function(selectedDates, dateStr, instance) {
+                if (inInput.value && dateStr) {
+                    let cIn = new Date(inInput.value);
+                    let cOut = selectedDates[0];
+                    let valid = true;
+                    if (cOut > cIn) {
+                        for (let d = new Date(cIn); d < cOut; d.setDate(d.getDate() + 1)) {
+                            let fDate = d.toISOString().split('T')[0];
+                            if (blockedDates.includes(fDate)) valid = false;
+                        }
+                    }
+                    if (!valid) {
+                        alert("Your selected date range includes unavailable dates.");
+                        instance.clear();
+                    }
+                }
+            }
+        });
+    }
+});
+</script>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>
