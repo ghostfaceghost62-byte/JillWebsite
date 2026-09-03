@@ -1,120 +1,510 @@
-/* Shared theme tokens. This stylesheet loads after all page styles. */
+/* Jill Hotel theme tokens and shared contrast rules. */
+/* ==========================================================================
+   JILL HOTEL — THEME STYLESHEET (theme.css)
+   CSS Custom Properties for Light & Dark Mode, High Contrast & Theme Toggle
+   ========================================================================== */
+
 :root {
     color-scheme: light;
-    --bg-primary: #f7f4ee;
+    --bg-primary: #FAF9F6;
     --bg-secondary: #ffffff;
-    --text-primary: #101820;
-    --text-secondary: #5f625e;
-    --border-color: #e7dfd2;
-    --card-bg: #ffffff;
-    --navbar-bg: rgba(247, 244, 238, .96);
-    --input-bg: #ffffff;
-    --button-bg: #17324d;
-    --button-text: #ffffff;
-    --link-color: #17324d;
-    --focus-ring: #c9a66b;
-    --alert-success-bg: #e7f0e8;
-    --alert-success-text: #205c35;
-    --alert-error-bg: #fbe8e8;
-    --alert-error-text: #8f2626;
-    --alert-warning-bg: #fff3d7;
-    --alert-warning-text: #7b5312;
+    --surface: #ffffff;
+    --surface-muted: #f0eee8;
+    --text-primary: #333333;
+    --text-secondary: #74756d;
+    --text-on-dark: #fffdf8;
+    --border-color: #ddd6c8;
+    --accent: #b89a5c;
+    --accent-strong: #8b6d32;
+    --brand: #1c3026;
+    --brand-deep: #122219;
+    --button-bg: #1c3026;
+    --button-text: #fffdf8;
+    --focus-ring: #b89a5c;
+    --success-bg: #e7f0e8;
+    --success-text: #205c35;
+    --error-bg: #fbe8e8;
+    --error-text: #8f2626;
+    --warning-bg: #fff3d7;
+    --warning-text: #7b5312;
+    
+    /* Light Theme (Boutique Luxury Editorial) */
+    --bg-primary: #FAF8F5;
+    --bg-secondary: #F3EFE8;
+    --surface: #FFFFFF;
+    --surface-muted: #F4EFE6;
+    --surface-hover: rgba(184, 150, 80, 0.05);
+    
+    --text-primary: #2A2D2A;
+    --text-secondary: #5C625D;
+    --text-heading: #15221B;
+    --text-on-dark: #FAF8F5;
+    
+    --border-color: #E8E2D7;
+    --border-light: #F0EBE2;
+    
+    --brand: #1C3328;
+    --brand-deep: #12241C;
+    --accent: #B89650;
+    --accent-light: #DFC58C;
+    --accent-dark: #8E7134;
+    
+    --button-bg: #1C3328;
+    --button-text: #FAF8F5;
+    --button-hover: #12241C;
+    
+    --focus-ring: rgba(184, 150, 80, 0.35);
+    
+    --success-bg: #ECFDF5;
+    --success-text: #065F46;
+    --error-bg: #FEF2F2;
+    --error-text: #991B1B;
+    --warning-bg: #FFFBEB;
+    --warning-text: #92400E;
+    
+    --shadow-sm: 0 2px 8px rgba(28, 33, 29, 0.04);
+    --shadow-md: 0 8px 24px rgba(28, 33, 29, 0.06);
+    --shadow-lg: 0 16px 42px rgba(28, 51, 40, 0.1);
 }
 
 html[data-theme="dark"] {
     color-scheme: dark;
-    --bg-primary: #101820;
-    --bg-secondary: #17212b;
-    --text-primary: #eef3f6;
-    --text-secondary: #b9c4cc;
-    --border-color: #344452;
-    --card-bg: #17212b;
-    --navbar-bg: rgba(16, 24, 32, .97);
-    --input-bg: #1d2a35;
-    --button-bg: #3d82c4;
-    --button-text: #ffffff;
-    --link-color: #9bc9ff;
-    --focus-ring: #f0c77a;
-    --alert-success-bg: #183d2a;
-    --alert-success-text: #b9f3cc;
-    --alert-error-bg: #4b2428;
-    --alert-error-text: #ffd0d4;
-    --alert-warning-bg: #4d3c1c;
-    --alert-warning-text: #ffe5a8;
+    --bg-primary: #1A1A1A;
+    --bg-secondary: #202020;
+    --surface: #242424;
+    --surface-muted: #2d2d2d;
+    --text-primary: #f4efe3;
+    --text-secondary: #bdc3bd;
+    --text-on-dark: #f4efe3;
+    --border-color: #3c403d;
+    --accent: #c8aa6b;
+    --accent-strong: #e0c487;
+    --brand: #1B241D;
+    --brand-deep: #1B241D;
+    --button-bg: #c8aa6b;
+    --button-text: #161814;
+    --focus-ring: #e0c487;
+    --success-bg: #193326;
+    --success-text: #b9f3cc;
+    --error-bg: #452326;
+    --error-text: #ffd0d4;
+    --warning-bg: #493a1d;
+    --warning-text: #ffe5a8;
+    
+    /* Dark Theme (Quiet Luxury Midnight / Emerald Noir) */
+    --bg-primary: #141715;
+    --bg-secondary: #1A1F1C;
+    --surface: #1E2320;
+    --surface-muted: #272D29;
+    --surface-hover: rgba(223, 197, 140, 0.06);
+    
+    --text-primary: #E8E6E1;
+    --text-secondary: #A6AAA6;
+    --text-heading: #F5F2EB;
+    --text-on-dark: #FAF8F5;
+    
+    --border-color: #313833;
+    --border-light: #282E2A;
+    
+    --brand: #3A6350;
+    --brand-deep: #0D110E;
+    --accent: #D8BA7B;
+    --accent-light: #EBD6A7;
+    --accent-dark: #B89650;
+    
+    --button-bg: #D8BA7B;
+    --button-text: #141715;
+    --button-hover: #E8CE98;
+    
+    --focus-ring: rgba(216, 186, 123, 0.4);
+    
+    --success-bg: #143522;
+    --success-text: #86EFAC;
+    --error-bg: #3E1A1D;
+    --error-text: #FCA5A5;
+    --warning-bg: #3A2910;
+    --warning-text: #FDE68A;
+    
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
+    --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
+    --shadow-lg: 0 16px 42px rgba(0, 0, 0, 0.5);
 }
 
-html, body, body:has(.marketplace-page), body:has(.lookbook-page), body:has(.guest-concierge), body:has(.admin-editorial) { background: var(--bg-primary); color: var(--text-primary); }
-a { color: var(--link-color); }
-.site-header, header { background: var(--navbar-bg); color: var(--text-primary); border-color: var(--border-color); }
-.brand, nav a, .link-button { color: var(--text-primary); }
-.brand span, .eyebrow, .eyebrow-title { color: var(--focus-ring); }
-.card, .panel, .stat, .booking-widget, .luxury-room, .lookbook-card, .concierge-hero, .auth-layout, .guest-concierge .panel, .admin-editorial .panel { background: var(--card-bg); color: var(--text-primary); border-color: var(--border-color); }
-input, select, textarea { background: var(--input-bg); color: var(--text-primary); border-color: var(--border-color); }
-input::placeholder, textarea::placeholder { color: var(--text-secondary); opacity: 1; }
-button, .btn { background: var(--button-bg); color: var(--button-text); }
-button:hover, .btn:hover { filter: brightness(1.08); }
-button:focus-visible, a:focus-visible, input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 3px solid var(--focus-ring); outline-offset: 2px; }
-button:disabled, .btn:disabled { cursor: not-allowed; opacity: .6; }
-table, th, td { background-color: transparent; color: var(--text-primary); border-color: var(--border-color); }
-.muted, .feature-copy p, .lookbook-description, .lookbook-meta, .concierge-hero p, .results-subtitle { color: var(--text-secondary); }
-.alert.success { background: var(--alert-success-bg); color: var(--alert-success-text); }
-.alert.error { background: var(--alert-error-bg); color: var(--alert-error-text); }
-.alert.warning { background: var(--alert-warning-bg); color: var(--alert-warning-text); }
-.theme-toggle { display: inline-flex; align-items: center; gap: .45rem; min-height: 38px; border: 1px solid var(--border-color); background: transparent; color: var(--text-primary); text-transform: none; letter-spacing: normal; }
-.theme-toggle:hover { background: var(--input-bg); }
+html,
+body {
+    background: var(--bg-primary);
+    color: var(--text-primary);
+/* Specific Dark Mode Component Adjustments */
+html[data-theme="dark"] .site-header {
+    background: rgba(20, 23, 21, 0.94);
+    border-color: var(--border-color);
+}
 
-html[data-theme="dark"] .marketplace-page .search-panel,
-html[data-theme="dark"] .marketplace-page .offer-panel,
-html[data-theme="dark"] .marketplace-page .filter-sidebar,
-html[data-theme="dark"] .marketplace-page .hotel-result-card,
-html[data-theme="dark"] .marketplace-page .empty-results { background: var(--card-bg) !important; color: var(--text-primary) !important; border-color: var(--border-color) !important; }
-html[data-theme="dark"] .marketplace-page .room-description,
-html[data-theme="dark"] .marketplace-page .room-meta,
-html[data-theme="dark"] .marketplace-page .hotel-price span,
-html[data-theme="dark"] .marketplace-page .results-subtitle { color: var(--text-secondary) !important; }
-html[data-theme="dark"] .marketplace-page .hotel-price strong,
-html[data-theme="dark"] .marketplace-page .availability-button,
-html[data-theme="dark"] .marketplace-page .hotel-content h2 { color: var(--text-primary) !important; }
-html[data-theme="dark"] .marketplace-page .availability-button { border-color: var(--focus-ring); }
+a {
+    color: var(--brand);
+html[data-theme="dark"] .brand {
+    color: #FAF8F5;
+}
+
+html[data-theme="dark"] a {
+    color: var(--accent-strong);
+html[data-theme="dark"] nav#site-nav a {
+    color: #E8E6E1;
+}
+
+.site-header,
+header {
+    background: var(--surface);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+.brand,
+nav a,
+.link-button {
+    color: var(--text-primary);
+}
+
+.brand span,
+.eyebrow,
+.eyebrow-title,
+.kicker {
+html[data-theme="dark"] nav#site-nav a:hover,
+html[data-theme="dark"] nav#site-nav a.active {
+    color: var(--accent);
+}
+
+.card,
+.panel,
+.stat,
+.booking-widget,
+.booking,
+.luxury-room,
+.lookbook-card,
+.concierge-hero,
+.auth-layout {
+html[data-theme="dark"] .booking-widget {
+    background: var(--surface);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+    box-shadow: var(--shadow-lg);
+}
+
+input,
+select,
+textarea {
+    background: var(--surface);
+    color: var(--text-primary);
+    border-color: var(--border-color);
+}
+
+input::placeholder,
+textarea::placeholder {
+html[data-theme="dark"] .booking-widget label,
+html[data-theme="dark"] .search-field label {
+    color: var(--text-secondary);
+    opacity: 1;
+}
+
+button,
+.btn {
+    background: var(--button-bg);
+    color: var(--button-text);
+html[data-theme="dark"] .booking-widget input,
+html[data-theme="dark"] .booking-widget select,
+html[data-theme="dark"] .search-field input,
+html[data-theme="dark"] .search-field select {
+    color: var(--text-primary);
+    border-bottom-color: var(--border-color);
+}
+
+button:focus-visible,
+a:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 2px;
+html[data-theme="dark"] .luxury-room {
+    background: var(--surface);
+    border-color: var(--border-color);
+}
+
+button:disabled,
+.btn:disabled {
+    cursor: not-allowed;
+    opacity: .6;
+html[data-theme="dark"] .luxury-room .price {
+    color: var(--accent);
+}
+
+table,
+th,
+td {
+    background-color: transparent;
+    color: var(--text-primary);
+html[data-theme="dark"] .hotel-result-card {
+    background: var(--surface);
+    border-color: var(--border-color);
+}
+
+.muted,
+.feature-copy p,
+.lookbook-description,
+.lookbook-meta,
+.room-description,
+.room-meta,
+.results-subtitle {
+    color: var(--text-secondary);
+html[data-theme="dark"] .hotel-price {
+    background: var(--surface-muted);
+    border-color: var(--border-color);
+}
+
+.alert.success {
+    background: var(--success-bg);
+    color: var(--success-text);
+html[data-theme="dark"] .hotel-price strong {
+    color: var(--accent);
+}
+
+.alert.error {
+    background: var(--error-bg);
+    color: var(--error-text);
+html[data-theme="dark"] .filter-sidebar {
+    background: var(--surface);
+    border-color: var(--border-color);
+}
+
+.alert.warning {
+    background: var(--warning-bg);
+    color: var(--warning-text);
+html[data-theme="dark"] .results-header {
+    background: var(--surface);
+    border-color: var(--border-color);
+}
+
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--accent);
+    border-radius: 999px;
+    background: transparent;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: background-color .2s ease, color .2s ease, transform .2s ease;
+html[data-theme="dark"] .search-panel {
+    background: var(--surface);
+    border-color: var(--border-color);
+}
+
+.theme-toggle:hover {
+    background: var(--surface-muted);
+    transform: translateY(-1px);
+html[data-theme="dark"] .auth-card {
+    background: var(--surface);
+    border-color: var(--border-color);
+}
+
+.theme-toggle:focus-visible {
+    outline: 3px solid var(--focus-ring);
+    outline-offset: 3px;
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .stat {
+    background: var(--surface);
+    border-color: var(--border-color);
+}
+
+.theme-toggle [data-theme-icon] {
+    display: inline-block;
+    transition: transform .25s ease;
+html[data-theme="dark"] .stat b {
+    color: var(--accent);
+}
+
+.theme-toggle:hover [data-theme-icon] {
+    transform: rotate(20deg) scale(1.08);
+}
+
+footer {
+    background: var(--brand-deep);
+    color: var(--text-on-dark);
+}
+
+.admin-shell .stat {
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    padding: 1.5rem;
+}
+
+.admin-shell .stat b {
+    font-family: "Playfair Display", Georgia, serif;
+    font-size: 1.8rem;
+    display: block;
+    margin-bottom: .35rem;
+}
+
+.admin-shell .stat span {
+    font-family: Inter, Arial, sans-serif;
+    letter-spacing: .06em;
+    font-size: .72rem;
+    text-transform: uppercase;
+html[data-theme="dark"] th {
+    background-color: var(--surface-muted);
+    border-bottom-color: var(--border-color);
+    color: var(--text-secondary);
+}
+
+.admin-table-section {
+    margin-top: 2rem;
+html[data-theme="dark"] td {
+    border-bottom-color: var(--border-color);
+}
+
+.admin-table-section .section-head {
+    margin: 0 0 .75rem;
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background-color: var(--surface-muted);
+    border-color: var(--border-color);
+    color: var(--text-primary);
+}
+
+.table-scroll {
+    overflow-x: auto;
+html[data-theme="dark"] input[disabled],
+html[data-theme="dark"] select[disabled],
+html[data-theme="dark"] textarea[disabled] {
+    background-color: #161917;
+    color: #6C726D;
+}
+
+.table-scroll table {
+    min-width: 720px;
+html[data-theme="dark"] .favorite-button {
+    background: rgba(30, 35, 32, 0.9);
+    border-color: var(--border-color);
+    color: var(--accent);
+}
+
+.admin-shell .panel {
+    border-radius: 8px;
+    padding: 1rem;
+html[data-theme="dark"] .favorite-button:hover,
+html[data-theme="dark"] .favorite-button.is-favorite {
+    background: #1E2320;
+    color: #F87171;
+}
+
+.admin-shell .panel table {
+    width: 100%;
+html[data-theme="dark"] .booking-sidebar-card {
+    background: var(--surface);
+    border-color: var(--border-color);
+}
+
+.admin-shell .panel th {
+    font-family: Inter, Arial, sans-serif;
+    font-size: .68rem;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+html[data-theme="dark"] .booking-rate-header .rate {
+    color: var(--accent);
+}
+
+.admin-shell .panel .badge {
+    display: inline-block;
+/* Theme Toggle Button Styling */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.45rem 0.95rem;
+    background: transparent;
+    border: 1px solid var(--border-color);
+    border-radius: 999px;
+    padding: .25rem .6rem;
+    background: var(--surface-muted);
+    color: var(--text-primary);
+    font-size: .7rem;
+    font-weight: 700;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+@media (max-width: 900px) {
+    .admin-shell .panel table {
+        min-width: 720px;
+    }
+.theme-toggle:hover {
+    background: var(--surface-muted);
+    border-color: var(--accent);
+    color: var(--accent);
+    transform: translateY(-1px);
+}
+
+html[data-theme="dark"] .site-header {
+    background: #111312 !important;
+.theme-toggle [data-theme-icon] {
+    font-size: 0.95rem;
+    line-height: 1;
+    display: inline-block;
+    transition: transform 0.3s ease;
+}
+
+html[data-theme="dark"] body,
+html[data-theme="dark"] .admin-shell .container {
+    background: #1a1a1a !important;
+.theme-toggle:hover [data-theme-icon] {
+    transform: rotate(15deg) scale(1.1);
+}
+
+html[data-theme="dark"] .booking-widget,
+html[data-theme="dark"] .booking,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .stat,
+html[data-theme="dark"] .luxury-room,
 html[data-theme="dark"] .lookbook-card,
-html[data-theme="dark"] .lookbook-empty,
-html[data-theme="dark"] .stats .stat,
-html[data-theme="dark"] .container .panel:has(table),
-html[data-theme="dark"] .container .panel:has(form) { background: var(--card-bg) !important; color: var(--text-primary); }
-html[data-theme="dark"] .lookbook-description,
-html[data-theme="dark"] .lookbook-meta,
-html[data-theme="dark"] .quiet-rate small,
-html[data-theme="dark"] .container th,
-html[data-theme="dark"] .guest-concierge th,
-html[data-theme="dark"] .admin-editorial th { color: var(--text-secondary) !important; }
-html[data-theme="dark"] .quiet-rate,
-html[data-theme="dark"] .stats .stat b,
-html[data-theme="dark"] .guest-concierge .stat b,
-html[data-theme="dark"] .admin-editorial .stat b { color: var(--text-primary) !important; }
-html[data-theme="dark"] .guest-concierge input,
-html[data-theme="dark"] .guest-concierge textarea,
-html[data-theme="dark"] .container .panel:has(form) input,
-html[data-theme="dark"] .container .panel:has(form) textarea { background: transparent; color: var(--text-primary); border-color: var(--border-color); }
-html[data-theme="dark"] footer { background: #0a1118; color: var(--text-secondary); }
-html[data-theme=dark] body { background: var(--bg-primary) !important; color: var(--text-primary) !important; }
-html[data-theme=dark] .site-header, html[data-theme=dark] .booking-widget, html[data-theme=dark] .luxury-room, html[data-theme=dark] .card, html[data-theme=dark] .panel, html[data-theme=dark] .stat, html[data-theme=dark] .auth-layout { background: var(--card-bg) !important; color: var(--text-primary) !important; border-color: var(--border-color) !important; }
-html[data-theme=dark] .feature-copy h2, html[data-theme=dark] .section-title, html[data-theme=dark] .feature-copy p, html[data-theme=dark] .amenity-list article p { color: var(--text-primary) !important; }
-html[data-theme=dark] .muted, html[data-theme=dark] .feature-copy .muted, html[data-theme=dark] .booking-widget label { color: var(--text-secondary) !important; }
-html[data-theme=dark] .password-toggle { color: var(--text-primary) !important; background: transparent !important; box-shadow: none !important; }
-/* Contrast safeguards for all text in either theme. */
-html[data-theme] .site-header, html[data-theme] .site-header nav a, html[data-theme] .site-header .brand, html[data-theme] .container > h1, html[data-theme] .panel, html[data-theme] .card, html[data-theme] .stat, html[data-theme] .booking-widget, html[data-theme] .luxury-room, html[data-theme] .lookbook-card, html[data-theme] .concierge-hero, html[data-theme] .guest-concierge, html[data-theme] .admin-editorial, html[data-theme] table, html[data-theme] td { color: var(--text-primary) !important; }
-html[data-theme] .panel h1, html[data-theme] .panel h2, html[data-theme] .panel h3, html[data-theme] .card h1, html[data-theme] .card h2, html[data-theme] .card h3, html[data-theme] .luxury-room h1, html[data-theme] .luxury-room h2, html[data-theme] .luxury-room h3, html[data-theme] .lookbook-card h1, html[data-theme] .lookbook-card h2, html[data-theme] .lookbook-card h3, html[data-theme] .feature-copy h1, html[data-theme] .feature-copy h2, html[data-theme] .feature-copy h3, html[data-theme] .guest-concierge h1, html[data-theme] .guest-concierge h2, html[data-theme] .admin-editorial h1, html[data-theme] .admin-editorial h2, html[data-theme] .admin-editorial h3 { color: var(--text-primary) !important; }
-html[data-theme] .muted, html[data-theme] .feature-copy p, html[data-theme] .lookbook-description, html[data-theme] .lookbook-meta, html[data-theme] .room-description, html[data-theme] .room-meta, html[data-theme] .results-subtitle, html[data-theme] .booking-widget label, html[data-theme] th, html[data-theme] .guest-concierge th, html[data-theme] .admin-editorial th { color: var(--text-secondary) !important; }
-html[data-theme] label, html[data-theme] input, html[data-theme] select, html[data-theme] textarea, html[data-theme] option { color: var(--text-primary) !important; }
-html[data-theme] .dark-band, html[data-theme] .dark-band h1, html[data-theme] .dark-band h2, html[data-theme] .dark-band h3, html[data-theme] .dark-band p, html[data-theme] .hero-luxury, html[data-theme] .hero-luxury h1, html[data-theme] .hero-luxury p, html[data-theme] .page-hero, html[data-theme] .page-hero h1, html[data-theme] .page-hero p, html[data-theme] .auth-visual, html[data-theme] .auth-visual h1 { color: #fff !important; }
-html[data-theme] .dark-band .eyebrow-title, html[data-theme] .hero-luxury .kicker, html[data-theme] .page-hero .kicker { color: var(--focus-ring) !important; }
-/* Booking fields and pricing remain legible in both themes. */
-html[data-theme=dark] .booking-widget input, html[data-theme=dark] .booking-widget select { background: var(--input-bg) !important; color: var(--text-primary) !important; border-color: var(--border-color) !important; }
-html[data-theme=dark] .booking-widget input::placeholder { color: var(--text-secondary) !important; }
-html[data-theme=dark] .booking-widget input[type=date]::-webkit-calendar-picker-indicator { filter: invert(1); }
-html[data-theme=dark] .booking-widget option { background: var(--input-bg); color: var(--text-primary); }
-html[data-theme=light] .booking-widget input, html[data-theme=light] .booking-widget select { background: #fff !important; color: #101820 !important; }
-html[data-theme=light] .booking-widget input::placeholder { color: #5f625e !important; }
-html[data-theme=light] .booking-widget input[type=date]::-webkit-calendar-picker-indicator { filter: none; }
-html[data-theme=light] .price { color: #17324d !important; }
-html[data-theme=dark] .price, html[data-theme=dark] .price small { color: var(--focus-ring) !important; }
+html[data-theme="dark"] .auth-layout {
+    background: #242424 !important;
+    border-color: #3c403d !important;
+}
+
+html[data-theme="dark"] .admin-shell .site-header {
+    background: #1b241d !important;
+}
+
+html[data-theme="dark"] .admin-shell .container {
+    background: #1a1a1a;
+}
+
+html[data-theme="dark"] .marketplace-page,
+html[data-theme="dark"] .guest-concierge,
+html[data-theme="dark"] .admin-editorial {
+    background: var(--bg-primary) !important;
+    color: var(--text-primary) !important;
+}
+
+html[data-theme="dark"] .dark-band,
+html[data-theme="dark"] .hero-luxury,
+html[data-theme="dark"] .page-hero {
+    color: var(--text-on-dark);
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background: var(--surface-muted) !important;
+}

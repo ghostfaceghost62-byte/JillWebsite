@@ -1,0 +1,560 @@
+/* ==========================================================================
+   JILL HOTEL — SEARCH RESULTS STYLESHEET (search-results.css)
+   Room Search Panel, Two-Column Filter Layout, Price Slider, Room Cards & Empty States
+   ========================================================================== */
+
+.marketplace-page {
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+}
+
+/* Search Panel Header */
+.search-panel {
+    background: var(--surface, #FFFFFF);
+    border: 1px solid var(--border-color, #E8E2D7);
+    border-radius: 6px;
+    padding: 1.5rem 2rem;
+    box-shadow: 0 10px 30px rgba(28, 33, 29, 0.05);
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr 1fr auto;
+    gap: 1.25rem;
+    align-items: flex-end;
+}
+
+.search-field {
+    display: flex;
+    flex-direction: column;
+}
+
+.search-field label {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    color: var(--text-secondary, #5C625D);
+    margin-bottom: 0.45rem;
+}
+
+.search-field input,
+.search-field select {
+    border: none;
+    border-bottom: 1.5px solid var(--border-color, #D8D0C2);
+    border-radius: 0;
+    padding: 0.65rem 0.25rem;
+    background: transparent;
+    font-size: 0.95rem;
+    color: var(--text-primary, #2A2D2A);
+}
+
+.search-field input:focus,
+.search-field select:focus {
+    border-color: var(--accent, #B89650);
+    box-shadow: none;
+}
+
+.search-button {
+    height: 46px;
+    padding: 0 1.75rem;
+    white-space: nowrap;
+}
+
+.search-note {
+    background-color: var(--surface-muted, #F4EFE6);
+    border: 1px solid var(--border-color, #E2DBD0);
+    border-radius: 4px;
+    padding: 0.85rem 1.25rem;
+    font-size: 0.85rem;
+    color: var(--text-secondary, #5C625D);
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+}
+
+/* Offer Banner Panel */
+.offer-panel {
+    background: linear-gradient(135deg, var(--brand, #1C3328) 0%, var(--brand-deep, #12241C) 100%);
+    border-radius: 6px;
+    padding: 1.75rem 2.25rem;
+    color: #FAF8F5;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 1.5rem;
+    box-shadow: 0 12px 30px rgba(28, 51, 40, 0.15);
+}
+
+.offer-title {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--accent-light, #DFC58C);
+    margin-bottom: 0.35rem;
+}
+
+.offer-panel p {
+    color: rgba(250, 248, 245, 0.8);
+    font-size: 0.9rem;
+    margin-bottom: 0.85rem;
+}
+
+.offer-chips {
+    display: flex;
+    gap: 0.65rem;
+    flex-wrap: wrap;
+}
+
+.offer-chips span {
+    background: rgba(255, 255, 255, 0.12);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    padding: 0.3rem 0.75rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    letter-spacing: 0.04em;
+    color: #FAF8F5;
+}
+
+.offer-button {
+    background-color: var(--accent, #B89650);
+    color: #15221B;
+    border-color: var(--accent, #B89650);
+    white-space: nowrap;
+}
+
+.offer-button:hover {
+    background-color: #A07F3C;
+    color: #FFF;
+}
+
+/* Results Layout Grid: Sidebar + Main Column */
+.results-layout {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 2.5rem;
+    align-items: flex-start;
+}
+
+.filter-toggle {
+    display: none;
+    width: 100%;
+    margin-bottom: 1rem;
+    background: var(--surface, #FFFFFF);
+    border: 1px solid var(--border-color, #E8E2D7);
+    color: var(--text-primary, #2A2D2A);
+    padding: 0.75rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+/* Sidebar Filters */
+.filter-sidebar {
+    background: var(--surface, #FFFFFF);
+    border: 1px solid var(--border-color, #E8E2D7);
+    border-radius: 6px;
+    padding: 1.75rem;
+    box-shadow: 0 4px 18px rgba(28, 33, 29, 0.04);
+}
+
+.filter-heading {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1.5rem;
+    padding-bottom: 0.85rem;
+    border-bottom: 1px solid var(--border-color, #E8E2D7);
+}
+
+.filter-heading h2 {
+    font-size: 1.25rem;
+    margin-bottom: 0;
+}
+
+.filter-heading a {
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--accent, #B89650);
+}
+
+.filter-group {
+    margin-bottom: 1.75rem;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid var(--border-color, #EDE7DD);
+}
+
+.filter-group:last-of-type {
+    border-bottom: none;
+    margin-bottom: 1rem;
+}
+
+.filter-group h3 {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: var(--text-secondary, #5C625D);
+    margin-bottom: 1rem;
+}
+
+.range-label {
+    display: flex;
+    justify-content: space-between;
+    font-size: 0.82rem;
+    margin-bottom: 0.65rem;
+    color: var(--text-primary, #2A2D2A);
+}
+
+.range-label strong {
+    color: var(--brand, #1C3328);
+    font-weight: 700;
+}
+
+input[type="range"] {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 100%;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--surface-muted, #E8E2D7);
+    outline: none;
+    padding: 0;
+    border: none;
+    margin: 0.5rem 0;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background: var(--accent, #B89650);
+    cursor: pointer;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.15s ease;
+}
+
+input[type="range"]::-webkit-slider-thumb:hover {
+    transform: scale(1.15);
+}
+
+output[data-price-output] {
+    display: block;
+    text-align: right;
+    font-size: 0.82rem;
+    font-weight: 700;
+    color: var(--brand, #1C3328);
+    margin-top: 0.35rem;
+}
+
+.check-row {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.88rem;
+    font-weight: 400;
+    color: var(--text-primary, #2A2D2A);
+    margin-bottom: 0.65rem;
+    cursor: pointer;
+    text-transform: none;
+    letter-spacing: normal;
+}
+
+.check-row input[type="radio"],
+.check-row input[type="checkbox"] {
+    width: 16px;
+    height: 16px;
+    accent-color: var(--brand, #1C3328);
+    cursor: pointer;
+}
+
+.apply-filters {
+    width: 100%;
+    margin-top: 0.5rem;
+}
+
+/* Results Column */
+.results-column {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.results-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--surface, #FFFFFF);
+    border: 1px solid var(--border-color, #E8E2D7);
+    border-radius: 6px;
+    padding: 1.15rem 1.5rem;
+    box-shadow: 0 2px 10px rgba(28, 33, 29, 0.03);
+}
+
+.results-count {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.35rem;
+    font-weight: 600;
+    color: var(--text-heading, #15221B);
+    margin-bottom: 0.15rem;
+}
+
+.results-subtitle {
+    font-size: 0.82rem;
+    color: var(--text-secondary, #7A807B);
+    margin-bottom: 0;
+}
+
+.sort-form {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    width: auto;
+}
+
+.sort-form label {
+    margin-bottom: 0;
+    font-size: 0.75rem;
+    white-space: nowrap;
+}
+
+.sort-form select {
+    width: auto;
+    min-width: 160px;
+    padding: 0.5rem 0.85rem;
+    font-size: 0.85rem;
+    border-radius: 4px;
+}
+
+/* Hotel Result Cards */
+.hotel-results {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+}
+
+.hotel-result-card {
+    display: grid;
+    grid-template-columns: 320px 1fr 220px;
+    background: var(--surface, #FFFFFF);
+    border: 1px solid var(--border-color, #E8E2D7);
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 6px 20px rgba(28, 33, 29, 0.04);
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.hotel-result-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 30px rgba(28, 51, 40, 0.08);
+}
+
+.hotel-image-wrap {
+    position: relative;
+    height: 100%;
+    min-height: 240px;
+    background-color: #2D3A32;
+    overflow: hidden;
+}
+
+.hotel-image-wrap img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.4s ease;
+}
+
+.hotel-result-card:hover .hotel-image-wrap img {
+    transform: scale(1.04);
+}
+
+.favorite-button {
+    position: absolute;
+    top: 0.85rem;
+    right: 0.85rem;
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.9);
+    border: 1px solid rgba(0, 0, 0, 0.06);
+    color: var(--brand, #1C3328);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    font-size: 1.25rem;
+    padding: 0;
+    line-height: 1;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.12);
+    transition: transform 0.2s ease, background-color 0.2s ease, color 0.2s ease;
+}
+
+.favorite-button:hover {
+    background: #FFFFFF;
+    color: #DC2626;
+    transform: scale(1.1);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.18);
+}
+
+.favorite-button.is-favorite {
+    background: #FFFFFF;
+    color: #DC2626;
+}
+
+.hotel-content {
+    padding: 1.75rem;
+    display: flex;
+    flex-direction: column;
+}
+
+.room-type {
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.14em;
+    color: var(--accent, #B89650);
+    margin-bottom: 0.25rem;
+}
+
+.hotel-content h2 {
+    font-size: 1.45rem;
+    margin-bottom: 0.65rem;
+}
+
+.rating-line {
+    display: flex;
+    align-items: center;
+    gap: 0.65rem;
+    font-size: 0.82rem;
+    margin-bottom: 0.65rem;
+}
+
+.rating-badge {
+    background-color: var(--brand, #1C3328);
+    color: #FAF8F5;
+    font-weight: 700;
+    font-size: 0.75rem;
+    padding: 0.2rem 0.5rem;
+    border-radius: 4px;
+}
+
+.rating-line strong {
+    color: var(--text-heading, #15221B);
+}
+
+.rating-line span:last-child {
+    color: var(--text-secondary, #7A807B);
+}
+
+.location-line {
+    font-size: 0.82rem;
+    color: var(--text-secondary, #5C625D);
+    margin-bottom: 0.75rem;
+}
+
+.room-description {
+    font-size: 0.88rem;
+    line-height: 1.6;
+    color: var(--text-secondary, #5C625D);
+    margin-bottom: 0.85rem;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.room-meta {
+    font-size: 0.82rem;
+    font-weight: 500;
+    color: var(--text-primary, #2A2D2A);
+    margin-bottom: 1rem;
+}
+
+.amenity-tags {
+    display: flex;
+    gap: 0.5rem;
+    flex-wrap: wrap;
+    margin-top: auto;
+}
+
+.amenity-tags span {
+    background-color: var(--surface-muted, #F4EFE6);
+    border: 1px solid var(--border-color, #E2DBD0);
+    padding: 0.25rem 0.65rem;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    color: var(--text-secondary, #5C625D);
+}
+
+.hotel-price {
+    padding: 1.75rem;
+    background: var(--surface-muted, #FAF7F2);
+    border-left: 1px solid var(--border-color, #E8E2D7);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    text-align: right;
+}
+
+.hotel-price p {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--text-secondary, #7A807B);
+    margin-bottom: 0.15rem;
+}
+
+.hotel-price strong {
+    font-family: 'Playfair Display', Georgia, serif;
+    font-size: 1.85rem;
+    font-weight: 600;
+    color: var(--brand, #1C3328);
+    display: block;
+    line-height: 1.1;
+}
+
+.hotel-price span {
+    font-size: 0.75rem;
+    color: var(--text-secondary, #7A807B);
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.hotel-price small {
+    font-size: 0.72rem;
+    color: var(--text-secondary, #7A807B);
+    margin-bottom: 1.25rem;
+    display: block;
+}
+
+.availability-button {
+    width: 100%;
+    padding: 0.85rem 1rem;
+    font-size: 0.78rem;
+}
+
+/* Empty State */
+.empty-results {
+    background: var(--surface, #FFFFFF);
+    border: 1px dashed var(--border-color, #D8D0C2);
+    border-radius: 8px;
+    padding: 4.5rem 2rem;
+    text-align: center;
+    box-shadow: 0 4px 18px rgba(28, 33, 29, 0.03);
+}
+
+.empty-results h2 {
+    font-size: 1.85rem;
+    margin-bottom: 0.75rem;
+}
+
+.empty-results p {
+    color: var(--text-secondary, #5C625D);
+    max-width: 450px;
+    margin: 0 auto 1.75rem;
+}
+

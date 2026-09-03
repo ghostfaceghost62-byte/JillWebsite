@@ -1,1 +1,285 @@
 .site-header{box-shadow:0 2px 12px rgba(30,58,95,.08)}.menu-toggle{display:none}.site-header nav a.active{color:var(--secondary);position:relative}.site-header nav a.active:after{content:'';position:absolute;left:0;right:0;bottom:-7px;height:2px;background:var(--secondary)}@media(max-width:760px){.site-header{flex-wrap:wrap;flex-direction:row!important;align-items:center!important}.menu-toggle{display:inline-block;margin-left:auto;background:var(--primary);padding:7px 11px;font-size:.8rem}.site-header nav{display:none;width:100%;padding:12px 0;align-items:flex-start;flex-direction:column}.site-header nav.open{display:flex}.site-header nav a.active:after{display:none}.site-header .logout-form{display:block}.site-header .link-button{display:block}.booking{grid-template-columns:1fr}.booking button{grid-column:auto}}
+/* ==========================================================================
+   JILL HOTEL — RESPONSIVE STYLESHEET (responsive.css)
+   Breakpoints, Mobile Navigation Drawer, Collapsible Filters & Adaptive Grids
+   ========================================================================== */
+
+/* Tablet & Smaller Desktops (Max-width: 1024px) */
+@media (max-width: 1024px) {
+    .container {
+        padding: 2rem 1.5rem 4rem;
+    }
+
+    .room-showcase {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .amenity-list {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .split-feature {
+        gap: 3rem;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr 1fr;
+        gap: 2.5rem;
+    }
+
+    .hotel-result-card {
+        grid-template-columns: 280px 1fr 200px;
+    }
+
+    .search-panel {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .search-panel .search-field.destination {
+        grid-column: span 2;
+    }
+
+    .search-panel .search-button {
+        grid-column: span 2;
+    }
+}
+
+/* Tablets & Mobile Devices (Max-width: 768px) */
+@media (max-width: 768px) {
+    .site-header {
+        padding: 1rem 1.25rem;
+    }
+
+    /* Mobile Navigation Drawer */
+    .menu-toggle {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    nav#site-nav {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        right: 0;
+        background: var(--surface, #FFFFFF);
+        border-bottom: 2px solid var(--border-color, #E8E2D7);
+        box-shadow: 0 16px 36px rgba(28, 33, 29, 0.12);
+        padding: 1.5rem 1.75rem;
+        flex-direction: column;
+        align-items: stretch;
+        gap: 1.15rem;
+        z-index: 999;
+    }
+
+    nav#site-nav.open {
+        display: flex;
+    }
+
+    nav#site-nav a {
+        padding: 0.65rem 0;
+        border-bottom: 1px solid var(--border-color, #EDE7DD);
+        font-size: 0.85rem;
+    }
+
+    nav#site-nav a.active::after {
+        display: none;
+    }
+
+    nav#site-nav .theme-toggle {
+        margin-top: 0.5rem;
+        align-self: flex-start;
+    }
+
+    /* Hero & Booking Widget */
+    .hero-luxury {
+        min-height: 70vh;
+        margin: -2rem -1.5rem 0;
+        padding: 4rem 1.5rem;
+    }
+
+    .page-hero {
+        min-height: 280px;
+        margin: -2rem -1.5rem 2.5rem;
+        padding: 3.5rem 1.5rem 2.5rem;
+    }
+
+    .booking-widget {
+        margin: -2.5rem auto 3.5rem;
+        padding: 1.5rem;
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+    }
+
+    .booking-widget button {
+        width: 100%;
+    }
+
+    /* Editorial & Amenities */
+    .split-feature {
+        grid-template-columns: 1fr;
+        gap: 2.25rem;
+    }
+
+    .feature-image {
+        min-height: 320px;
+    }
+
+    .amenity-editorial {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        margin-bottom: 3.5rem;
+    }
+
+    .amenity-editorial:nth-child(even) .amenity-visual {
+        order: 0;
+    }
+
+    .amenity-visual {
+        min-height: 260px;
+    }
+
+    /* Gallery Grid */
+    .gallery-grid {
+        grid-template-columns: 1fr 1fr;
+        grid-template-rows: 180px 180px;
+        gap: 0.85rem;
+    }
+
+    .gallery-grid div:first-child {
+        grid-column: span 2;
+        grid-row: auto;
+    }
+
+    /* Dark Band */
+    .dark-band {
+        margin: 3.5rem -1.5rem;
+        padding: 4rem 1.5rem;
+    }
+
+    .amenity-list {
+        grid-template-columns: 1fr;
+        gap: 1.15rem;
+    }
+
+    /* Room Results */
+    .results-layout {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+    }
+
+    .filter-toggle {
+        display: block;
+    }
+
+    .filter-sidebar {
+        display: none;
+    }
+
+    .filter-sidebar.open {
+        display: block;
+    }
+
+    .hotel-result-card {
+        grid-template-columns: 1fr;
+    }
+
+    .hotel-image-wrap {
+        height: 220px;
+    }
+
+    .hotel-price {
+        border-left: none;
+        border-top: 1px solid var(--border-color, #E8E2D7);
+        text-align: left;
+        align-items: flex-start;
+    }
+
+    .availability-button {
+        width: auto;
+    }
+
+    /* Room Details */
+    .room-details-grid {
+        grid-template-columns: 1fr;
+        gap: 2.5rem;
+    }
+
+    .room-gallery .primary-photo {
+        height: 320px;
+    }
+
+    .booking-sidebar-card {
+        position: static;
+    }
+
+    /* Forms */
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    /* Admin */
+    .stats {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* Small Mobile Screens (Max-width: 480px) */
+@media (max-width: 480px) {
+    .container {
+        padding: 1.5rem 1rem 3rem;
+    }
+
+    .hero-luxury {
+        margin: -1.5rem -1rem 0;
+        padding: 3rem 1rem;
+    }
+
+    .page-hero {
+        margin: -1.5rem -1rem 2rem;
+        padding: 2.5rem 1rem 2rem;
+    }
+
+    .dark-band {
+        margin: 3rem -1rem;
+        padding: 3.5rem 1rem;
+    }
+
+    .room-showcase {
+        grid-template-columns: 1fr;
+    }
+
+    .results-header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+    }
+
+    .sort-form {
+        width: 100%;
+        justify-content: space-between;
+    }
+
+    .sort-form select {
+        flex: 1;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .footer-inner {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+    }
+
+    .footer-bottom {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .auth-card {
+        padding: 2rem 1.5rem;
+    }
+}

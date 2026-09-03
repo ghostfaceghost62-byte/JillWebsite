@@ -1,0 +1,535 @@
+/* Jill Hotel design system: presentation only. */
+:root {
+    --jh-forest: #1c3026;
+    --jh-forest-deep: #122219;
+    --jh-ivory: #f5f0e5;
+    --jh-paper: #fffdf8;
+    --jh-gold: #b89a5c;
+    --jh-ink: #1c211d;
+    --jh-muted: #74756d;
+    --jh-line: #ddd6c8;
+    --jh-shadow: 0 18px 42px rgba(37, 42, 32, .12);
+}
+
+body,
+html[data-theme="light"] body {
+    background: var(--jh-ivory);
+    color: var(--jh-ink);
+    font-family: Inter, Arial, sans-serif;
+}
+
+h1, h2, h3, .brand, .section-title {
+    font-family: "Playfair Display", Georgia, serif;
+    font-weight: 500;
+}
+
+.container {
+    max-width: 1240px;
+    padding: 0 34px 76px;
+}
+
+.site-header {
+    min-height: 72px;
+    padding: 14px max(4vw, 28px);
+    background: rgba(245, 240, 229, .94);
+    border-bottom: 1px solid var(--jh-line);
+    box-shadow: 0 3px 18px rgba(37, 42, 32, .05);
+}
+
+.brand {
+    color: var(--jh-forest);
+    font-size: 1.25rem;
+    letter-spacing: .14em;
+    text-transform: uppercase;
+}
+
+.brand span,
+.eyebrow,
+.kicker,
+.eyebrow-title {
+    color: var(--jh-gold);
+}
+
+.site-header nav {
+    gap: 1.25rem;
+}
+
+.site-header nav a,
+.site-header .link-button {
+    color: var(--jh-forest);
+    font-size: .68rem;
+    font-weight: 700;
+    letter-spacing: .1em;
+    text-transform: uppercase;
+}
+
+.site-header nav a.active {
+    color: var(--jh-gold);
+}
+
+.site-header nav .btn.small {
+    min-height: 38px;
+    padding: 0 16px;
+    border-color: var(--jh-forest);
+    background: var(--jh-forest);
+    color: #fffdf8;
+    font-size: .66rem;
+    letter-spacing: .1em;
+}
+
+.site-header nav .theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: .45rem;
+    min-height: 38px;
+    padding: 0 14px;
+    border: 1px solid var(--jh-gold);
+    border-radius: 3px;
+    background: transparent;
+    color: var(--jh-forest);
+    font-size: .66rem;
+    font-weight: 700;
+    letter-spacing: .06em;
+    text-transform: none;
+    box-shadow: none;
+}
+
+.site-header nav .theme-toggle:hover {
+    background: rgba(184, 154, 92, .14);
+    color: var(--jh-forest-deep);
+}
+
+.menu-toggle {
+    border-color: var(--jh-forest);
+    background: var(--jh-forest);
+}
+
+.btn,
+button {
+    border: 1px solid var(--jh-forest);
+    border-radius: 3px;
+    background: var(--jh-forest);
+    color: #fffdf8;
+    font-size: .67rem;
+    letter-spacing: .12em;
+    text-transform: uppercase;
+    box-shadow: none;
+}
+
+.btn:hover,
+button:hover {
+    background: var(--jh-forest-deep);
+    box-shadow: 0 8px 18px rgba(28, 48, 38, .16);
+}
+
+.hero-luxury,
+.hero.hotel {
+    min-height: 570px;
+    margin: 0 -34px;
+    border-radius: 0;
+    background:
+        linear-gradient(90deg, rgba(18, 34, 25, .9), rgba(18, 34, 25, .25)),
+        url("https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2200&q=85") center/cover;
+}
+
+.hero-luxury h1,
+.hero.hotel h1 {
+    font-size: clamp(3.7rem, 8vw, 7.2rem);
+    letter-spacing: -.04em;
+}
+
+.booking-widget,
+.booking {
+    border: 1px solid var(--jh-line);
+    border-radius: 3px;
+    background: var(--jh-paper);
+    box-shadow: var(--jh-shadow);
+}
+
+.booking-widget input,
+.booking-widget select,
+input,
+select,
+textarea {
+    border: 1px solid var(--jh-line);
+    border-radius: 2px;
+    background: var(--jh-paper);
+    color: var(--jh-ink);
+}
+
+.editorial,
+.luxury-grid {
+    padding-top: 70px;
+    padding-bottom: 70px;
+}
+
+.section-title {
+    color: var(--jh-forest);
+}
+
+.luxury-room,
+.card,
+.panel,
+.stat,
+.lookbook-card,
+.concierge-hero {
+    border: 1px solid var(--jh-line);
+    border-radius: 3px;
+    background: var(--jh-paper);
+    box-shadow: var(--jh-shadow);
+}
+
+.luxury-room {
+    overflow: hidden;
+}
+
+.luxury-room .room-photo,
+.room-photo {
+    border-radius: 0;
+}
+
+.room-copy {
+    padding-bottom: 20px;
+}
+
+.price,
+.luxury-room .price {
+    color: var(--jh-forest);
+}
+
+.dark-band {
+    margin: 0 -34px;
+    background: var(--jh-forest);
+}
+
+.page-hero {
+    margin: 0 -34px;
+    border-radius: 0;
+    background:
+        linear-gradient(90deg, rgba(18, 34, 25, .9), rgba(18, 34, 25, .3)),
+        url("https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=2000&q=85") center/cover;
+}
+
+.marketplace-page {
+    padding: 42px 0 80px;
+    background: transparent !important;
+    color: var(--jh-ink) !important;
+}
+
+.marketplace-page .search-panel,
+.marketplace-page .offer-panel,
+.marketplace-page .filter-sidebar,
+.marketplace-page .hotel-result-card,
+.marketplace-page .empty-results {
+    background: var(--jh-paper) !important;
+    border-color: var(--jh-line) !important;
+    color: var(--jh-ink) !important;
+}
+
+.marketplace-page .search-panel {
+    border: 1px solid var(--jh-forest);
+    border-radius: 3px;
+    box-shadow: var(--jh-shadow);
+}
+
+.marketplace-page .hotel-result-card {
+    border-radius: 3px;
+    box-shadow: var(--jh-shadow);
+}
+
+.marketplace-page .room-type,
+.marketplace-page .hotel-price strong,
+.marketplace-page .availability-button {
+    color: var(--jh-forest) !important;
+}
+
+.marketplace-page .hotel-content h2,
+.marketplace-page .room-description,
+.marketplace-page .room-meta,
+.marketplace-page .hotel-price span,
+.marketplace-page .results-subtitle {
+    color: var(--jh-muted) !important;
+}
+
+.marketplace-page .availability-button {
+    border-color: var(--jh-gold);
+    background: transparent;
+}
+
+.marketplace-page .filter-sidebar {
+    color: var(--jh-ink) !important;
+}
+
+.auth-layout {
+    border: 1px solid var(--jh-line);
+    border-radius: 3px;
+    overflow: hidden;
+    box-shadow: var(--jh-shadow);
+}
+
+.auth-form .panel {
+    box-shadow: none;
+    border: 0;
+}
+
+footer {
+    background: var(--jh-forest);
+    color: #f5f0e5;
+}
+
+/* Admin dashboard shell */
+.admin-shell {
+    background: var(--jh-ivory);
+}
+
+.admin-shell .site-header {
+    position: fixed;
+    inset: 0 auto 0 0;
+    z-index: 20;
+    display: flex;
+    width: 162px;
+    min-height: 100vh;
+    padding: 18px 10px;
+    flex-direction: column;
+    align-items: stretch;
+    background: var(--jh-forest-deep);
+    border: 0;
+    box-shadow: 8px 0 24px rgba(18, 34, 25, .12);
+}
+
+.admin-shell .brand {
+    display: block;
+    padding: 0 10px 38px;
+    color: #f5f0e5;
+    font-size: 1.05rem;
+}
+
+.admin-shell .brand span {
+    color: var(--jh-gold);
+}
+
+.admin-shell .menu-toggle {
+    display: none;
+}
+
+.admin-shell .site-header nav {
+    display: flex;
+    flex-direction: column;
+    align-items: stretch;
+    gap: 3px;
+}
+
+.admin-shell .site-header nav a,
+.admin-shell .site-header .link-button,
+.admin-shell .site-header nav .theme-toggle {
+    justify-content: flex-start;
+    min-height: 38px;
+    padding: 0 10px;
+    border: 0;
+    border-radius: 4px;
+    color: #d9e0d8 !important;
+    font-size: .62rem;
+    letter-spacing: .04em;
+}
+
+.admin-shell .site-header nav a:hover,
+.admin-shell .site-header .link-button:hover,
+.admin-shell .site-header nav a.active {
+    background: rgba(255, 253, 248, .13);
+    color: #fffdf8 !important;
+}
+
+.admin-shell .site-header nav .btn.small {
+    min-height: 38px;
+    background: transparent;
+    color: #d9e0d8;
+}
+
+.admin-shell .site-header nav .theme-toggle {
+    margin-top: 14px;
+    border: 1px solid rgba(184, 154, 92, .7);
+    color: #f5f0e5 !important;
+}
+
+.admin-shell .container {
+    max-width: none;
+    margin-left: 162px;
+    padding: 42px 34px 76px;
+}
+
+.admin-shell .container > h1 {
+    margin-bottom: 26px;
+    font-size: clamp(2rem, 4vw, 3rem);
+}
+
+.admin-shell .stats {
+    grid-template-columns: repeat(4, minmax(0, 1fr));
+    gap: 16px;
+}
+
+.admin-shell .stat {
+    min-height: 96px;
+    padding: 16px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 7px;
+}
+
+.admin-shell .stat b {
+    color: var(--jh-ink);
+    font-size: 1.6rem;
+}
+
+.admin-shell .grid {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+    margin-top: 18px;
+}
+
+.admin-shell .grid .card {
+    min-height: 140px;
+}
+
+.admin-shell footer {
+    margin-left: 162px;
+}
+
+html[data-theme="dark"] body {
+    background: #0b0d0c !important;
+}
+
+html[data-theme="dark"] .site-header {
+    background: #111312 !important;
+    border-color: #343735 !important;
+}
+
+html[data-theme="dark"] .site-header nav a,
+html[data-theme="dark"] .site-header nav .link-button,
+html[data-theme="dark"] .site-header nav .theme-toggle {
+    color: #f4efe3 !important;
+}
+
+html[data-theme="dark"] .site-header nav .theme-toggle {
+    border-color: var(--jh-gold);
+    background: transparent;
+}
+
+html[data-theme="dark"] .site-header,
+html[data-theme="dark"] .booking-widget,
+html[data-theme="dark"] .booking,
+html[data-theme="dark"] .card,
+html[data-theme="dark"] .panel,
+html[data-theme="dark"] .stat,
+html[data-theme="dark"] .luxury-room,
+html[data-theme="dark"] .lookbook-card,
+html[data-theme="dark"] .marketplace-page .search-panel,
+html[data-theme="dark"] .marketplace-page .hotel-result-card {
+    background: #181b1a !important;
+    border-color: #3c403d !important;
+}
+
+html[data-theme="dark"] .site-header nav a,
+html[data-theme="dark"] .site-header .link-button,
+html[data-theme="dark"] .brand,
+html[data-theme="dark"] h1,
+html[data-theme="dark"] h2,
+html[data-theme="dark"] h3,
+html[data-theme="dark"] .section-title,
+html[data-theme="dark"] .price {
+    color: #f4efe3 !important;
+}
+
+html[data-theme="dark"] input,
+html[data-theme="dark"] select,
+html[data-theme="dark"] textarea {
+    background: #222523 !important;
+    border-color: #555a56 !important;
+    color: #f4efe3 !important;
+}
+
+html[data-theme="dark"] .muted,
+html[data-theme="dark"] .room-meta,
+html[data-theme="dark"] .feature-copy p,
+html[data-theme="dark"] .results-subtitle,
+html[data-theme="dark"] .room-description {
+    color: #bdc8bc !important;
+}
+
+html[data-theme="dark"] .site-header nav .btn.small {
+    background: var(--jh-gold);
+    border-color: var(--jh-gold);
+    color: var(--jh-forest-deep);
+}
+
+html[data-theme="dark"] .admin-shell {
+    background: #0b0d0c !important;
+}
+
+html[data-theme="dark"] .admin-shell .site-header {
+    background: #090b0a !important;
+}
+
+html[data-theme="dark"] .admin-shell .stat b {
+    color: #f4efe3 !important;
+}
+
+@media (max-width: 760px) {
+    .container {
+        padding-right: 20px;
+        padding-left: 20px;
+    }
+
+    .hero-luxury,
+    .page-hero,
+    .dark-band {
+        margin-right: -20px;
+        margin-left: -20px;
+    }
+
+    .site-header nav {
+        background: var(--jh-paper);
+        padding: 16px;
+    }
+
+    html[data-theme="dark"] .site-header nav {
+        background: #111312;
+    }
+
+    .admin-shell .site-header {
+        position: relative;
+        width: auto;
+        min-height: 72px;
+        padding: 14px 20px;
+        flex-direction: row;
+        align-items: center;
+    }
+
+    .admin-shell .brand {
+        padding: 0;
+    }
+
+    .admin-shell .menu-toggle {
+        display: block;
+        margin-left: auto;
+    }
+
+    .admin-shell .site-header nav {
+        background: var(--jh-forest-deep);
+    }
+
+    .admin-shell .container {
+        margin-left: 0;
+        padding: 28px 20px 56px;
+    }
+
+    .admin-shell .stats,
+    .admin-shell .grid {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-shell footer {
+        margin-left: 0;
+    }
+}

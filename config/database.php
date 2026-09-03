@@ -50,7 +50,7 @@ define('DB_PORT', (string) config_value('DB_PORT', '3307'));
 define('DB_NAME', (string) config_value('DB_NAME', 'hotelreservation_db'));
 define('DB_USER', (string) config_value('DB_USER', 'root'));
 $dbPass = $_ENV['DB_PASS'] ?? $_SERVER['DB_PASS'] ?? getenv('DB_PASS');
-define('DB_PASS', $dbPass !== false && $dbPass !== null ? (string) $dbPass : '');
+define('DB_PASS', $dbPass !== false && $dbPass !== null ? (string) $dbPass : 'admin12345');
 
 function db(): PDO {
     static $pdo;
