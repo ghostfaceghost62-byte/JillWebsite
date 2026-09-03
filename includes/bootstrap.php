@@ -49,9 +49,5 @@ function reservation_conflict_sql(): string { return "status IN ('PENDING','CONF
 function verification_code(): string { $alphabet = 'ABCDEFGHJKLMNPQRSTUVWXYZ23456789'; $code = ''; for ($i = 0; $i < 15; $i++) { $code .= $alphabet[random_int(0, strlen($alphabet) - 1)]; } return $code; }
 function valid_password(string $password): bool { return strlen($password) >= 10 && preg_match('/[A-Z]/', $password) && preg_match('/[a-z]/', $password) && preg_match('/\d/', $password); }
 
-$protectedPaths = ['/rooms/index.php', '/rooms/details.php', '/amenities.php', '/about.php'];
-$requestPath = parse_url($_SERVER['REQUEST_URI'] ?? '', PHP_URL_PATH) ?: '';
-if (in_array($requestPath, array_map(static fn(string $path): string => app_root().$path, $protectedPaths), true)) {
-    require_login();
-}
+// Public pages — no login required for browsing rooms, amenities, about
 

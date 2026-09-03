@@ -46,7 +46,7 @@ if ($type === 'events') {
         $events[] = [
             'id' => $res['id'],
             'resourceId' => $res['room_id'],
-            'title' => $res['first_name'] . ' ' . $res['last_name'] . ' (' . $res['reservation_number'] . ')',
+            'title' => $res['first_name'] . ' ' . substr($res['last_name'], 0, 1) . '. #' . substr($res['reservation_number'], -4),
             'start' => $res['check_in'],
             'end' => $res['check_out'],
             'color' => $color,

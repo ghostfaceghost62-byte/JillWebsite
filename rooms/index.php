@@ -1,3 +1,94 @@
+<?php
+require __DIR__ . '/../includes/bootstrap.php';
+
+$in = $_GET['check_in'] ?? '';
+$out = $_GET['check_out'] ?? '';
+$guests = max(1, min(8, (int)($_GET['guests'] ?? 2)));
+$type = max(0, (int)($_GET['type'] ?? 0));
+$destination = trim($_GET['destination'] ?? '');
+$maxPrice = max(0, (int)($_GET['max_price'] ?? 0));
+$sort = $_GET['sort'] ?? 'recommended';
+$selectedAmenities = array_values(array_filter($_GET['amenities'] ?? [], static fn($id) => ctype_digit((string)$id)));
+
+$validDates = $in !== '' && $out !== '' && $out > $in && $in >= date('Y-m-d');
+
+// Log search history if user is signed in and has search inputs
+if (user() && ($in !== '' || $out !== '' || $type > 0 || $destination !== '' || $maxPrice > 0)) {
+    try {
+        db()->prepare('INSERT INTO user_search_history(user_id, check_in, check_out, guests, room_type_id) VALUES(?,?,?,?,?)')
+            ->execute([user()['id'], $in ?: null, $out ?: null, $guests, $type ?: null]);
+    } catch (Throwable $e) {
+        // Silent catch for search history logging
+    }
+}
+
+$types = db()->query('SELECT id, name FROM room_types ORDER BY name')->fetchAll();
+$amenities = db()->query('SELECT id, name FROM amenities ORDER BY name')->fetchAll();
+
+$where = ["r.status='AVAILABLE'", 'r.max_guests>=?'];
+$args = [$guests];
+
+if ($type) {
+    $where[] = 'r.room_type_id=?';
+    $args[] = $type;
+}
+
+if ($destination !== '') {
+    $where[] = '(r.title LIKE ? OR t.name LIKE ? OR r.description LIKE ?)';
+    $like = '%' . $destination . '%';
+    array_push($args, $like, $like, $like);
+}
+
+if ($maxPrice) {
+    $where[] = 'r.price_per_night<=?';
+    $args[] = $maxPrice;
+}
+
+if ($validDates) {
+    $where[] = 'NOT EXISTS(SELECT 1 FROM reservations x WHERE x.room_id=r.id AND ' . reservation_conflict_sql() . ')';
+    array_push($args, $out, $in);
+}
+
+foreach ($selectedAmenities as $amenityId) {
+    $where[] = 'EXISTS(SELECT 1 FROM room_amenities filter_ra WHERE filter_ra.room_id=r.id AND filter_ra.amenity_id=?)';
+    $args[] = (int)$amenityId;
+}
+
+$ordering = [
+    'price_low' => 'r.price_per_night ASC',
+    'price_high' => 'r.price_per_night DESC',
+    'rating' => 'r.featured DESC, r.price_per_night ASC',
+    'recommended' => 'r.featured DESC, r.price_per_night ASC'
+];
+$order = $ordering[$sort] ?? $ordering['recommended'];
+
+$sql = 'SELECT r.*, t.name AS type_name,
+        (SELECT image_path FROM room_images ri WHERE ri.room_id=r.id ORDER BY ri.is_primary DESC, ri.id LIMIT 1) AS image_path,
+        GROUP_CONCAT(DISTINCT a.name ORDER BY a.name SEPARATOR "|") AS amenity_names
+        FROM rooms r
+        JOIN room_types t ON t.id=r.room_type_id
+        LEFT JOIN room_amenities ra ON ra.room_id=r.id
+        LEFT JOIN amenities a ON a.id=ra.amenity_id
+        WHERE ' . implode(' AND ', $where) . '
+        GROUP BY r.id
+        ORDER BY ' . $order;
+
+$statement = db()->prepare($sql);
+$statement->execute($args);
+$rooms = $statement->fetchAll();
+
+$fallbackImages = [
+    'https://images.unsplash.com/photo-1566665797739-1674de7a421a?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1590490360182-c33d57733427?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1591088398332-8a7791972843?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1618773928121-c32242e63f39?auto=format&fit=crop&w=900&q=80',
+    'https://images.unsplash.com/photo-1578683010236-d716f9a3f461?auto=format&fit=crop&w=900&q=80'
+];
+
+$pageTitle = 'Find your stay';
+require __DIR__ . '/../includes/header.php';
+?>
 
 <section class="marketplace-page">
     <form class="search-panel" method="get" action="<?=url('rooms/index.php')?>" aria-label="Room search parameters">
@@ -178,28 +269,6 @@
     </div>
 </section>
 
-<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
-<style>
-.date-picker-input { background: transparent; border: none; font-size: 1rem; width: 100%; color: var(--text-primary); cursor: pointer; outline: none; }
-</style>
-<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const inInput = document.getElementById('check_in');
-    const outInput = document.getElementById('check_out');
-
-    const inPicker = flatpickr(inInput, {
-        minDate: "today",
-        onChange: function(selectedDates, dateStr, instance) {
-            outPicker.set("minDate", dateStr ? new Date(selectedDates[0].getTime() + 86400000) : "today");
-        }
-    });
-
-    const outPicker = flatpickr(outInput, {
-        minDate: inInput.value ? new Date(new Date(inInput.value).getTime() + 86400000) : new Date(new Date().getTime() + 86400000)
-    });
-});
-</script>
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <style>
 .date-picker-input { background: var(--surface); border: 1px solid var(--border); padding: 0.65rem; font-size: 0.95rem; width: 100%; border-radius: 4px; color: var(--text-primary); cursor: pointer; outline: none; }

@@ -1,20 +1,18 @@
 <?php
+require __DIR__ . '/../includes/admin_auth.php';
+
 $pageTitle = 'Booking Calendar';
 require __DIR__ . '/../includes/header.php';
-require_admin();
 ?>
 
-<div class="admin-layout">
-    <?php require __DIR__ . '/../includes/admin_sidebar.php'; ?>
-    <main class="admin-content">
-        <header class="admin-header">
-            <h1>Booking Calendar</h1>
-        </header>
+<div class="admin-content">
+    <header class="admin-header">
+        <h1>Booking Calendar</h1>
+    </header>
 
-        <section class="admin-panel" style="padding: 1.5rem;">
-            <div id="calendar"></div>
-        </section>
-    </main>
+    <section class="admin-panel" style="padding: 1.5rem;">
+        <div id="calendar"></div>
+    </section>
 </div>
 
 <!-- FullCalendar Core & Plugins -->
@@ -28,12 +26,38 @@ require_admin();
     background: var(--surface);
     border-radius: 8px;
     padding: 1rem;
+    overflow: hidden;
 }
 .fc-theme-standard td, .fc-theme-standard th {
     border-color: var(--border);
 }
 .fc-col-header-cell-cushion, .fc-daygrid-day-number {
     color: var(--text-primary);
+}
+/* Prevent event text from overflowing cells */
+.fc-daygrid-event {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    font-size: 0.75rem;
+}
+.fc-daygrid-event-harness {
+    overflow: hidden;
+}
+.fc-daygrid-day-frame {
+    overflow: hidden;
+}
+.fc-event-title {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+.fc-h-event {
+    overflow: hidden;
+}
+.fc-daygrid-block-event .fc-event-title {
+    font-size: 0.72rem;
+    padding: 0 2px;
 }
 </style>
 
@@ -50,7 +74,7 @@ document.addEventListener('DOMContentLoaded', function() {
         },
         events: '<?=url('admin/api/bookings.php?type=events')?>',
         eventClick: function(info) {
-            info.jsEvent.preventDefault(); // don't let the browser navigate
+            info.jsEvent.preventDefault();
             if (info.event.url) {
                 window.open(info.event.url, '_blank');
             }
@@ -68,4 +92,3 @@ document.addEventListener('DOMContentLoaded', function() {
 </script>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>
-

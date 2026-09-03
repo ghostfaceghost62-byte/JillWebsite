@@ -1,11 +1,9 @@
 <?php
-$pageTitle = 'Housekeeping Management';
-require __DIR__ . '/../includes/header.php';
-require_login();
+require __DIR__ . '/../includes/admin_auth.php';
 
-// Allow both main admins and users with the housekeeping flag
+// Also allow users with the housekeeping flag
 $u = user();
-if (!$u['is_admin'] && empty($u['housekeeping'])) {
+if ($u['role'] !== 'ADMIN' && empty($u['housekeeping'])) {
     flash('error', 'Access denied.');
     header('Location: ' . url('index.php'));
     exit;
@@ -37,61 +35,60 @@ $rooms = $pdo->query('
     ORDER BY r.status = "NEEDS_CLEANING" DESC, r.status = "INSPECTED" DESC, r.room_number ASC
 ')->fetchAll();
 
+$pageTitle = 'Housekeeping Management';
+require __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="admin-layout">
-    <?php require __DIR__ . '/../includes/admin_sidebar.php'; ?>
-    <main class="admin-content">
-        <header class="admin-header">
-            <h1>Housekeeping Dashboard</h1>
-        </header>
+<div class="admin-content">
+    <header class="admin-header">
+        <h1>Housekeeping Dashboard</h1>
+    </header>
 
-        <div class="admin-panel">
-            <table class="data-table">
-                <thead>
+    <div class="admin-panel">
+        <table class="data-table">
+            <thead>
+                <tr>
+                    <th>Room Number</th>
+                    <th>Type</th>
+                    <th>Status</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php foreach ($rooms as $room): 
+                    $statusColors = [
+                        'AVAILABLE' => 'success',
+                        'BOOKED' => 'info',
+                        'CHECKED_IN' => 'warning',
+                        'CHECKED_OUT' => 'error',
+                        'MAINTENANCE' => 'error',
+                        'NEEDS_CLEANING' => 'warning',
+                        'INSPECTED' => 'success'
+                    ];
+                    $badge = $statusColors[$room['status']] ?? 'default';
+                ?>
                     <tr>
-                        <th>Room Number</th>
-                        <th>Type</th>
-                        <th>Status</th>
-                        <th>Action</th>
+                        <td><strong><?=e($room['room_number'] ?? $room['title'])?></strong></td>
+                        <td><?=e($room['type_name'])?></td>
+                        <td><span class="badge <?=$badge?>"><?=e(str_replace('_', ' ', $room['status']))?></span></td>
+                        <td>
+                            <form method="post" style="display:flex; gap: 0.5rem; align-items:center;">
+                                <input type="hidden" name="csrf" value="<?=csrf()?>">
+                                <input type="hidden" name="room_id" value="<?=$room['id']?>">
+                                <select name="status" class="form-control" style="width: auto; padding: 0.25rem; font-size: 0.85rem;" onchange="this.form.submit()">
+                                    <option value="" disabled selected>Update Status...</option>
+                                    <option value="NEEDS_CLEANING">Needs Cleaning</option>
+                                    <option value="INSPECTED">Inspected (Ready)</option>
+                                    <option value="AVAILABLE">Available</option>
+                                    <option value="MAINTENANCE">Maintenance</option>
+                                </select>
+                            </form>
+                        </td>
                     </tr>
-                </thead>
-                <tbody>
-                    <?php foreach ($rooms as $room): 
-                        $statusColors = [
-                            'AVAILABLE' => 'success',
-                            'BOOKED' => 'info',
-                            'CHECKED_IN' => 'warning',
-                            'CHECKED_OUT' => 'error',
-                            'MAINTENANCE' => 'error',
-                            'NEEDS_CLEANING' => 'warning',
-                            'INSPECTED' => 'success'
-                        ];
-                        $badge = $statusColors[$room['status']] ?? 'default';
-                    ?>
-                        <tr>
-                            <td><strong><?=e($room['room_number'] ?? $room['title'])?></strong></td>
-                            <td><?=e($room['type_name'])?></td>
-                            <td><span class="badge <?=$badge?>"><?=e(str_replace('_', ' ', $room['status']))?></span></td>
-                            <td>
-                                <form method="post" style="display:flex; gap: 0.5rem; align-items:center;">
-                                    <input type="hidden" name="csrf" value="<?=csrf()?>">
-                                    <input type="hidden" name="room_id" value="<?=$room['id']?>">
-                                    <select name="status" class="form-control" style="width: auto; padding: 0.25rem; font-size: 0.85rem;" onchange="this.form.submit()">
-                                        <option value="" disabled selected>Update Status...</option>
-                                        <option value="NEEDS_CLEANING">Needs Cleaning</option>
-                                        <option value="INSPECTED">Inspected (Ready)</option>
-                                        <option value="AVAILABLE">Available</option>
-                                        <option value="MAINTENANCE">Maintenance</option>
-                                    </select>
-                                </form>
-                            </td>
-                        </tr>
-                    <?php endforeach; ?>
-                </tbody>
-            </table>
-        </div>
-    </main>
+                <?php endforeach; ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>
