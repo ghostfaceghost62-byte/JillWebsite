@@ -217,6 +217,25 @@ h1, h2, h3, h4, h5, h6, .section-title {
 input, select, textarea {
     color: var(--text-primary);
 }
+
+/* Bulletproof Button Theming */
+button, .btn {
+    background-color: var(--button-bg);
+    color: var(--button-text);
+}
+button:hover, .btn:hover {
+    background-color: var(--button-hover);
+    color: #FAF8F5;
+}
+.btn-gold {
+    background-color: var(--accent) !important;
+    color: #1A1F1B !important;
+}
+.btn-gold:hover {
+    background-color: var(--accent-dark) !important;
+    color: #FFFFFF !important;
+}
+
 html[data-theme="dark"] input,
 html[data-theme="dark"] select,
 html[data-theme="dark"] textarea {
