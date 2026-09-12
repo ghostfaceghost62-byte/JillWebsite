@@ -42,15 +42,28 @@ function config_value(string $key, mixed $fallback = null): mixed {
 
 load_env_file();
 
-// Fallback only. The application normally derives its URL path from the folder
-// Apache is serving, so it continues to work when the project folder is renamed.
-define('APP_ROOT', (string) config_value('APP_ROOT', '/hotelreservation'));
+// APP_ROOT: on Render this should be empty (app IS the doc root).
+// On XAMPP it's /hotelreservation. We check explicitly for the env var
+// being set (even if empty) before falling back to the XAMPP default.
+$appRootEnv = $_ENV['APP_ROOT'] ?? $_SERVER['APP_ROOT'] ?? getenv('APP_ROOT');
+if ($appRootEnv !== false && $appRootEnv !== null) {
+    // Env var is explicitly set (even if empty string) — use it
+    define('APP_ROOT', $appRootEnv);
+} else {
+    // No env var at all — fall back to XAMPP default
+    define('APP_ROOT', '/hotelreservation');
+}
+
 define('DB_HOST', (string) config_value('DB_HOST', '127.0.0.1'));
 define('DB_PORT', (string) config_value('DB_PORT', '3307'));
 define('DB_NAME', (string) config_value('DB_NAME', 'hotelreservation_db'));
 define('DB_USER', (string) config_value('DB_USER', 'root'));
 $dbPass = $_ENV['DB_PASS'] ?? $_SERVER['DB_PASS'] ?? getenv('DB_PASS');
 define('DB_PASS', $dbPass !== false && $dbPass !== null ? (string) $dbPass : 'admin12345');
+
+// SSL flag for Aiven MySQL (or any remote MySQL requiring SSL)
+$dbSsl = config_value('DB_SSL', 'false');
+define('DB_SSL', $dbSsl === 'true' || $dbSsl === '1');
 
 function db(): PDO {
     static $pdo;
@@ -60,12 +73,20 @@ function db(): PDO {
             $dsn = 'mysql:host='.DB_HOST.';port='.DB_PORT.';dbname='.DB_NAME.';charset=utf8mb4';
         }
 
-        $pdo = new PDO($dsn, DB_USER, DB_PASS, [
+        $options = [
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION,
             PDO::ATTR_DEFAULT_FETCH_MODE => PDO::FETCH_ASSOC,
             PDO::ATTR_EMULATE_PREPARES => false,
             PDO::ATTR_TIMEOUT => 5,
-        ]);
+        ];
+
+        // Enable SSL for remote MySQL (Aiven, PlanetScale, etc.)
+        if (DB_SSL) {
+            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+            $options[PDO::MYSQL_ATTR_SSL_CA] = '';
+        }
+
+        $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
     }
     return $pdo;
 }

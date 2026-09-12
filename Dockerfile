@@ -22,10 +22,13 @@ RUN sed -ri -e '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/
 # Copy application files into Apache's document root
 COPY . /var/www/html
 
+# Make entrypoint script executable
+RUN chmod +x /var/www/html/docker-entrypoint.sh
+
 # Set proper file ownership for the www-data user
 RUN chown -R www-data:www-data /var/www/html
 
 EXPOSE 80
 
-# Run Apache in the foreground so the container stays alive
-CMD ["apachectl", "-D", "FOREGROUND"]
+# Use entrypoint script to handle Render's dynamic PORT
+CMD ["/var/www/html/docker-entrypoint.sh"]
