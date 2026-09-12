@@ -63,7 +63,7 @@ define('DB_PASS', $dbPass !== false && $dbPass !== null ? (string) $dbPass : 'ad
 
 // SSL flag for Aiven MySQL (or any remote MySQL requiring SSL)
 $dbSsl = config_value('DB_SSL', 'false');
-define('DB_SSL', $dbSsl === 'true' || $dbSsl === '1');
+define('DB_SSL', $dbSsl === 'true' || $dbSsl === '1' || $dbSsl === true);
 
 function db(): PDO {
     static $pdo;
@@ -80,17 +80,19 @@ function db(): PDO {
             PDO::ATTR_TIMEOUT => 5,
         ];
 
-        $dbSsl = config_value('DB_SSL', 'false');
-        if ($dbSsl === 'true' || $dbSsl === '1' || $dbSsl === true) {
-            $sslCa = config_value('DB_SSL_CA');
-            if ($sslCa && is_file((string)$sslCa)) {
-                $options[PDO::MYSQL_ATTR_SSL_CA] = (string)$sslCa;
-            } else {
-                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
-            }
+        // Enable SSL for remote MySQL (Aiven, PlanetScale, etc.)
+        if (DB_SSL) {
+            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
         }
 
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
+        
+        // Disable ONLY_FULL_GROUP_BY to allow complex aggregation queries on MySQL 8
+        try {
+            $pdo->exec("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+        } catch (Throwable $e) {
+            // Ignore if driver doesn't support session variables
+        }
     }
     return $pdo;
 }
