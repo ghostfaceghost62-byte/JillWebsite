@@ -1,7 +1,9 @@
 <?php
 declare(strict_types=1);
 require_once __DIR__.'/../config/database.php';
-ini_set('display_errors', '0');
+ini_set('display_errors', '1');
+ini_set('display_startup_errors', '1');
+error_reporting(E_ALL);
 session_name('hotelreserve_session');
 session_set_cookie_params(['httponly'=>true, 'samesite'=>'Lax', 'secure'=>(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off')]);
 session_start();

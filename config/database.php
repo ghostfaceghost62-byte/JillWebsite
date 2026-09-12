@@ -87,9 +87,9 @@ function db(): PDO {
 
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
         
-        // Disable ONLY_FULL_GROUP_BY to allow complex aggregation queries on MySQL 8
+        // Disable strict mode completely to allow complex aggregation queries on MySQL 8
         try {
-            $pdo->exec("SET SESSION sql_mode = (SELECT REPLACE(@@sql_mode, 'ONLY_FULL_GROUP_BY', ''))");
+            $pdo->exec("SET SESSION sql_mode = ''");
         } catch (Throwable $e) {
             // Ignore if driver doesn't support session variables
         }
