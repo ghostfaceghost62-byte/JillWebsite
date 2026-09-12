@@ -1,0 +1,22 @@
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+</IfModule>
+
+# Prevent directory browsing
+Options -Indexes
+
+# Deny access to hidden dotfiles (.env, .git, etc.)
+<FilesMatch "^\.">
+    Require all denied
+</FilesMatch>
+
+# Deny public web access to sensitive configuration & metadata files
+<FilesMatch "^(composer\.json|composer\.lock|\.env.*|README\.md|Dockerfile|render\.yaml)$">
+    Require all denied
+</FilesMatch>
+
+# Prevent direct HTTP access to database migration files
+<IfModule mod_rewrite.c>
+    RewriteRule ^database/ - [F,L]
+</IfModule>
+

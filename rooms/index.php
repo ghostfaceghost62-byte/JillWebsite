@@ -271,6 +271,28 @@ require __DIR__ . '/../includes/header.php';
 
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 <style>
+.date-picker-input { background: transparent; border: none; font-size: 1rem; width: 100%; color: var(--text-primary); cursor: pointer; outline: none; }
+</style>
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const inInput = document.getElementById('check_in');
+    const outInput = document.getElementById('check_out');
+
+    const inPicker = flatpickr(inInput, {
+        minDate: "today",
+        onChange: function(selectedDates, dateStr, instance) {
+            outPicker.set("minDate", dateStr ? new Date(selectedDates[0].getTime() + 86400000) : "today");
+        }
+    });
+
+    const outPicker = flatpickr(outInput, {
+        minDate: inInput.value ? new Date(new Date(inInput.value).getTime() + 86400000) : new Date(new Date().getTime() + 86400000)
+    });
+});
+</script>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+<style>
 .date-picker-input { background: var(--surface); border: 1px solid var(--border); padding: 0.65rem; font-size: 0.95rem; width: 100%; border-radius: 4px; color: var(--text-primary); cursor: pointer; outline: none; }
 </style>
 <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
