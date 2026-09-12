@@ -10,6 +10,7 @@ try {
     http_response_code(200);
     echo "OK";
 } catch (Throwable $e) {
-    http_response_code(503);
-    echo "FAIL";
+    http_response_code(500);
+    echo "ERROR";
 }
+

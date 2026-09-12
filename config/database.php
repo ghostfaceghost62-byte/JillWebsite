@@ -80,10 +80,14 @@ function db(): PDO {
             PDO::ATTR_TIMEOUT => 5,
         ];
 
-        // Enable SSL for remote MySQL (Aiven, PlanetScale, etc.)
-        if (DB_SSL) {
-            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
-            $options[PDO::MYSQL_ATTR_SSL_CA] = '';
+        $dbSsl = config_value('DB_SSL', 'false');
+        if ($dbSsl === 'true' || $dbSsl === '1' || $dbSsl === true) {
+            $sslCa = config_value('DB_SSL_CA');
+            if ($sslCa && is_file((string)$sslCa)) {
+                $options[PDO::MYSQL_ATTR_SSL_CA] = (string)$sslCa;
+            } else {
+                $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+            }
         }
 
         $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);

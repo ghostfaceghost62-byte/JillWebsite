@@ -114,7 +114,7 @@ ngrok http 80
 
 link for the ngrok 
 
-    https://contact-bacterium-bacteria.ngrok-free.dev/hotelreservation/
+https://contact-bacterium-bacteria.ngrok-free.dev/hotelreservation/
 
 
 the link for the local 

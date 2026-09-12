@@ -1,34 +1,42 @@
-FROM php:8.2-cli
+FROM php:8.2-apache
 
-# Install Apache and the PHP module for Apache, using only the prefork MPM
-RUN apt-get update && \
-    apt-get install -y --no-install-recommends apache2 libapache2-mod-php8.2 && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Install required system dependencies for PHP extensions (gd, zip)
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    libpng-dev \
+    libjpeg-dev \
+    libfreetype6-dev \
+    libzip-dev \
+    zip \
+    unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install pdo pdo_mysql gd zip \
+    && apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# Install pdo_mysql PHP extension for MySQL database connectivity
-RUN docker-php-ext-install pdo_mysql
+# Enable Apache mod_rewrite for clean URL routing
+RUN a2enmod rewrite
 
-# Enable mod_rewrite for URL routing, mod_php for PHP handling, and the
-# prefork MPM only (mod_php requires prefork and is incompatible with
-# the threaded event/worker MPMs, so those are explicitly disabled)
-RUN a2enmod rewrite php8.2 mpm_prefork \
-    && a2dismod mpm_event mpm_worker || true
+# Allow .htaccess overrides in /var/www/html
+RUN sed -i 's/AllowOverride None/AllowOverride All/g' /etc/apache2/apache2.conf
 
-# Allow .htaccess overrides (needed for mod_rewrite) in the document root
-RUN sed -ri -e '/<Directory \/var\/www\/>/,/<\/Directory>/ s/AllowOverride None/AllowOverride All/' \
-    /etc/apache2/apache2.conf
+# Set Apache DocumentRoot working directory
+WORKDIR /var/www/html
 
-# Copy application files into Apache's document root
+# Copy application code into container
 COPY . /var/www/html
 
-# Make entrypoint script executable
-RUN chmod +x /var/www/html/docker-entrypoint.sh
+# Run composer to ensure dependencies and autoloader are optimized
+RUN if [ -f "composer.phar" ]; then \
+        php composer.phar install --no-dev --optimize-autoloader; \
+    fi
 
-# Set proper file ownership for the www-data user
+# Set proper file permissions for Apache www-data user
 RUN chown -R www-data:www-data /var/www/html
+
+# Copy entrypoint script for dynamic $PORT binding on Render
+COPY docker-entrypoint.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-entrypoint.sh
 
 EXPOSE 80
 
-# Use entrypoint script to handle Render's dynamic PORT
-CMD ["/var/www/html/docker-entrypoint.sh"]
+ENTRYPOINT ["docker-entrypoint.sh"]
+CMD ["apache2-foreground"]
