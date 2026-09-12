@@ -124,7 +124,7 @@ $isActive = static function (string $path) use ($currentPath): string {
             <a class="<?=$isActive('amenities.php')?>" href="<?=url('amenities.php')?>">Amenities</a>
             <a class="<?=$isActive('about.php')?>" href="<?=url('about.php')?>">About</a>
             <a class="<?=$isActive('contact.php')?>" href="<?=url('contact.php')?>">Contact</a>
-            <a class="btn small" href="<?=url('auth/register.php')?>">Register</a>
+            <a class="<?=$isActive('auth/register.php')?>" href="<?=url('auth/register.php')?>">Register</a>
         <?php endif; ?>
         <div class="nav-controls" style="display: flex; align-items: center; gap: 0.75rem; margin-left: auto;">
             <select id="currency_switcher" aria-label="Select Currency" style="background: transparent; color: inherit; border: 1px solid var(--border); border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.85rem; cursor: pointer;">
