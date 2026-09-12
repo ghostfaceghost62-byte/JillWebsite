@@ -75,6 +75,7 @@ require __DIR__ . '/../includes/header.php';
                                 <?php if (in_array($r['status'], ['PENDING', 'CONFIRMED']) && strtotime($r['check_in']) > time()): ?>
                                     <div style="display:flex; gap: 0.5rem; flex-wrap: wrap;">
                                         <a class="btn small" href="<?=url('customer/reservation_edit.php?id='.$r['id'])?>">Modify</a>
+                                        <a class="btn small btn-outline" href="<?=url('customer/receipt.php?id='.$r['id'])?>">Receipt</a>
                                         <form method="post" action="<?=url('reservations/cancel.php')?>" onsubmit="return confirm('Are you sure you wish to cancel reservation <?=e($r['reservation_number'])?>?');">
                                             <input type="hidden" name="csrf" value="<?=csrf()?>">
                                             <input type="hidden" name="id" value="<?=$r['id']?>">
@@ -84,6 +85,7 @@ require __DIR__ . '/../includes/header.php';
                                 <?php elseif (in_array($r['status'], ['CHECKED_OUT', 'CANCELLED', 'REJECTED', 'EXPIRED'])): ?>
                                     <div style="display:flex; gap: 0.5rem; flex-wrap: wrap;">
                                         <a class="btn small btn-outline" href="<?=url('rooms/details.php?id='.$r['room_id'])?>">Book Again</a>
+                                        <a class="btn small" href="<?=url('customer/receipt.php?id='.$r['id'])?>">View Receipt</a>
                                         <?php if ($r['status'] === 'CHECKED_OUT'): ?>
                                             <?php 
                                             // Check if already reviewed
@@ -97,7 +99,9 @@ require __DIR__ . '/../includes/header.php';
                                         <?php endif; ?>
                                     </div>
                                 <?php else: ?>
-                                    <span style="font-size: 0.8rem; color: var(--text-secondary, #7A807B);">&mdash;</span>
+                                    <div style="display:flex; gap: 0.5rem; flex-wrap: wrap;">
+                                        <a class="btn small btn-outline" href="<?=url('customer/receipt.php?id='.$r['id'])?>">View Receipt</a>
+                                    </div>
                                 <?php endif; ?>
                             </td>
                         </tr>
