@@ -134,10 +134,11 @@ require __DIR__ . '/../includes/header.php';
         </tr>
         <tr style="border-top: 1px solid var(--border-color, #EDE7DD);">
             <td style="padding: 1rem 0;"><strong>Total Amount:</strong></td>
-            <td style="text-align: right; padding: 1rem 0; font-size: 1.25rem;"><strong>â‚±<?=number_format((float)$res['total_amount'], 2)?></strong></td>
+            <td style="text-align: right; padding: 1rem 0; font-size: 1.25rem;"><strong>&#8369;<?=number_format((float)$res['total_amount'], 2)?></strong></td>
         </tr>
     </table>
     <p style="text-align: center; color: var(--text-secondary, #5C625D);">Thank you for choosing Jill Hotel.</p>
 </div>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>
+

@@ -100,13 +100,13 @@ require __DIR__ . '/../includes/header.php';
             <a class="btn btn-gold" href="<?=url('rooms/index.php')?>" style="justify-content: flex-start;">
                 ✦ Reserve a New Stay
             </a>
-            <a class="btn btn-outline" href="<?=url('customer/reservations.php')?>" style="justify-content: flex-start; background: var(--surface, #FFF);">
+            <a class="btn" href="<?=url('customer/reservations.php')?>" style="justify-content: flex-start; background: var(--brand, #1C3328); color: #FAF8F5;">
                 📋 All Reservation Details
             </a>
-            <a class="btn btn-outline" href="<?=url('customer/profile.php')?>" style="justify-content: flex-start; background: var(--surface, #FFF);">
+            <a class="btn" href="<?=url('customer/profile.php')?>" style="justify-content: flex-start; background: var(--brand, #1C3328); color: #FAF8F5;">
                 👤 Edit Account Profile
             </a>
-            <a class="btn btn-outline" href="<?=url('customer/notifications.php')?>" style="justify-content: flex-start; background: var(--surface, #FFF);">
+            <a class="btn" href="<?=url('customer/notifications.php')?>" style="justify-content: flex-start; background: var(--brand, #1C3328); color: #FAF8F5;">
                 🔔 Guest Notifications
             </a>
         </div>
