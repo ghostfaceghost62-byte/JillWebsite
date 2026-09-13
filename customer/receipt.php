@@ -34,6 +34,17 @@ $subtotal     = $pricePerNight * $nights;
 $taxRate      = 0.12;
 $taxAmount    = $subtotal * $taxRate;
 $total        = $subtotal + $taxAmount;
+use App\Services\PricingService;
+
+$pricingService = new PricingService();
+$financials = $pricingService->calculateReservationTotals((float) $res['price_per_night'], (int) $res['nights']);
+
+// Extracted fields for the view
+$nights       = $financials['nights'];
+$pricePerNight = $financials['price_per_night'];
+$subtotal     = $financials['subtotal'];
+$taxAmount    = $financials['tax_amount'];
+$total        = $financials['grand_total'];
 
 $format = $_GET['format'] ?? 'html';
 
@@ -318,8 +329,8 @@ require __DIR__ . '/../includes/header.php';
                 <span>&#8369;<?=number_format($pricePerNight, 2)?> / night</span>
             </div>
             <div style="display: flex; justify-content: space-between; padding: 0.55rem 0; border-bottom: 1px solid var(--border-light, #F0EBE2); font-size: 0.9rem;">
-                <span>Subtotal (<?=$nights?> night<?=$nights > 1 ? 's' : ''>)</span>
-                <span>&#8369;<?=number_format($subtotal, 2)?></span>
+                <span>Subtotal (<?php echo $nights; ?> night<?php echo $nights > 1 ? 's' : ''; ?>)</span>
+                <span>&#8369;<?php echo number_format($subtotal, 2); ?></span>
             </div>
             <div style="display: flex; justify-content: space-between; padding: 0.55rem 0; border-bottom: 1px solid var(--border-light, #F0EBE2); font-size: 0.9rem; color: var(--text-secondary);">
                 <span>VAT (12%)</span>
