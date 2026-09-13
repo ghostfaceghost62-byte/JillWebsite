@@ -212,33 +212,32 @@ $pageTitle = 'Receipt · ' . $res['reservation_number'];
 require __DIR__ . '/../includes/header.php';
 ?>
 
-<div class="section-head" style="margin-bottom: 2rem;">
-    <div>
-        <span class="kicker">OFFICIAL RECEIPT</span>
-        <h1 style="margin-bottom: 0.25rem;">Reservation <?=e($res['reservation_number'])?></h1>
-        <p style="color: var(--text-secondary); margin: 0;">Issued <?=date('F d, Y')?></p>
+<div style="max-width: 660px; margin: 0 auto 3rem;">
+    <div class="section-head" style="margin-bottom: 1.75rem; display: flex; flex-direction: column; gap: 1.25rem; align-items: flex-start;">
+        <div>
+            <span class="kicker">OFFICIAL RECEIPT</span>
+            <h1 style="margin-bottom: 0.25rem;">Reservation <?=e($res['reservation_number'])?></h1>
+            <p style="color: var(--text-secondary); margin: 0;">Issued <?=date('F d, Y')?></p>
+        </div>
+        <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
+            <a class="btn btn-gold" href="?id=<?=$res['id']?>&format=pdf" target="_blank">
+                ↓ Download PDF
+            </a>
+            <a class="btn" href="?id=<?=$res['id']?>&format=excel" style="background:var(--brand,#1C3328);color:#FAF8F5;">
+                ↓ Download Excel
+            </a>
+            <a class="btn btn-outline" href="<?=url('customer/reservations.php')?>">← My Stays</a>
+        </div>
     </div>
-    <div style="display: flex; gap: 0.75rem; flex-wrap: wrap;">
-        <a class="btn btn-gold" href="?id=<?=$res['id']?>&format=pdf" target="_blank">
-            ↓ Download PDF
-        </a>
-        <a class="btn" href="?id=<?=$res['id']?>&format=excel" style="background:var(--brand,#1C3328);color:#FAF8F5;">
-            ↓ Download Excel
-        </a>
-        <a class="btn btn-outline" href="<?=url('customer/reservations.php')?>">← My Stays</a>
-    </div>
-</div>
 
-<!-- Receipt Document -->
-<div class="receipt-doc" style="
-    max-width: 660px;
-    margin: 0 auto 3rem;
-    background: var(--surface, #FFF);
-    border: 1px solid var(--border-color, #E8E2D7);
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 8px 32px rgba(28,51,40,0.10);
-">
+    <!-- Receipt Document -->
+    <div class="receipt-doc" style="
+        background: var(--surface, #FFF);
+        border: 1px solid var(--border-color, #E8E2D7);
+        border-radius: 8px;
+        overflow: hidden;
+        box-shadow: 0 8px 32px rgba(28,51,40,0.10);
+    ">
 
     <!-- Hotel Header Band -->
     <div style="
@@ -367,6 +366,7 @@ require __DIR__ . '/../includes/header.php';
 
     </div><!-- /body -->
 </div><!-- /receipt-doc -->
+</div><!-- /wrapper -->
 
 <!-- Print stylesheet -->
 <style>
