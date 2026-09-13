@@ -54,12 +54,23 @@ if ($appRootEnv !== false && $appRootEnv !== null) {
     define('APP_ROOT', '/hotelreservation');
 }
 
-define('DB_HOST', (string) config_value('DB_HOST', '127.0.0.1'));
-define('DB_PORT', (string) config_value('DB_PORT', '3307'));
-define('DB_NAME', (string) config_value('DB_NAME', 'hotelreservation_db'));
-define('DB_USER', (string) config_value('DB_USER', 'root'));
-$dbPass = $_ENV['DB_PASS'] ?? $_SERVER['DB_PASS'] ?? getenv('DB_PASS');
-define('DB_PASS', $dbPass !== false && $dbPass !== null ? (string) $dbPass : 'admin12345');
+$dbHost = config_value('DB_HOST');
+$dbPort = config_value('DB_PORT');
+$dbName = config_value('DB_NAME');
+$dbUser = config_value('DB_USER');
+$dbPass = config_value('DB_PASS');
+
+if (!$dbHost || !$dbName || !$dbUser || $dbPass === null) {
+    // Fail fast if required configuration is missing, instead of silently connecting to root/admin12345
+    header('HTTP/1.1 500 Internal Server Error');
+    die('Critical Error: Database configuration is incomplete. Please check environment variables.');
+}
+
+define('DB_HOST', (string) $dbHost);
+define('DB_PORT', (string) ($dbPort ?: '3306'));
+define('DB_NAME', (string) $dbName);
+define('DB_USER', (string) $dbUser);
+define('DB_PASS', (string) $dbPass);
 
 // SSL flag for Aiven MySQL (or any remote MySQL requiring SSL)
 $dbSsl = config_value('DB_SSL', 'false');

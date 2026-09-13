@@ -1,0 +1,10 @@
+.env
+.git
+.gitignore
+scratch/
+vendor/
+composer.phar
+README.md
+UPGRADES.md
+database/
+*.sql
