@@ -124,9 +124,59 @@ require __DIR__ . '/../includes/header.php';
                 </div>
             </div>
 
-            <p style="font-size: 0.78rem; color: var(--text-secondary, #7A807B); margin-bottom: 1.5rem;">
-                Minimum 10 characters with upper and lower case letters, and at least one digit.
-            </p>
+            <div class="password-strength-container" style="margin-bottom: 1.5rem;">
+                <div class="password-strength-bar" style="display:flex; height: 4px; gap: 4px; margin-bottom: 0.4rem; border-radius: 4px; overflow: hidden; background: var(--surface-muted, #EDE7DD);">
+                    <div id="ps-1" style="flex:1; background: transparent; transition: background 0.3s;"></div>
+                    <div id="ps-2" style="flex:1; background: transparent; transition: background 0.3s;"></div>
+                    <div id="ps-3" style="flex:1; background: transparent; transition: background 0.3s;"></div>
+                    <div id="ps-4" style="flex:1; background: transparent; transition: background 0.3s;"></div>
+                </div>
+                <div style="display: flex; justify-content: space-between; align-items: center;">
+                    <span id="ps-label" style="font-size: 0.75rem; font-weight: 600; color: var(--text-secondary, #7A807B); text-transform: uppercase; letter-spacing: 0.05em;">Strength</span>
+                    <span style="font-size: 0.72rem; color: var(--text-secondary, #7A807B);">Min. 10 chars, uppercase, lowercase, number</span>
+                </div>
+            </div>
+
+            <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                const passInput = document.getElementById('signup-password');
+                const bars = [
+                    document.getElementById('ps-1'),
+                    document.getElementById('ps-2'),
+                    document.getElementById('ps-3'),
+                    document.getElementById('ps-4')
+                ];
+                const label = document.getElementById('ps-label');
+
+                passInput.addEventListener('input', () => {
+                    const val = passInput.value;
+                    let strength = 0;
+                    
+                    if (val.length > 0) strength++;
+                    if (val.length >= 10) strength++;
+                    if (/[A-Z]/.test(val) && /[a-z]/.test(val) && /[0-9]/.test(val)) strength++;
+                    if (/[^A-Za-z0-9]/.test(val) && val.length >= 12) strength++;
+
+                    bars.forEach((b, i) => {
+                        b.style.background = 'transparent';
+                        if (i < strength) {
+                            if (strength === 1) b.style.background = '#EF4444'; // Red (Weak)
+                            if (strength === 2) b.style.background = '#F59E0B'; // Orange (Fair)
+                            if (strength === 3) b.style.background = '#10B981'; // Green (Good)
+                            if (strength === 4) b.style.background = '#059669'; // Dark Green (Strong)
+                        }
+                    });
+
+                    const labels = ['Strength', 'Weak', 'Fair', 'Good', 'Strong'];
+                    label.textContent = labels[strength];
+                    
+                    if(strength === 0) label.style.color = 'var(--text-secondary, #7A807B)';
+                    else if(strength === 1) label.style.color = '#EF4444';
+                    else if(strength === 2) label.style.color = '#F59E0B';
+                    else label.style.color = '#10B981';
+                });
+            });
+            </script>
 
             <button class="btn btn-gold" type="submit" style="width: 100%; padding: 0.95rem;">Complete Registration</button>
 

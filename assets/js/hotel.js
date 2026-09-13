@@ -96,6 +96,23 @@
     });
   }
 
+  // Prevent double form submissions globally
+  document.querySelectorAll('form').forEach(form => {
+    form.addEventListener('submit', (e) => {
+      if (form.classList.contains('is-submitting')) {
+        e.preventDefault();
+        return;
+      }
+      form.classList.add('is-submitting');
+      const btn = form.querySelector('button[type="submit"]');
+      if (btn) {
+        btn.dataset.originalText = btn.innerHTML;
+        btn.innerHTML = '<span style="opacity: 0.7;">Processing...</span>';
+        btn.style.pointerEvents = 'none';
+      }
+    });
+  });
+
   // Favorites handling
   const favoritesUrl = document.body.dataset.favoritesUrl;
   const favoriteCsrf = document.body.dataset.csrf;
