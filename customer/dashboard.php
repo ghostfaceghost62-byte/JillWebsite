@@ -87,9 +87,15 @@ require __DIR__ . '/../includes/header.php';
                 </table>
             </div>
         <?php else: ?>
-            <div style="text-align: center; padding: 2.5rem 1rem;">
-                <p style="color: var(--text-secondary, #5C625D); margin-bottom: 1.5rem;">You do not have any bookings registered yet.</p>
-                <a class="btn btn-gold" href="<?=url('rooms/index.php')?>">Explore Suites & Book</a>
+            <div style="text-align: center; padding: 4rem 1rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                <svg width="80" height="80" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-color, #D8D0C2); margin-bottom: 1.25rem;">
+                    <path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"></path>
+                    <path d="M4 19h16"></path>
+                    <path d="M12 7v4"></path>
+                    <path d="M9 14h6"></path>
+                </svg>
+                <p style="color: var(--text-secondary, #5C625D); margin-bottom: 1.5rem; font-size: 1.05rem;">You do not have any bookings registered yet.</p>
+                <a class="btn btn-gold" href="<?=url('rooms/index.php')?>" style="box-shadow: 0 4px 14px rgba(184,150,80,0.2);">Explore Suites & Book</a>
             </div>
         <?php endif; ?>
     </section>

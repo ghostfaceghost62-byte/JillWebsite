@@ -110,12 +110,18 @@ require __DIR__ . '/../includes/header.php';
             </table>
         </div>
     <?php else: ?>
-        <div style="text-align: center; padding: 4rem 1.5rem;">
-            <h2 style="font-size: 1.5rem; margin-bottom: 0.75rem;">No Reservations Found</h2>
-            <p style="color: var(--text-secondary, #5C625D); max-width: 460px; margin: 0 auto 2rem;">
+        <div style="text-align: center; padding: 5rem 1.5rem; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+            <svg width="120" height="120" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1" stroke-linecap="round" stroke-linejoin="round" style="color: var(--border-color, #D8D0C2); margin-bottom: 1.5rem;">
+                <path d="M4 19V5a2 2 0 0 1 2-2h12a2 2 0 0 1 2 2v14"></path>
+                <path d="M4 19h16"></path>
+                <path d="M12 7v4"></path>
+                <path d="M9 14h6"></path>
+            </svg>
+            <h2 style="font-size: 1.65rem; margin-bottom: 0.75rem; color: var(--brand, #1C3328);">No Reservations Found</h2>
+            <p style="color: var(--text-secondary, #5C625D); max-width: 460px; margin: 0 auto 2.25rem;">
                 You haven't made any reservations yet. Discover our peaceful rooms and suites and reserve your next visit.
             </p>
-            <a class="btn btn-gold" href="<?=url('rooms/index.php')?>">Browse Available Suites</a>
+            <a class="btn btn-gold" href="<?=url('rooms/index.php')?>" style="padding: 1rem 2rem; box-shadow: 0 4px 14px rgba(184,150,80,0.2);">Browse Available Suites</a>
         </div>
     <?php endif; ?>
 </div>

@@ -29,6 +29,17 @@ body {
     overflow-x: hidden;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    animation: luxuryFadeIn 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes luxuryFadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes luxurySlideUp {
+    from { opacity: 0; transform: translateY(15px); }
+    to { opacity: 1; transform: translateY(0); }
 }
 
 /* Typography */
@@ -300,6 +311,7 @@ textarea {
     border-radius: 6px;
     padding: 1.75rem;
     box-shadow: 0 4px 18px rgba(28, 33, 29, 0.04);
+    animation: luxurySlideUp 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
 }
 
 .panel h1 {
