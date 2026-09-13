@@ -8,7 +8,7 @@ if (user()) {
     $initialTheme = (string) ($themeQuery->fetchColumn() ?: '');
 }
 $isAdminShell = user() && user()['role'] === 'ADMIN';
-$assetVersion = '20260913v2';
+$assetVersion = '20260913v3';
 ?>
 <!doctype html>
 <html lang="en">
@@ -44,5 +44,14 @@ $assetVersion = '20260913v2';
 </head>
 <body class="<?=$isAdminShell ? 'admin-shell' : ''?>" data-favorites-url="<?=user() ? url('user/favorites.php') : ''?>" data-csrf="<?=user() ? csrf() : ''?>">
 <?php require __DIR__ . '/navbar.php'; ?>
+<!-- Toast notification container -->
+<div id="toast-container" aria-live="polite" aria-atomic="true"></div>
+<?php
+// Emit flash as a JS-readable data attribute instead of a plain alert div
+if (!empty($_SESSION['flash'])) {
+    [$flashType, $flashMsg] = $_SESSION['flash'];
+    unset($_SESSION['flash']);
+    echo '<script>window.__flashToast=' . json_encode(['type' => $flashType, 'msg' => $flashMsg]) . ';</script>';
+}
+?>
 <main class="container">
-<?php show_flash(); ?>

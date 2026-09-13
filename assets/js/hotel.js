@@ -166,3 +166,77 @@
     });
   }
 })();
+
+// ── Toast Notification System ────────────────────────────────────────────────
+(function () {
+  const ICONS = {
+    success: '✓',
+    error:   '✕',
+    warning: '⚠',
+    info:    'ℹ',
+  };
+
+  const DURATION = {
+    success: 4000,
+    error:   6000,
+    warning: 5000,
+    info:    4500,
+  };
+
+  function showToast(type, message) {
+    const container = document.getElementById('toast-container');
+    if (!container) return;
+
+    const normalType = ['success','error','warning','info'].includes(type) ? type : 'info';
+    const duration   = DURATION[normalType];
+
+    const toast = document.createElement('div');
+    toast.className = 'toast toast-' + normalType;
+    toast.style.setProperty('--toast-duration', duration + 'ms');
+    toast.setAttribute('role', 'alert');
+    toast.innerHTML =
+      '<span class="toast-icon">' + (ICONS[normalType] || 'ℹ') + '</span>' +
+      '<span class="toast-body">' + message + '</span>' +
+      '<button class="toast-close" aria-label="Dismiss">&times;</button>' +
+      '<div class="toast-progress"></div>';
+
+    container.appendChild(toast);
+
+    // Trigger slide-in on next frame
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => toast.classList.add('toast-show'));
+    });
+
+    // Auto-dismiss
+    let timer = setTimeout(() => dismiss(toast), duration);
+
+    // Pause on hover
+    toast.addEventListener('mouseenter', () => clearTimeout(timer));
+    toast.addEventListener('mouseleave', () => {
+      timer = setTimeout(() => dismiss(toast), 1500);
+    });
+
+    // Manual close
+    toast.querySelector('.toast-close').addEventListener('click', () => {
+      clearTimeout(timer);
+      dismiss(toast);
+    });
+  }
+
+  function dismiss(toast) {
+    toast.classList.add('toast-hide');
+    toast.classList.remove('toast-show');
+    toast.addEventListener('transitionend', () => toast.remove(), { once: true });
+  }
+
+  // Expose globally so any PHP page can call: window.toast('success', 'Done!')
+  window.toast = showToast;
+
+  // Fire PHP flash message automatically
+  if (window.__flashToast) {
+    const { type, msg } = window.__flashToast;
+    // Small delay so the page is visually settled first
+    setTimeout(() => showToast(type, msg), 350);
+    delete window.__flashToast;
+  }
+})();
