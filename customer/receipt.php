@@ -1,6 +1,8 @@
 <?php
 require __DIR__ . '/../includes/auth.php';
-require __DIR__ . '/../vendor/autoload.php';
+if (file_exists(__DIR__ . '/../vendor/autoload.php')) {
+    require_once __DIR__ . '/../vendor/autoload.php';
+}
 
 $id = $_GET['id'] ?? null;
 if (!$id) {
@@ -50,6 +52,11 @@ $format = $_GET['format'] ?? 'html';
 
 // ── PDF EXPORT ──────────────────────────────────────────────────────────────
 if ($format === 'pdf') {
+    if (!class_exists('TCPDF')) {
+        flash('error', 'PDF generation dependency is missing. Please run composer install.');
+        header('Location: ' . url('customer/receipt.php?id=' . $id));
+        exit;
+    }
     $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
     $pdf->SetCreator('Jill Hotel Reservation System');
     $pdf->SetAuthor('Jill Hotel');

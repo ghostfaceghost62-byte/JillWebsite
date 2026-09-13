@@ -24,10 +24,9 @@ WORKDIR /var/www/html
 # Copy application code into container
 COPY . /var/www/html
 
-# Run composer to ensure dependencies and autoloader are optimized
-RUN if [ -f "composer.phar" ]; then \
-        php composer.phar install --no-dev --optimize-autoloader; \
-    fi
+# Copy Composer binary from official image and install dependencies
+COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
+RUN composer install --no-dev --optimize-autoloader --no-interaction
 
 # Set proper file permissions for Apache www-data user
 RUN chown -R www-data:www-data /var/www/html

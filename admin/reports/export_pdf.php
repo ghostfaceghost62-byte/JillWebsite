@@ -2,7 +2,13 @@
 require __DIR__ . '/../../includes/bootstrap.php';
 require_admin();
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+if (file_exists(__DIR__ . '/../../vendor/autoload.php')) {
+    require_once __DIR__ . '/../../vendor/autoload.php';
+}
+
+if (!class_exists('TCPDF')) {
+    die('PDF export unavailable: TCPDF is not installed on the server. Please run composer install.');
+}
 
 $start = $_GET['start'] ?? date('Y-m-01');
 $end = $_GET['end'] ?? date('Y-m-t');

@@ -2,7 +2,13 @@
 require __DIR__ . '/../../includes/bootstrap.php';
 require_admin();
 
-require_once __DIR__ . '/../../vendor/autoload.php';
+if (file_exists(__DIR__ . '/../../vendor/autoload.php')) {
+    require_once __DIR__ . '/../../vendor/autoload.php';
+}
+
+if (!class_exists('PhpOffice\PhpSpreadsheet\Spreadsheet')) {
+    die('Excel export unavailable: PhpSpreadsheet is not installed on the server. Please run composer install.');
+}
 
 use PhpOffice\PhpSpreadsheet\Spreadsheet;
 use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
