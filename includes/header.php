@@ -8,7 +8,7 @@ if (user()) {
     $initialTheme = (string) ($themeQuery->fetchColumn() ?: '');
 }
 $isAdminShell = user() && user()['role'] === 'ADMIN';
-$assetVersion = '20260919v3';
+$assetVersion = '20260919v4';
 ?>
 <!doctype html>
 <html lang="en">
