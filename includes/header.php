@@ -8,7 +8,7 @@ if (user()) {
     $initialTheme = (string) ($themeQuery->fetchColumn() ?: '');
 }
 $isAdminShell = user() && user()['role'] === 'ADMIN';
-$assetVersion = '20260919v4';
+$assetVersion = '20260919v5';
 ?>
 <!doctype html>
 <html lang="en">
@@ -27,6 +27,10 @@ $assetVersion = '20260919v4';
             var saved = serverTheme || browserTheme;
             var theme = (saved === 'light' || saved === 'dark') ? saved : 'light';
             document.documentElement.dataset.theme = theme;
+
+            if (localStorage.getItem('hotelreserve-admin-sidebar-collapsed') === 'true') {
+                document.documentElement.classList.add('sidebar-collapsed');
+            }
         } catch(e) {
             document.documentElement.dataset.theme = 'light';
         }

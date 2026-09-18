@@ -34,6 +34,7 @@ body.admin-shell {
     color: var(--text-primary);
     min-height: 100vh;
     -webkit-font-smoothing: antialiased;
+    transition: padding-left 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 /* ---- FIXED SIDEBAR ---------------------------------------- */
@@ -51,12 +52,39 @@ body.admin-shell {
     z-index: 200;
     box-shadow: 4px 0 20px rgba(0, 0, 0, 0.2);
     scrollbar-width: none;
+    transition: width 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 .admin-sidebar::-webkit-scrollbar { display: none; }
 
+.sidebar-brand-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 1.8rem 1.25rem 0.35rem 1.75rem;
+}
+
+.sidebar-toggle-btn {
+    background: none;
+    border: none;
+    color: var(--lido-gold);
+    cursor: pointer;
+    padding: 0.35rem;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+.sidebar-toggle-btn:hover {
+    background: rgba(212, 175, 55, 0.15);
+    color: #FFFFFF;
+}
+.sidebar-toggle-btn svg {
+    transition: transform 0.25s ease;
+}
+
 .admin-sidebar .sidebar-brand {
     display: block;
-    padding: 2.25rem 1.75rem 0.35rem;
     font-family: var(--font-heading);
     font-size: 1.35rem;
     font-weight: 700;
@@ -140,6 +168,84 @@ body.admin-shell {
     margin-top: auto;
     padding: 1.25rem 1.5rem;
     border-top: 1px solid rgba(212, 175, 55, 0.15);
+}
+
+/* ---- COLLAPSED STATE RULES -------------------------------- */
+html.sidebar-collapsed body.admin-shell,
+body.sidebar-collapsed {
+    padding-left: 72px !important;
+}
+html.sidebar-collapsed .admin-sidebar,
+body.sidebar-collapsed .admin-sidebar {
+    width: 72px !important;
+}
+
+html.sidebar-collapsed .admin-sidebar .sidebar-brand-header,
+body.sidebar-collapsed .admin-sidebar .sidebar-brand-header {
+    padding: 1.5rem 0.4rem 0.35rem;
+    justify-content: center;
+    flex-direction: column;
+    gap: 0.4rem;
+}
+
+html.sidebar-collapsed .admin-sidebar .sidebar-brand-full,
+body.sidebar-collapsed .admin-sidebar .sidebar-brand-full {
+    display: none !important;
+}
+
+html.sidebar-collapsed .admin-sidebar .sidebar-brand-short,
+body.sidebar-collapsed .admin-sidebar .sidebar-brand-short {
+    display: inline-block !important;
+    font-size: 1.1rem !important;
+    letter-spacing: 0.05em !important;
+}
+
+html.sidebar-collapsed .admin-sidebar .sidebar-label,
+body.sidebar-collapsed .admin-sidebar .sidebar-label {
+    display: none !important;
+}
+
+html.sidebar-collapsed .admin-sidebar > nav a,
+body.sidebar-collapsed .admin-sidebar > nav a {
+    justify-content: center;
+    padding: 0.75rem 0;
+    gap: 0;
+    border-left: none !important;
+}
+
+html.sidebar-collapsed .admin-sidebar > nav a.active,
+body.sidebar-collapsed .admin-sidebar > nav a.active {
+    background: #6B1D2F !important;
+    border-radius: 8px !important;
+}
+
+html.sidebar-collapsed .admin-sidebar > nav a span.nav-text,
+body.sidebar-collapsed .admin-sidebar > nav a span.nav-text {
+    display: none !important;
+}
+
+html.sidebar-collapsed .sidebar-logout,
+body.sidebar-collapsed .sidebar-logout {
+    padding: 1rem 0.4rem;
+}
+
+html.sidebar-collapsed .sidebar-logout form button,
+body.sidebar-collapsed .sidebar-logout form button {
+    padding: 0.6rem 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+html.sidebar-collapsed .sidebar-logout form button span.logout-text,
+body.sidebar-collapsed .sidebar-logout form button span.logout-text {
+    display: none !important;
+}
+
+html.sidebar-collapsed .sidebar-toggle-btn svg,
+body.sidebar-collapsed .sidebar-toggle-btn svg {
+    transform: rotate(180deg);
+}
 }
 .sidebar-logout form button {
     background: rgba(255, 255, 255, 0.04);
