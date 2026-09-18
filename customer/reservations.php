@@ -3,9 +3,10 @@ require __DIR__ . '/../includes/auth.php';
 
 $pdo = db();
 $s = $pdo->prepare('
-    SELECT r.*, rm.title, rm.room_number, rm.bed_type
+    SELECT r.*, rm.title, rm.room_number, rm.bed_type, p.payment_status, p.payment_method, p.online_ref_code, p.payment_proof_img
     FROM reservations r
     JOIN rooms rm ON rm.id = r.room_id
+    LEFT JOIN payments p ON p.reservation_id = r.id
     WHERE r.user_id = ?
     ORDER BY r.created_at DESC
 ');
@@ -20,7 +21,7 @@ require __DIR__ . '/../includes/header.php';
     <div>
         <span class="kicker">RESERVATION HISTORY</span>
         <h1 style="margin-bottom: 0.35rem;">My Stays</h1>
-        <p style="color: var(--text-secondary, #5C625D);">View and manage your past and upcoming reservations with Jill Hotel.</p>
+        <p style="color: var(--text-secondary, #5C625D);">View and manage your past and upcoming reservations with Lido De Paris Hotel.</p>
     </div>
     <a class="btn btn-gold" href="<?=url('rooms/index.php')?>">Book Another Stay</a>
 </div>
@@ -41,7 +42,9 @@ require __DIR__ . '/../includes/header.php';
                     </tr>
                 </thead>
                 <tbody>
-                    <?php foreach ($rows as $r): ?>
+                    <?php foreach ($rows as $r): 
+                        $pStatus = $r['payment_status'] ?? 'PENDING';
+                    ?>
                         <tr>
                             <td>
                                 <strong style="font-family: monospace; font-size: 0.95rem;"><?=e($r['reservation_number'])?></strong>
@@ -64,16 +67,31 @@ require __DIR__ . '/../includes/header.php';
                                 <small style="color: var(--text-secondary, #7A807B);">(<?=$r['adults']?> Adult<?=$r['adults'] > 1 ? 's' : ''?><?=!empty($r['children']) ? ', ' . $r['children'] . ' Child' : ''?>)</small>
                             </td>
                             <td>
-                                <strong style="color: var(--brand, #1C3328); font-size: 1.05rem;">₱<?=number_format((float)$r['total_amount'], 2)?></strong>
+                                <strong style="color: var(--brand, #6B1D2F); font-size: 1.05rem;">₱<?=number_format((float)$r['total_amount'], 2)?></strong>
                                 <br>
                                 <small style="color: var(--text-secondary, #7A807B);">Includes 12% tax</small>
                             </td>
                             <td>
                                 <span class="badge" data-status="<?=e($r['status'])?>"><?=e($r['status'])?></span>
+                                <br>
+                                <?php if ($pStatus === 'PAID'): ?>
+                                    <span class="badge" style="background: #ECFDF5; color: #065F46; font-size: 0.72rem; margin-top: 0.2rem; display: inline-block;">Payment: PAID</span>
+                                <?php elseif ($pStatus === 'PENDING_APPROVAL'): ?>
+                                    <span class="badge" style="background: #FEF3C7; color: #92400E; font-size: 0.72rem; margin-top: 0.2rem; display: inline-block;">Payment: UNDER REVIEW</span>
+                                <?php elseif ($pStatus === 'REJECTED'): ?>
+                                    <span class="badge" style="background: #FEF2F2; color: #991B1B; font-size: 0.72rem; margin-top: 0.2rem; display: inline-block;">Payment: REJECTED</span>
+                                <?php else: ?>
+                                    <span class="badge" style="background: #F3F4F6; color: #4B5563; font-size: 0.72rem; margin-top: 0.2rem; display: inline-block;">Payment: UNPAID</span>
+                                <?php endif; ?>
                             </td>
                             <td>
                                 <?php if (in_array($r['status'], ['PENDING', 'CONFIRMED']) && strtotime($r['check_in']) > time()): ?>
                                     <div style="display:flex; gap: 0.5rem; flex-wrap: wrap;">
+                                        <?php if (in_array($pStatus, ['PENDING', 'REJECTED', 'UNPAID', ''])): ?>
+                                            <a class="btn small btn-gold" href="<?=url('customer/pay.php?id='.$r['id'])?>">Pay / Upload Proof</a>
+                                        <?php elseif ($pStatus === 'PENDING_APPROVAL'): ?>
+                                            <a class="btn small btn-outline" href="<?=url('customer/pay.php?id='.$r['id'])?>">View Submitted Proof</a>
+                                        <?php endif; ?>
                                         <a class="btn small" href="<?=url('customer/reservation_edit.php?id='.$r['id'])?>">Modify</a>
                                         <a class="btn small btn-outline" href="<?=url('customer/receipt.php?id='.$r['id'])?>">Receipt</a>
                                         <form method="post" action="<?=url('reservations/cancel.php')?>" onsubmit="return confirm('Are you sure you wish to cancel reservation <?=e($r['reservation_number'])?>?');">
