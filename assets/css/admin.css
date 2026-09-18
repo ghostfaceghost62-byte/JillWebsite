@@ -27,7 +27,7 @@ body.admin-shell {
     left: 0;
     width: 240px;
     height: 100vh;
-    background: #192D22;
+    background: #2A1017;
     display: flex;
     flex-direction: column;
     overflow-y: auto;
@@ -44,7 +44,7 @@ body.admin-shell {
     font-weight: 700;
     letter-spacing: 0.16em;
     text-transform: uppercase;
-    color: #C5A566;
+    color: #D4AF37;
     text-decoration: none;
     line-height: 1.1;
 }
@@ -56,7 +56,7 @@ body.admin-shell {
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: rgba(255, 255, 255, 0.38);
+    color: rgba(212, 175, 55, 0.45);
 }
 
 .admin-sidebar > nav {
@@ -73,7 +73,7 @@ body.admin-shell {
     gap: 0.85rem;
     padding: 0.7rem 1rem;
     border-radius: 8px;
-    color: rgba(255, 255, 255, 0.65);
+    color: rgba(250, 248, 245, 0.7);
     text-decoration: none;
     font-size: 0.88rem;
     font-weight: 500;
@@ -81,13 +81,14 @@ body.admin-shell {
     white-space: nowrap;
 }
 .admin-sidebar > nav a:hover {
-    background: rgba(255, 255, 255, 0.07);
-    color: #FFFFFF;
+    background: rgba(212, 175, 55, 0.12);
+    color: #D4AF37;
 }
 .admin-sidebar > nav a.active {
-    background: #253C2F;
+    background: #6B1D2F;
     color: #FFFFFF;
     font-weight: 600;
+    border-left: 3px solid #D4AF37;
 }
 .admin-sidebar > nav a .nav-icon {
     width: 20px;
@@ -550,30 +551,35 @@ body.admin-shell main.container {
 .btn-details {
     display: inline-block;
     padding: 0.45rem 1rem;
-    background: #BA9653;
+    background: #6B1D2F;
     color: #FFFFFF !important;
-    border: none;
+    border: 1px solid #6B1D2F;
     border-radius: 6px;
     font-size: 0.78rem;
     font-weight: 600;
     cursor: pointer;
     text-decoration: none !important;
     white-space: nowrap;
-    transition: background-color 0.15s ease;
+    transition: all 0.15s ease;
     font-family: inherit;
 }
 .btn-details:hover {
-    background: #A07F3E;
+    background: #8B263E;
+    border-color: #8B263E;
     color: #FFFFFF !important;
 }
 
 .btn-gold {
-    background: #BA9653 !important;
-    color: #FFFFFF !important;
+    background: linear-gradient(135deg, #D4AF37, #C5A059) !important;
+    color: #1A0D00 !important;
+    font-weight: 700 !important;
     border: none !important;
+    box-shadow: 0 2px 6px rgba(212, 175, 55, 0.25);
+    transition: all 0.15s ease;
 }
 .btn-gold:hover {
-    background: #A07F3E !important;
+    background: linear-gradient(135deg, #C5A059, #B89428) !important;
+    box-shadow: 0 4px 10px rgba(212, 175, 55, 0.4);
 }
 
 /* ---- ACTIVITY LOGS PANEL ---------------------------------- */
@@ -624,9 +630,9 @@ body.admin-shell main.container {
 }
 .pgn-btn:hover,
 .pgn-btn.is-active {
-    background: #192D22;
+    background: #6B1D2F;
     color: #FFFFFF;
-    border-color: #192D22;
+    border-color: #6B1D2F;
 }
 
 /* ---- SELECT & FORMS --------------------------------------- */

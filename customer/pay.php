@@ -244,3 +244,4 @@ function previewProofImage(input) {
 </script>
 
 <?php require __DIR__ . '/../includes/footer.php'; ?>
+

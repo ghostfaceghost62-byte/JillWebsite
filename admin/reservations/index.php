@@ -130,20 +130,19 @@ require __DIR__ . '/../../includes/header.php';
                             <?php if ($pStatus === 'PENDING_APPROVAL'): ?>
                                 <span class="badge" style="background:#FEF3C7;color:#92400E;font-weight:600;padding:0.25rem 0.5rem;border-radius:4px;display:inline-block;margin-bottom:0.3rem;">⚡ UNDER REVIEW</span>
                                 <br>
-                                <button class="btn small btn-gold" type="button" onclick="openPaymentModal(<?=htmlentities(json_encode($r))?>)">Inspect Proof</button>
+                                <button class="btn small btn-gold" type="button" style="font-weight:700;margin-top:0.2rem;" onclick="openPaymentModal(<?=htmlentities(json_encode($r))?>)">📷 Inspect Proof</button>
                             <?php elseif ($pStatus === 'PAID'): ?>
                                 <span class="badge" style="background:#ECFDF5;color:#065F46;font-weight:600;padding:0.2rem 0.45rem;border-radius:4px;display:inline-block;">✅ PAID</span>
                                 <?php if (!empty($r['online_ref_code'])): ?>
                                     <br><small style="font-family:monospace;font-size:0.72rem;color:var(--text-secondary);">Ref: <?=e($r['online_ref_code'])?></small>
                                 <?php endif; ?>
+                                <br><button class="btn small btn-outline" type="button" style="margin-top:0.25rem;font-size:0.72rem;padding:0.2rem 0.45rem;border:1px solid #D4AF37;color:#6B1D2F;border-radius:4px;" onclick="openPaymentModal(<?=htmlentities(json_encode($r))?>)">📷 Review Proof</button>
                             <?php elseif ($pStatus === 'REJECTED'): ?>
                                 <span class="badge" style="background:#FEF2F2;color:#991B1B;font-weight:600;padding:0.2rem 0.45rem;border-radius:4px;display:inline-block;">❌ REJECTED</span>
+                                <br><button class="btn small btn-outline" type="button" style="margin-top:0.25rem;font-size:0.72rem;padding:0.2rem 0.45rem;border:1px solid #6B1D2F;color:#6B1D2F;border-radius:4px;" onclick="openPaymentModal(<?=htmlentities(json_encode($r))?>)">📷 Review Details</button>
                             <?php else: ?>
                                 <span class="badge" style="background:#F3F4F6;color:#4B5563;font-weight:600;padding:0.2rem 0.45rem;border-radius:4px;display:inline-block;">UNPAID</span>
-                            <?php endif; ?>
-                            
-                            <?php if (!empty($r['payment_proof_img']) && $pStatus !== 'PENDING_APPROVAL'): ?>
-                                <br><button class="btn small btn-outline" type="button" style="margin-top:0.25rem;font-size:0.72rem;padding:0.15rem 0.4rem;" onclick="openPaymentModal(<?=htmlentities(json_encode($r))?>)">View Proof</button>
+                                <br><button class="btn small btn-outline" type="button" style="margin-top:0.25rem;font-size:0.72rem;padding:0.2rem 0.45rem;border:1px solid #CCC;color:#555;border-radius:4px;" onclick="openPaymentModal(<?=htmlentities(json_encode($r))?>)">📷 Inspect Details</button>
                             <?php endif; ?>
                         </td>
                         <td>
@@ -174,10 +173,10 @@ require __DIR__ . '/../../includes/header.php';
 
 <!-- Modal for Inspecting Payment Proof -->
 <div id="paymentModal" style="display:none; position:fixed; inset:0; background:rgba(0,0,0,0.75); z-index:9999; align-items:center; justify-content:center; padding:1.5rem;">
-    <div style="background:var(--surface, #FFF); border-radius:10px; max-width:620px; width:100%; max-height:90vh; overflow-y:auto; padding:2rem; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.4);">
+    <div style="background:var(--surface, #FFF); border-radius:10px; max-width:620px; width:100%; max-height:90vh; overflow-y:auto; padding:2rem; position:relative; box-shadow:0 20px 40px rgba(0,0,0,0.4); border:2px solid #D4AF37;">
         <button type="button" onclick="closePaymentModal()" style="position:absolute; top:1rem; right:1rem; background:transparent; border:none; font-size:1.5rem; cursor:pointer; color:var(--text-primary);">&times;</button>
         
-        <h3 style="margin-top:0; margin-bottom:1rem; font-size:1.35rem; color:var(--brand, #6B1D2F);">Payment Verification Details</h3>
+        <h3 style="margin-top:0; margin-bottom:1rem; font-size:1.35rem; color:#6B1D2F;">📷 Lido Payment Verification &amp; Review</h3>
         
         <div id="modalContent">
             <!-- Populated via JavaScript -->
@@ -197,13 +196,15 @@ function openPaymentModal(data) {
         <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem; margin-bottom:1.25rem; background:var(--surface-muted, #F5EFE6); padding:1rem; border-radius:6px; font-size:0.9rem;">
             <div>
                 <strong>Reservation #:</strong> <span style="font-family:monospace;">${data.reservation_number}</span><br>
-                <strong>Guest:</strong> ${data.first_name} ${data.last_name}<br>
-                <strong>Total Amount:</strong> <span style="color:var(--brand); font-weight:bold;">₱${parseFloat(data.total_amount).toLocaleString(undefined, {minimumFractionDigits:2})}</span>
+                <strong>Guest Name:</strong> ${data.first_name} ${data.last_name}<br>
+                <strong>Total Amount:</strong> <span style="color:#6B1D2F; font-weight:bold;">₱${parseFloat(data.total_amount).toLocaleString(undefined, {minimumFractionDigits:2})}</span><br>
+                <strong>Payment Status:</strong> <span style="font-weight:bold;">${data.payment_status || 'UNPAID'}</span>
             </div>
             <div>
                 <strong>Payment Method:</strong> ${data.payment_method || 'N/A'}<br>
-                <strong>Ref Code / Number:</strong> <span style="font-family:monospace; background:#FFF; padding:2px 6px; border-radius:4px; font-weight:bold;">${data.online_ref_code || 'None'}</span><br>
+                <strong>Ref Code / Number:</strong> <span style="font-family:monospace; background:#FFF; padding:2px 6px; border-radius:4px; font-weight:bold; border:1px solid #D4AF37;">${data.online_ref_code || 'None'}</span><br>
                 <strong>Submitted At:</strong> ${data.submitted_at || 'N/A'}
+                ${data.admin_notes ? `<br><strong>Admin Notes:</strong> ${data.admin_notes}` : ''}
             </div>
         </div>
     `;
@@ -211,30 +212,30 @@ function openPaymentModal(data) {
     if (proofUrl) {
         html += `
             <div style="margin-bottom:1.5rem; text-align:center;">
-                <label style="display:block; font-weight:bold; margin-bottom:0.5rem; text-align:left;">Uploaded Screenshot Receipt:</label>
+                <label style="display:block; font-weight:bold; margin-bottom:0.5rem; text-align:left; color:#6B1D2F;">Uploaded Screenshot Receipt:</label>
                 <a href="${proofUrl}" target="_blank" title="Click to view full resolution">
-                    <img src="${proofUrl}" alt="Proof of Payment" style="max-width:100%; max-height:300px; border-radius:6px; border:1px solid var(--border-color); object-fit:contain; background:#000;">
+                    <img src="${proofUrl}" alt="Proof of Payment" style="max-width:100%; max-height:300px; border-radius:6px; border:2px solid #D4AF37; object-fit:contain; background:#000;">
                 </a>
                 <small style="display:block; color:var(--text-secondary); margin-top:0.3rem;">(Click image to open full size in new tab)</small>
             </div>
         `;
     } else {
-        html += `<p style="color:red;">No proof image uploaded.</p>`;
+        html += `<div style="background:#FFF3CD; color:#856404; padding:0.75rem; border-radius:6px; margin-bottom:1rem; font-size:0.9rem;">ℹ️ No screenshot proof uploaded for this booking.</div>`;
     }
 
     if (data.payment_status === 'PENDING_APPROVAL') {
         html += `
-            <div style="display:flex; gap:1rem; margin-top:1.5rem; border-top:1px solid var(--border-color); padding-top:1.25rem;">
+            <div style="display:flex; gap:1rem; margin-top:1.5rem; border-top:1px solid var(--border-color, #EAE4DA); padding-top:1.25rem;">
                 <form method="post" action="index.php" style="flex:1;">
                     <input type="hidden" name="csrf" value="${csrfToken}">
                     <input type="hidden" name="id" value="${data.id}">
                     <input type="hidden" name="action" value="approve_payment">
-                    <button class="btn btn-gold" type="submit" style="width:100%; padding:0.75rem; font-weight:bold;" onclick="return confirm('Approve payment of ₱${parseFloat(data.total_amount).toLocaleString()} and confirm reservation?')">
+                    <button class="btn btn-gold" type="submit" style="width:100%; padding:0.75rem; font-weight:bold; background:linear-gradient(135deg, #D4AF37, #C5A059); color:#1A0D00; border:none; border-radius:6px; cursor:pointer;" onclick="return confirm('Approve payment of ₱${parseFloat(data.total_amount).toLocaleString()} and confirm reservation?')">
                         ✅ Approve Payment &amp; Confirm Booking
                     </button>
                 </form>
 
-                <button class="btn danger" type="button" style="flex:1; padding:0.75rem; font-weight:bold;" onclick="toggleRejectBox()">
+                <button class="btn danger" type="button" style="flex:1; padding:0.75rem; font-weight:bold; background:#6B1D2F; color:#FFF; border:none; border-radius:6px; cursor:pointer;" onclick="toggleRejectBox()">
                     ❌ Reject Payment
                 </button>
             </div>
@@ -245,7 +246,7 @@ function openPaymentModal(data) {
                 <input type="hidden" name="action" value="reject_payment">
                 <label style="display:block; font-weight:bold; margin-bottom:0.4rem; color:#991B1B;">Reason for Rejection:</label>
                 <input required type="text" name="reject_reason" placeholder="e.g. Invalid reference code or blurry receipt image" style="width:100%; padding:0.5rem; border-radius:4px; border:1px solid #FCA5A5; margin-bottom:0.75rem;">
-                <button class="btn danger small" type="submit">Confirm Rejection</button>
+                <button class="btn danger small" type="submit" style="background:#6B1D2F; color:#FFF; border:none; padding:0.4rem 0.8rem; border-radius:4px; cursor:pointer;">Confirm Rejection</button>
             </form>
         `;
     }
