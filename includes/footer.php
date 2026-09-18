@@ -46,7 +46,7 @@
     </div>
     <div class="footer-bottom">
         <div>&copy; <?=date('Y')?> Lido De Paris Hotel &amp; Entertainment Center, Inc. All rights reserved.</div>
-        <div>All rates and charges are quoted in Philippine Pesos (₱)</div>
+        <div>All rates and charges are quoted in Philippine Pesos (₱) &nbsp;|&nbsp; <a href="<?=url('terms.php')?>" style="color: var(--accent-light, #DFC58C); text-decoration: underline;">Terms &amp; Conditions</a></div>
     </div>
 </footer>
 <script src="<?=url('assets/js/main.js?v=20260904v12')?>"></script>
