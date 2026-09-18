@@ -115,8 +115,8 @@ button:hover {
     margin-bottom: 1.8rem;
     padding: clamp(2.5rem, 6vw, 5.3rem);
     background:
-        linear-gradient(120deg, rgba(12, 25, 42, 0.9), rgba(19, 43, 70, 0.8)),
-        url('https://images.unsplash.com/photo-1505693416388-ac5ce068fe85?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
+        linear-gradient(120deg, rgba(35, 15, 20, 0.9), rgba(107, 29, 47, 0.8)),
+        url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1600&q=80') center/cover no-repeat;
     color: #fff;
     box-shadow: var(--luxury-shadow);
 }
@@ -252,7 +252,7 @@ textarea:focus {
     box-shadow: var(--luxury-shadow);
     background:
         linear-gradient(180deg, rgba(0, 0, 0, 0.08), rgba(0, 0, 0, 0.18)),
-        url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
+        url('https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=1400&q=80') center/cover no-repeat;
 }
 
 .feature-copy {
