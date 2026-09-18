@@ -123,10 +123,10 @@ $fallbackImages = [
     <span class="eyebrow-title">A SENSE OF PLACE</span>
     <h2 id="gallery-title" class="section-title">Moments worth lingering over.</h2>
     <div class="gallery-grid" aria-label="Hotel photo gallery">
-        <div role="img" aria-label="Scenic infinity pool overlooking the bay"></div>
-        <div role="img" aria-label="Signature dining restaurant"></div>
-        <div role="img" aria-label="Peaceful wellness spa suite"></div>
-        <div role="img" aria-label="Evening terrace ambiance"></div>
+        <div role="img" aria-label="Grand lobby and reception lounge"></div>
+        <div role="img" aria-label="Signature dining and Cantonese restaurant"></div>
+        <div role="img" aria-label="Relaxing wellness spa and sauna"></div>
+        <div role="img" aria-label="Live entertainment and music lounge"></div>
     </div>
 </section>
 

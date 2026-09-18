@@ -6,33 +6,33 @@
 :root {
     color-scheme: light;
     
-    /* Light Theme (Boutique Luxury Creamy White) */
+    /* Light Theme (Lido De Paris Luxury Gold & Crimson) */
     --bg-primary: #FAF8F5;
-    --bg-secondary: #F4EFE6;
+    --bg-secondary: #F5EFE6;
     --surface: #FFFFFF;
     --surface-muted: #F5EFE6;
-    --surface-hover: rgba(184, 150, 80, 0.05);
+    --surface-hover: rgba(197, 160, 89, 0.08);
     
-    --text-primary: #2A2D2A;
-    --text-secondary: #5C625D;
-    --text-heading: #15221B;
+    --text-primary: #2A2A2A;
+    --text-secondary: #5C5856;
+    --text-heading: #1C1416;
     --text-on-dark: #FAF8F5;
     
-    --border-color: #E8E2D7;
-    --border-light: #F0EBE2;
+    --border-color: #E8E0D5;
+    --border-light: #F0EAE0;
     
-    --brand: #1C3328;
-    --brand-deep: #12241C;
-    --accent: #B89650;
-    --accent-light: #DFC58C;
-    --accent-dark: #8E7134;
-    --accent-strong: #8b6d32;
+    --brand: #6B1D2F;
+    --brand-deep: #4A0E18;
+    --accent: #C5A059;
+    --accent-light: #E0C58A;
+    --accent-dark: #9A7730;
+    --accent-strong: #9A7730;
     
-    --button-bg: #1C3328;
+    --button-bg: #6B1D2F;
     --button-text: #FAF8F5;
-    --button-hover: #12241C;
+    --button-hover: #4A0E18;
     
-    --focus-ring: rgba(184, 150, 80, 0.35);
+    --focus-ring: rgba(197, 160, 89, 0.35);
     
     --success-bg: #ECFDF5;
     --success-text: #065F46;
@@ -41,41 +41,41 @@
     --warning-bg: #FFFBEB;
     --warning-text: #92400E;
     
-    --shadow-sm: 0 2px 8px rgba(28, 33, 29, 0.04);
-    --shadow-md: 0 8px 24px rgba(28, 33, 29, 0.06);
-    --shadow-lg: 0 16px 42px rgba(28, 51, 40, 0.1);
+    --shadow-sm: 0 2px 8px rgba(35, 20, 24, 0.04);
+    --shadow-md: 0 8px 24px rgba(35, 20, 24, 0.06);
+    --shadow-lg: 0 16px 42px rgba(107, 29, 47, 0.12);
 }
 
 html[data-theme="dark"] {
     color-scheme: dark;
     
-    /* Dark Theme (Quiet Luxury Midnight / Emerald Noir) */
-    --bg-primary: #121614;
-    --bg-secondary: #181D1A;
-    --surface: #1B211D;
-    --surface-muted: #242B26;
-    --surface-hover: rgba(223, 197, 140, 0.06);
+    /* Dark Theme (Lido Midnight Crimson & Gold) */
+    --bg-primary: #141113;
+    --bg-secondary: #1C171A;
+    --surface: #221D20;
+    --surface-muted: #2A2427;
+    --surface-hover: rgba(224, 197, 138, 0.08);
     
-    --text-primary: #E8E6E1;
-    --text-secondary: #A0A8A2;
-    --text-heading: #F5F2EB;
+    --text-primary: #EBE5E0;
+    --text-secondary: #AAA099;
+    --text-heading: #F8F5F0;
     --text-on-dark: #FAF8F5;
     
-    --border-color: #2D3630;
-    --border-light: #252D27;
+    --border-color: #382F33;
+    --border-light: #2E272A;
     
-    --brand: #3A6350;
-    --brand-deep: #0D110E;
-    --accent: #D8BA7B;
+    --brand: #8E2536;
+    --brand-deep: #1A0A0E;
+    --accent: #D4AF37;
     --accent-light: #EBD6A7;
-    --accent-dark: #B89650;
-    --accent-strong: #E0C487;
+    --accent-dark: #C5A059;
+    --accent-strong: #E5C378;
     
-    --button-bg: #D8BA7B;
-    --button-text: #141715;
-    --button-hover: #E8CE98;
+    --button-bg: #C5A059;
+    --button-text: #141113;
+    --button-hover: #E5C378;
     
-    --focus-ring: rgba(216, 186, 123, 0.4);
+    --focus-ring: rgba(212, 175, 55, 0.4);
     
     --success-bg: #143522;
     --success-text: #86EFAC;

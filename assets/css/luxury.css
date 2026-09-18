@@ -98,7 +98,7 @@ nav#site-nav a.active::after {
     padding: 6rem max(6vw, 2.5rem);
     display: flex;
     align-items: flex-end;
-    background: linear-gradient(180deg, rgba(18, 36, 28, 0.25) 0%, rgba(18, 36, 28, 0.85) 100%),
+    background: linear-gradient(180deg, rgba(35, 15, 20, 0.35) 0%, rgba(20, 10, 15, 0.88) 100%),
                 url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=2200&q=85') center/cover no-repeat;
     color: #FAF8F5;
 }
@@ -220,7 +220,7 @@ nav#site-nav a.active::after {
     padding: 5rem max(6vw, 2.5rem) 4rem;
     display: flex;
     align-items: flex-end;
-    background: linear-gradient(180deg, rgba(18, 36, 28, 0.4) 0%, rgba(18, 36, 28, 0.9) 100%),
+    background: linear-gradient(180deg, rgba(35, 15, 20, 0.4) 0%, rgba(20, 10, 15, 0.9) 100%),
                 url('https://images.unsplash.com/photo-1564501049412-61c2a3083791?auto=format&fit=crop&w=2000&q=85') center/cover no-repeat;
     color: #FAF8F5;
 }
@@ -461,11 +461,11 @@ nav#site-nav a.active::after {
 
 .gallery-grid div:first-child {
     grid-row: span 2;
-    background-image: url('https://images.unsplash.com/photo-1542314831-068cd1dbfeeb?auto=format&fit=crop&w=1200&q=85');
+    background-image: url('https://images.unsplash.com/photo-1566073771259-6a8506099945?auto=format&fit=crop&w=1200&q=85');
 }
 
 .gallery-grid div:nth-child(2) {
-    background-image: url('https://images.unsplash.com/photo-1571896349842-33c89424de2d?auto=format&fit=crop&w=900&q=85');
+    background-image: url('https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?auto=format&fit=crop&w=900&q=85');
 }
 
 .gallery-grid div:nth-child(3) {
@@ -473,7 +473,7 @@ nav#site-nav a.active::after {
 }
 
 .gallery-grid div:nth-child(4) {
-    background-image: url('https://images.unsplash.com/photo-1551882547-ff40c63fe5fa?auto=format&fit=crop&w=900&q=85');
+    background-image: url('https://images.unsplash.com/photo-1511192336575-5a79af67a629?auto=format&fit=crop&w=900&q=85');
 }
 
 /* Amenities Page */
