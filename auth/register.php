@@ -184,7 +184,6 @@ require __DIR__ . '/../includes/header.php';
             <div style="margin-bottom: 1.5rem;">
                 <label style="display: flex; align-items: flex-start; gap: 0.65rem; cursor: pointer; font-size: 0.85rem; line-height: 1.5; color: var(--text-secondary, #5C625D);">
                     <input type="checkbox" name="agree_terms" value="1" id="agree-terms" required style="margin-top: 0.2rem; accent-color: var(--accent, #B89650); width: 18px; height: 18px; flex-shrink: 0; cursor: pointer;">
-                    <span>I have read and agree to the <a href="<?=url('terms.php')?>" target="_blank" style="color: var(--accent, #B89650); font-weight: 600; text-decoration: underline;">Terms &amp; Conditions</a> of Lido De Paris Hotel &amp; Entertainment Center, Inc.</span>
                     <span>I have read and agree to the <a href="#" onclick="document.getElementById('terms-modal').style.display='flex'; return false;" style="color: var(--accent, #B89650); font-weight: 600; text-decoration: underline;">Terms &amp; Conditions</a> of Lido De Paris Hotel &amp; Entertainment Center, Inc.</span>
                 </label>
             </div>
