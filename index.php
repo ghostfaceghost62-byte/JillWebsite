@@ -12,7 +12,7 @@ $rooms = db()->query("
     LIMIT 3
 ")->fetchAll();
 $amenities = db()->query('SELECT name, description FROM amenities ORDER BY id LIMIT 4')->fetchAll();
-$pageTitle = 'Luxury Boutique Hotel Manila';
+$pageTitle = 'Lido De Paris Hotel - Manila Chinatown';
 require __DIR__ . '/includes/header.php';
 
 $fallbackImages = [
@@ -24,12 +24,12 @@ $fallbackImages = [
 
 <section class="hero-luxury" aria-label="Welcome Hero">
     <div class="hero-copy">
-        <span class="kicker">WELCOME TO JILL HOTEL MANILA</span>
+        <span class="kicker">WELCOME TO LIDO DE PARIS HOTEL</span>
         <h1>Your stay,<br>elevated.</h1>
-        <p>A tranquil boutique sanctuary blending warm Filipino hospitality with refined, understated luxury along Seaside Avenue.</p>
+        <p>Vibrant hospitality, elegant rooms, and premier entertainment in the heart of Manila's Chinatown along historic Ongpin Street.</p>
         <div class="hero-actions">
             <a class="btn btn-gold" href="#book">Book your stay</a>
-            <a class="btn btn-outline" href="<?=url('rooms/index.php')?>">Explore suites</a>
+            <a class="btn btn-outline" href="<?=url('rooms/index.php')?>">Explore rooms &amp; suites</a>
         </div>
     </div>
 </section>
@@ -64,12 +64,12 @@ $fallbackImages = [
 </form>
 
 <section class="editorial split-feature" aria-labelledby="experience-title">
-    <div class="feature-image experience" role="img" aria-label="Jill Hotel luxury lobby lounge"></div>
+    <div class="feature-image experience" role="img" aria-label="Lido De Paris Hotel lobby lounge"></div>
     <div class="feature-copy">
-        <span class="eyebrow-title">THE JILL HOTEL EXPERIENCE</span>
-        <h2 id="experience-title" class="section-title">A quieter kind of luxury in the heart of Manila.</h2>
-        <p>From the serene arrival on Seaside Avenue to the thoughtful calm of each private suite, every element has been curated for an unhurried, restorative stay.</p>
-        <p>Whether visiting for a restful coastal getaway or executive business, our dedicated concierge ensures every detail feels effortless and distinctly yours.</p>
+        <span class="eyebrow-title">THE LIDO DE PARIS EXPERIENCE</span>
+        <h2 id="experience-title" class="section-title">Comfort, culture, and entertainment in historic Binondo.</h2>
+        <p>Located along vibrant Ongpin Street, Lido De Paris Hotel places you at the center of Manila Chinatown's rich heritage, renowned food strips, and bustling culture.</p>
+        <p>Featuring over 200 rooms and suites, event function halls, a wellness spa, and entertainment facilities, we offer a welcoming home for both leisure and business stays.</p>
         <a class="btn btn-outline" href="<?=url('about.php')?>">Discover Our Story</a>
     </div>
 </section>

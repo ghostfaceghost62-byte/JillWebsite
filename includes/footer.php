@@ -7,8 +7,8 @@
 <footer>
     <div class="footer-inner">
         <div class="footer-brand">
-            <h4>JILL HOTEL</h4>
-            <p>A tranquil boutique sanctuary inspired by the natural beauty and warm hospitality of the Philippine islands. Every stay is crafted for deep rest and memorable moments.</p>
+            <h4>LIDO DE PARIS HOTEL</h4>
+            <p>Located in the heart of Manila's Chinatown (Binondo), Lido De Paris Hotel &amp; Entertainment Center offers vibrant hospitality, stylish rooms, event halls, dining, and relaxation for business and leisure travelers.</p>
         </div>
         <div class="footer-col">
             <h5>Explore</h5>
@@ -36,15 +36,16 @@
         <div class="footer-col">
             <h5>Concierge &amp; Location</h5>
             <p style="color: rgba(250,248,245,0.75); font-size: 0.85rem; line-height: 1.6; margin-bottom: 0.75rem;">
-                101 Seaside Avenue, Manila, Philippines<br>
-                Direct: +63 2 8123 4567<br>
-                Email: stay@hotelreserve.local
+                1036 Ongpin Street, Sta. Cruz, Manila, Philippines<br>
+                Tel: +63 2 8708 8888 | Mobile: +63 917 894 6943<br>
+                Email: inquiry@lidodeparishotel.com<br>
+                Facebook: <a href="https://www.facebook.com/lido1036" target="_blank" rel="noopener" style="color: var(--accent-light, #DFC58C); text-decoration: underline;">@lido1036</a>
             </p>
             <p style="color: var(--accent-light, #DFC58C); font-size: 0.78rem; font-weight: 600;">Front Desk available 24 hours daily</p>
         </div>
     </div>
     <div class="footer-bottom">
-        <div>&copy; <?=date('Y')?> Jill Hotel Reservation System. All rights reserved.</div>
+        <div>&copy; <?=date('Y')?> Lido De Paris Hotel &amp; Entertainment Center, Inc. All rights reserved.</div>
         <div>All rates and charges are quoted in Philippine Pesos (₱)</div>
     </div>
 </footer>

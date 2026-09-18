@@ -17,12 +17,12 @@ require __DIR__ . '/includes/header.php';
         <span style="font-size: 1.5rem; display: block; margin-bottom: 0.75rem;">📍</span>
         <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Our Location</h3>
         <p style="font-size: 0.92rem; line-height: 1.7; color: var(--text-secondary, #5C625D);">
-            101 Seaside Avenue<br>
-            Manila, Metro Manila<br>
+            1036 Ongpin Street<br>
+            Sta. Cruz, Manila 1003<br>
             Philippines
         </p>
         <p style="font-size: 0.8rem; color: var(--accent, #B89650); font-weight: 600; margin-top: 0.5rem;">
-            Complimentary on-site valet parking
+            Complimentary on-site guest parking
         </p>
     </div>
 
@@ -30,12 +30,13 @@ require __DIR__ . '/includes/header.php';
         <span style="font-size: 1.5rem; display: block; margin-bottom: 0.75rem;">📞</span>
         <h3 style="font-size: 1.25rem; margin-bottom: 0.5rem;">Direct Inquiries</h3>
         <p style="font-size: 0.92rem; line-height: 1.7; color: var(--text-secondary, #5C625D);">
-            Phone: <strong>+63 2 8123 4567</strong><br>
-            Mobile: +63 900 000 0000<br>
-            Email: <a href="mailto:stay@hotelreserve.local">stay@hotelreserve.local</a>
+            Phone: <strong>+63 2 8708 8888</strong><br>
+            Mobile: <strong>+63 917 894 6943</strong><br>
+            Email: <a href="mailto:inquiry@lidodeparishotel.com">inquiry@lidodeparishotel.com</a><br>
+            Facebook: <a href="https://www.facebook.com/lido1036" target="_blank" rel="noopener">@lido1036</a>
         </p>
         <p style="font-size: 0.8rem; color: var(--accent, #B89650); font-weight: 600; margin-top: 0.5rem;">
-            24/7 Front Desk & Concierge
+            24/7 Front Desk &amp; Concierge
         </p>
     </div>
 

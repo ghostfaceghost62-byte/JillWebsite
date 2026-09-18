@@ -10,8 +10,8 @@ $isActive = static function (string $path) use ($currentPath): string {
 ?>
 <?php if (user() && user()['role'] === 'ADMIN'): ?>
 <aside class="admin-sidebar">
-    <a class="sidebar-brand" href="<?=url('admin/index.php')?>">JILL HOTEL</a>
-    <span class="sidebar-label">JILL HOTEL ADMIN</span>
+    <a class="sidebar-brand" href="<?=url('admin/index.php')?>">LIDO DE PARIS</a>
+    <span class="sidebar-label">LIDO DE PARIS ADMIN</span>
     <nav aria-label="Admin navigation">
         <a class="<?=$isActive('admin/index.php')?>" href="<?=url('admin/index.php')?>">
             <span class="nav-icon">
@@ -102,7 +102,7 @@ $isActive = static function (string $path) use ($currentPath): string {
 </div>
 <?php else: ?>
 <header class="site-header">
-    <a class="brand" href="<?=url()?>" aria-label="Jill Hotel Homepage">JILL<span>HOTEL</span></a>
+    <a class="brand" href="<?=url()?>" aria-label="Lido De Paris Hotel Homepage">LIDO DE PARIS<span> HOTEL</span></a>
     <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation menu">Menu</button>
     <nav id="site-nav" aria-label="Primary navigation">
         <?php if (user()): ?>
