@@ -30,7 +30,7 @@ $reservations = $stmt->fetchAll();
 $pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
 
 // Set document information
-$pdf->SetCreator('Jill Hotel');
+$pdf->SetCreator('Lido De Paris Hotel');
 $pdf->SetAuthor('Admin');
 $pdf->SetTitle('Reservations Report');
 

@@ -124,7 +124,7 @@ require __DIR__ . '/../includes/header.php';
     <section class="offer-panel" id="offers">
         <div>
             <p class="offer-title">Direct Booking Privileges</p>
-            <p>Enjoy complimentary breakfast packages, flexible arrival check-in, and personalized concierge care when booking with Jill Hotel.</p>
+            <p>Enjoy complimentary breakfast packages, flexible arrival check-in, and personalized concierge care when booking with Lido De Paris Hotel.</p>
             <div class="offer-chips">
                 <span>Free cancellation options</span>
                 <span>Breakfast included</span>

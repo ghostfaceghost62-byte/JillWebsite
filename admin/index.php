@@ -71,7 +71,7 @@ require __DIR__ . '/../includes/header.php';
 ?>
 
 <div class="admin-page-heading">
-    <h1>Jill Hotel - Admin Dashboard</h1>
+    <h1>Lido De Paris Hotel - Admin Dashboard</h1>
 </div>
 
 <!-- Stat Cards -->

@@ -58,8 +58,8 @@ if ($format === 'pdf') {
         exit;
     }
     $pdf = new TCPDF('P', 'mm', 'A4', true, 'UTF-8', false);
-    $pdf->SetCreator('Jill Hotel Reservation System');
-    $pdf->SetAuthor('Jill Hotel');
+    $pdf->SetCreator('Lido De Paris Hotel Reservation System');
+    $pdf->SetAuthor('Lido De Paris Hotel');
     $pdf->SetTitle('Official Receipt - ' . $res['reservation_number']);
     $pdf->SetSubject('Hotel Reservation Receipt');
     $pdf->setPrintHeader(false);
@@ -71,24 +71,24 @@ if ($format === 'pdf') {
     $html = '
     <style>
         body { font-family: helvetica; color: #2A2D2A; }
-        .header-band { background-color: #1C3328; color: #FAF8F5; padding: 18px 20px; }
-        .header-band h1 { font-size: 26pt; color: #D8BA7B; margin: 0 0 2px 0; }
+        .header-band { background-color: #6B1D2F; color: #FAF8F5; padding: 18px 20px; }
+        .header-band h1 { font-size: 26pt; color: #C5A059; margin: 0 0 2px 0; }
         .header-band p { font-size: 9pt; color: rgba(250,248,245,0.75); margin: 0; }
-        .section-label { font-size: 7pt; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #8E7134; margin: 14px 0 6px 0; }
+        .section-label { font-size: 7pt; font-weight: bold; letter-spacing: 2px; text-transform: uppercase; color: #9A7730; margin: 14px 0 6px 0; }
         .info-table { width: 100%; border-collapse: collapse; }
         .info-table td { padding: 5px 0; font-size: 9.5pt; border-bottom: 1px solid #EDE7DD; }
         .info-table td:last-child { text-align: right; }
         .totals-table { width: 100%; border-collapse: collapse; margin-top: 10px; }
         .totals-table td { padding: 5px 0; font-size: 9.5pt; }
         .totals-table td:last-child { text-align: right; }
-        .total-row td { border-top: 2px solid #1C3328; padding-top: 10px; font-size: 12pt; font-weight: bold; color: #1C3328; }
+        .total-row td { border-top: 2px solid #6B1D2F; padding-top: 10px; font-size: 12pt; font-weight: bold; color: #6B1D2F; }
         .status-badge { display: inline-block; padding: 3px 10px; border-radius: 20px; font-size: 8pt; font-weight: bold; background: #E2F2E7; color: #166534; }
-        .footer-note { margin-top: 20px; text-align: center; font-size: 8pt; color: #8E7134; border-top: 1px solid #E8E2D7; padding-top: 12px; }
+        .footer-note { margin-top: 20px; text-align: center; font-size: 8pt; color: #9A7730; border-top: 1px solid #E8E2D7; padding-top: 12px; }
     </style>
 
     <div class="header-band">
-        <h1>JILL HOTEL</h1>
-        <p>101 Seaside Avenue, Manila, Philippines &bull; +63 2 8123 4567 &bull; stay@jillhotel.com</p>
+        <h1>LIDO DE PARIS HOTEL</h1>
+        <p>1036 Ongpin Street, Sta. Cruz, Manila, Philippines &bull; +63 2 8708 8888 &bull; inquiry@lidodeparishotel.com</p>
     </div>
 
     <div style="margin-top:14px; display: flex; justify-content: space-between;">
@@ -127,13 +127,13 @@ if ($format === 'pdf') {
     </table>
 
     <div class="footer-note">
-        <p>Thank you for choosing Jill Hotel. We look forward to welcoming you.<br>
-        For questions, contact our concierge at +63 2 8123 4567 or stay@jillhotel.com</p>
+        <p>Thank you for choosing Lido De Paris Hotel. We look forward to welcoming you.<br>
+        For questions, contact our concierge at +63 2 8708 8888 or inquiry@lidodeparishotel.com</p>
     </div>
     ';
 
     $pdf->writeHTML($html, true, false, true, false, '');
-    $pdf->Output('JillHotel_Receipt_' . $res['reservation_number'] . '.pdf', 'D');
+    $pdf->Output('LidoDeParis_Receipt_' . $res['reservation_number'] . '.pdf', 'D');
     exit;
 }
 
@@ -144,7 +144,7 @@ if ($format === 'excel') {
     $sheet->setTitle('Receipt');
 
     // Header branding
-    $sheet->setCellValue('A1', 'JILL HOTEL — Official Receipt');
+    $sheet->setCellValue('A1', 'LIDO DE PARIS HOTEL — Official Receipt');
     $sheet->mergeCells('A1:C1');
     $sheet->getStyle('A1')->getFont()->setBold(true)->setSize(14)->getColor()->setRGB('1C3328');
     $sheet->getStyle('A1')->getFill()->setFillType(\PhpOffice\PhpSpreadsheet\Style\Fill::FILL_SOLID)->getStartColor()->setRGB('FAF8F5');
@@ -248,10 +248,10 @@ require __DIR__ . '/../includes/header.php';
         <div style="display: flex; justify-content: space-between; align-items: flex-start; flex-wrap: wrap; gap: 1rem;">
             <div>
                 <div style="font-family:'Plus Jakarta Sans',sans-serif; font-size: 0.7rem; letter-spacing: 0.22em; color: rgba(250,248,245,0.55); text-transform: uppercase; margin-bottom: 0.3rem;">Boutique Luxury</div>
-                <h2 style="font-size: 2rem; color: #D8BA7B; margin: 0 0 0.35rem;">Jill Hotel</h2>
+                <h2 style="font-size: 2rem; color: #D8BA7B; margin: 0 0 0.35rem;">Lido De Paris Hotel</h2>
                 <p style="font-size: 0.8rem; color: rgba(250,248,245,0.65); margin: 0; line-height: 1.5;">
-                    101 Seaside Avenue, Manila, Philippines<br>
-                    +63 2 8123 4567 &bull; stay@jillhotel.com
+                    1036 Ongpin Street, Sta. Cruz, Manila, Philippines<br>
+                    +63 2 8708 8888 &bull; inquiry@lidodeparishotel.com
                 </p>
             </div>
             <div style="text-align: right;">
@@ -361,7 +361,7 @@ require __DIR__ . '/../includes/header.php';
         <!-- Thank you note -->
         <div style="text-align: center; padding: 1.25rem; background: var(--surface-muted, #FAF8F5); border-radius: 6px; border: 1px solid var(--border-light, #F0EBE2);">
             <p style="font-size: 0.85rem; color: var(--accent, #B89650); font-weight: 600; margin: 0 0 0.35rem; letter-spacing: 0.06em; text-transform: uppercase;">Thank You</p>
-            <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0;">We look forward to welcoming you to Jill Hotel.<br>For any inquiries, please contact our concierge team.</p>
+            <p style="font-size: 0.88rem; color: var(--text-secondary); margin: 0;">We look forward to welcoming you to Lido De Paris Hotel.<br>For any inquiries, please contact our concierge team.</p>
         </div>
 
     </div><!-- /body -->

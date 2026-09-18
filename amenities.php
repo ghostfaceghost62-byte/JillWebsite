@@ -23,7 +23,7 @@ $amenityVisuals = [
     <div>
         <span class="kicker">HOTEL SERVICES & EXPERIENCES</span>
         <h1>Curated for pure comfort.</h1>
-        <p>From sunset swims to locally roasted morning coffee, every amenity at Jill Hotel is designed to elevate your stay.</p>
+        <p>From sunset swims to locally roasted morning coffee, every amenity at Lido De Paris Hotel is designed to elevate your stay.</p>
     </div>
 </section>
 
@@ -40,7 +40,7 @@ $amenityVisuals = [
                     <?=e($a['description'])?>
                 </p>
                 <p style="font-size: 0.9rem; color: var(--text-secondary, #7A807B); line-height: 1.7;">
-                    Included as part of your stay with Jill Hotel. Our dedicated team is available 24 hours a day to assist with any bespoke arrangements.
+                    Included as part of your stay with Lido De Paris Hotel. Our dedicated team is available 24 hours a day to assist with any bespoke arrangements.
                 </p>
             </div>
         </article>

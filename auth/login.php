@@ -54,7 +54,7 @@ require __DIR__ . '/../includes/header.php';
 <div class="auth-wrapper">
     <div class="auth-card">
         <div class="auth-header">
-            <span class="kicker">JILL HOTEL GUEST ACCESS</span>
+            <span class="kicker">LIDO DE PARIS GUEST ACCESS</span>
             <h1>Welcome Back</h1>
             <p>Sign in to manage your reservations and preferences.</p>
         </div>

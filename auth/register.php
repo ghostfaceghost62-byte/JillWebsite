@@ -64,7 +64,7 @@ require __DIR__ . '/../includes/header.php';
 <div class="auth-wrapper">
     <div class="auth-card" style="max-width: 620px;">
         <div class="auth-header">
-            <span class="kicker">JILL HOTEL MEMBERSHIP</span>
+            <span class="kicker">LIDO DE PARIS MEMBERSHIP</span>
             <h1>Create Guest Account</h1>
             <p>Join our private guest registry for seamless bookings and exclusive privileges.</p>
         </div>
