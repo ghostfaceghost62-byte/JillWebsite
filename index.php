@@ -74,19 +74,6 @@ $fallbackImages = [
     </div>
 </section>
 
-<section class="dark-band" aria-labelledby="amenities-band-title">
-    <span class="eyebrow-title">EXCLUSIVE SERVICES</span>
-    <h2 id="amenities-band-title" class="section-title">Everything you need, thoughtfully arranged.</h2>
-    <div class="amenity-list">
-        <?php foreach ($amenities as $a): ?>
-            <article>
-                <h3><?=e($a['name'])?></h3>
-                <p><?=e($a['description'])?></p>
-            </article>
-        <?php endforeach; ?>
-    </div>
-</section>
-
 <section class="editorial" aria-labelledby="showcase-title">
     <span class="eyebrow-title">OUR ROOMS &amp; SUITES</span>
     <h2 id="showcase-title" class="section-title">Designed for deep rest and memorable stays.</h2>
@@ -114,6 +101,19 @@ $fallbackImages = [
                         <a class="btn small" href="<?=url('rooms/details.php?id=' . $r['id'])?>">View Suite</a>
                     </div>
                 </div>
+            </article>
+        <?php endforeach; ?>
+    </div>
+</section>
+
+<section class="dark-band" aria-labelledby="amenities-band-title">
+    <span class="eyebrow-title">EXCLUSIVE SERVICES</span>
+    <h2 id="amenities-band-title" class="section-title">Everything you need, thoughtfully arranged.</h2>
+    <div class="amenity-list">
+        <?php foreach ($amenities as $a): ?>
+            <article>
+                <h3><?=e($a['name'])?></h3>
+                <p><?=e($a['description'])?></p>
             </article>
         <?php endforeach; ?>
     </div>

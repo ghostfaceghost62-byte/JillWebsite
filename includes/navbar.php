@@ -131,6 +131,7 @@ function toggleAdminSidebar() {
     <button class="menu-toggle" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Toggle navigation menu">Menu</button>
     <nav id="site-nav" aria-label="Primary navigation">
         <?php if (user()): ?>
+            <a class="<?=$isActive('index.php')?>" href="<?=url()?>">Home</a>
             <a class="<?=$isActive('rooms')?>" href="<?=url('rooms/index.php')?>">Rooms</a>
             <a class="<?=$isActive('amenities.php')?>" href="<?=url('amenities.php')?>">Amenities</a>
             <a class="<?=$isActive('about.php')?>" href="<?=url('about.php')?>">About</a>
@@ -142,6 +143,8 @@ function toggleAdminSidebar() {
                 <button class="link-button" type="submit">Logout</button>
             </form>
         <?php else: ?>
+            <a class="<?=$isActive('index.php')?>" href="<?=url()?>">Home</a>
+            <a class="<?=$isActive('auth/login.php')?>" href="<?=url('auth/login.php')?>">Sign In</a>
             <a class="<?=$isActive('rooms')?>" href="<?=url('rooms/index.php')?>">Rooms</a>
             <a class="<?=$isActive('amenities.php')?>" href="<?=url('amenities.php')?>">Amenities</a>
             <a class="<?=$isActive('about.php')?>" href="<?=url('about.php')?>">About</a>
@@ -149,6 +152,27 @@ function toggleAdminSidebar() {
             <a class="<?=$isActive('auth/register.php')?>" href="<?=url('auth/register.php')?>">Register</a>
         <?php endif; ?>
         <div class="nav-controls" style="display: flex; align-items: center; gap: 0.75rem; margin-left: auto;">
+            <select id="currency_switcher" aria-label="Select Currency" style="background: transparent; color: inherit; border: 1px solid var(--border); border-radius: 4px; padding: 0.25rem 0.5rem; font-size: 0.85rem; cursor: pointer;">
+                <option value="PHP">₱ PHP</option>
+                <option value="USD">$ USD</option>
+                <option value="EUR">€ EUR</option>
+                <option value="JPY">¥ JPY</option>
+                <option value="SGD">S$ SGD</option>
+                <option value="AUD">A$ AUD</option>
+                <option value="GBP">£ GBP</option>
+            </select>
+            <script>
+            document.addEventListener("DOMContentLoaded", () => {
+                const sel = document.getElementById('currency_switcher');
+                const saved = localStorage.getItem('hotelreserve-currency') || 'PHP';
+                sel.value = saved;
+                sel.addEventListener('change', (e) => {
+                    localStorage.setItem('hotelreserve-currency', e.target.value);
+                    window.dispatchEvent(new CustomEvent('currencyChanged', { detail: e.target.value }));
+                });
+            });
+            </script>
+
             <button class="theme-toggle" type="button" data-theme-toggle data-theme-preference-url="<?=user() ? url('user/preferences.php') : ''?>" data-csrf="<?=user() ? csrf() : ''?>" aria-label="Toggle visual theme">
                 <span aria-hidden="true" data-theme-icon>☀️</span>
                 <span data-theme-label>Light</span>
