@@ -796,3 +796,48 @@ footer {
     flex-wrap: wrap;
     gap: 1rem;
 }
+
+/* Floating Sign In Button */
+.floating-signin {
+    position: fixed;
+    bottom: 2rem;
+    right: 2rem;
+    z-index: 900;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background-color: var(--brand, #1C3328);
+    color: #FAF8F5;
+    padding: 0.85rem;
+    border-radius: 50px;
+    box-shadow: 0 4px 14px rgba(28, 51, 40, 0.2);
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+    text-decoration: none;
+}
+
+.floating-signin:hover {
+    background-color: var(--brand-deep, #12241C);
+    color: #FFF;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(28, 51, 40, 0.3);
+}
+
+.floating-signin-text {
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    padding-right: 0.5rem;
+    display: none;
+}
+
+.floating-signin:hover .floating-signin-text {
+    display: inline-block;
+}
+
+@media (max-width: 768px) {
+    .floating-signin {
+        bottom: 1.25rem;
+        right: 1.25rem;
+    }
+}

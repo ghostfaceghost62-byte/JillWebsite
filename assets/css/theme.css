@@ -267,9 +267,17 @@ html[data-theme="dark"] .feature-copy p,
 html[data-theme="dark"] .editorial p {
     color: var(--text-secondary);
 }
+
+html[data-theme="dark"] .editorial {
+    border-bottom: 1px solid var(--border-color);
+}
+
 html[data-theme="dark"] .dark-band {
     background: #0E1310;
+    border-top: 1px solid #1A241F;
+    border-bottom: 1px solid #1A241F;
 }
+
 html[data-theme="dark"] .amenity-list article {
     background: var(--surface);
     border: 1px solid var(--border-color);
@@ -279,5 +287,13 @@ html[data-theme="dark"] .amenity-list h3 {
 }
 html[data-theme="dark"] .amenity-list p {
     color: var(--text-secondary);
+}
+
+/* Price Readability Fix for Dark Mode */
+html[data-theme="dark"] .hotel-price strong,
+html[data-theme="dark"] .luxury-room .price,
+html[data-theme="dark"] .range-label strong,
+html[data-theme="dark"] output[data-price-output] {
+    color: var(--accent-light, #EBD6A7) !important;
 }
 
