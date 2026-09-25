@@ -193,6 +193,16 @@ require __DIR__ . '/../includes/header.php';
                     <h1 class="results-count" style="font-size: 1.35rem;"><?=count($rooms)?> <?=count($rooms) === 1 ? 'Suite' : 'Suites'?> Available</h1>
                     <p class="results-subtitle">Matched to your selected preferences</p>
                 </div>
+                
+                <div class="view-toggles" style="display: flex; gap: 0.5rem; margin-right: auto; margin-left: 2rem;">
+                    <button type="button" class="view-toggle-btn active" data-view="list" aria-label="List View" title="List View" style="background: none; border: 1px solid var(--border-color); padding: 0.4rem; border-radius: 4px; cursor: pointer; color: var(--text-secondary);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+                    </button>
+                    <button type="button" class="view-toggle-btn" data-view="grid" aria-label="Grid View" title="Grid View" style="background: none; border: 1px solid var(--border-color); padding: 0.4rem; border-radius: 4px; cursor: pointer; color: var(--text-secondary);">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="14" y="14" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg>
+                    </button>
+                </div>
+
                 <form method="get" class="sort-form" action="<?=url('rooms/index.php')?>">
                     <?php foreach ($_GET as $key => $value):
                         if ($key !== 'sort' && $key !== 'amenities' && !is_array($value)): ?>
@@ -202,6 +212,17 @@ require __DIR__ . '/../includes/header.php';
                     foreach ($selectedAmenities as $val): ?>
                         <input type="hidden" name="amenities[]" value="<?=e($val)?>">
                     <?php endforeach; ?>
+                    <label for="currency_switcher" style="margin-left:1rem;">Currency</label>
+                    <select id="currency_switcher" aria-label="Select Currency" style="margin-right:1rem;">
+                        <option value="PHP">₱ PHP</option>
+                        <option value="USD">$ USD</option>
+                        <option value="EUR">€ EUR</option>
+                        <option value="JPY">¥ JPY</option>
+                        <option value="SGD">S$ SGD</option>
+                        <option value="AUD">A$ AUD</option>
+                        <option value="GBP">£ GBP</option>
+                    </select>
+                    
                     <label for="sort-select">Sort by</label>
                     <select id="sort-select" name="sort" onchange="this.form.submit()">
                         <option value="recommended" <?=$sort === 'recommended' ? 'selected' : ''?>>Recommended</option>
@@ -246,10 +267,12 @@ require __DIR__ . '/../includes/header.php';
                             </div>
                         </div>
                         <div class="hotel-price">
-                            <p>From</p>
-                            <strong><span data-php-price="<?=(float)$room['price_per_night']?>">₱<?=number_format((float)$room['price_per_night'])?></span></strong>
-                            <span>per night</span>
-                            <small>Excludes taxes & fees</small>
+                            <div>
+                                <p>From</p>
+                                <strong><span data-php-price="<?=(float)$room['price_per_night']?>">₱<?=number_format((float)$room['price_per_night'])?></span></strong>
+                                <span>per night</span>
+                                <small>Excludes taxes & fees</small>
+                            </div>
                             <a class="btn btn-gold availability-button" href="details.php?id=<?=$room['id']?>&amp;check_in=<?=urlencode($in)?>&amp;check_out=<?=urlencode($out)?>&amp;guests=<?=$guests?>">
                                 View Suite
                             </a>
@@ -289,6 +312,54 @@ document.addEventListener("DOMContentLoaded", function() {
     const outPicker = flatpickr(outInput, {
         minDate: inInput.value ? new Date(new Date(inInput.value).getTime() + 86400000) : new Date(new Date().getTime() + 86400000)
     });
+    
+    // Currency Switcher
+    const sel = document.getElementById('currency_switcher');
+    if (sel) {
+        const saved = localStorage.getItem('hotelreserve-currency') || 'PHP';
+        sel.value = saved;
+        sel.addEventListener('change', (e) => {
+            localStorage.setItem('hotelreserve-currency', e.target.value);
+            window.dispatchEvent(new CustomEvent('currencyChanged', { detail: e.target.value }));
+        });
+    }
+    // View Toggle
+    const viewToggles = document.querySelectorAll('.view-toggle-btn');
+    const resultsContainer = document.querySelector('.hotel-results');
+    
+    if (viewToggles.length > 0 && resultsContainer) {
+        const savedView = localStorage.getItem('hotelreserve-view-mode') || 'list';
+        
+        function setViewMode(mode) {
+            viewToggles.forEach(btn => {
+                btn.classList.remove('active');
+                btn.style.color = 'var(--text-secondary)';
+                btn.style.borderColor = 'var(--border-color)';
+            });
+            
+            const activeBtn = document.querySelector(`.view-toggle-btn[data-view="${mode}"]`);
+            if (activeBtn) {
+                activeBtn.classList.add('active');
+                activeBtn.style.color = 'var(--brand)';
+                activeBtn.style.borderColor = 'var(--brand)';
+            }
+            
+            if (mode === 'grid') {
+                resultsContainer.classList.add('view-grid');
+            } else {
+                resultsContainer.classList.remove('view-grid');
+            }
+            localStorage.setItem('hotelreserve-view-mode', mode);
+        }
+        
+        setViewMode(savedView);
+        
+        viewToggles.forEach(btn => {
+            btn.addEventListener('click', () => {
+                setViewMode(btn.dataset.view);
+            });
+        });
+    }
 });
 </script>
 <?php require __DIR__ . '/../includes/footer.php'; ?>

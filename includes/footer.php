@@ -49,6 +49,16 @@
         <div>All rates and charges are quoted in Philippine Pesos (₱) &nbsp;|&nbsp; <a href="<?=url('terms.php')?>" style="color: var(--accent-light, #DFC58C); text-decoration: underline;">Terms &amp; Conditions</a></div>
     </div>
 </footer>
+<?php if (!user()): ?>
+<a href="<?=url('auth/login.php')?>" class="floating-signin" aria-label="Sign In">
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M15 3h4a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2h-4"></path>
+        <polyline points="10 17 15 12 10 7"></polyline>
+        <line x1="15" y1="12" x2="3" y2="12"></line>
+    </svg>
+    <span class="floating-signin-text">Sign In</span>
+</a>
+<?php endif; ?>
 <script src="<?=url('assets/js/main.js?v=20260904v12')?>"></script>
 <script>
 (function() {
